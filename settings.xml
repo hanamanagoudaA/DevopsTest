@@ -1,0 +1,61 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!-- Active Profile Section -->
+	<activeProfiles>
+		<activeProfile>dev</activeProfile>
+	</activeProfiles>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<!-- Dev Env. Properties -->
+			<properties>
+				<profile.name>dev</profile.name>
+				<!-- Database Properties -->
+				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
+				<db.connectionURL>jdbc:mysql://localhost:3306/emp</db.connectionURL>
+				<db.username>dev_usr</db.username>
+				<db.password>dev_pss</db.password>
+				<!-- JMS Properties -->
+				<jms.factory.initial>org.apache.activemq.jndi.ActiveMQInitialContextFactory</jms.factory.initial>
+				<jms.provider.url>tcp://localhost:61616</jms.provider.url>
+				<jms.queue>dev.queue</jms.queue>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<!-- Test Env. Properties -->
+			<properties>
+				<profile.name>test</profile.name>
+				<!-- Database Properties -->
+				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
+				<db.connectionURL>jdbc:mysql://192.168.1.2:3306/emp</db.connectionURL>
+				<db.username>test_usr</db.username>
+				<db.password>test_pss</db.password>
+				<!-- JMS Properties -->
+				<jms.factory.initial>org.apache.activemq.jndi.ActiveMQInitialContextFactory</jms.factory.initial>
+				<jms.provider.url>tcp://192.168.1.2:61616</jms.provider.url>
+				<jms.queue>test.queue</jms.queue>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<!-- Prod Env. Properties -->
+			<properties>
+				<profile.name>prod</profile.name>
+				<!-- Database Properties -->
+				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
+				<db.connectionURL>jdbc:mysql://192.168.1.1:3306/emp</db.connectionURL>
+				<db.username>prod_usr</db.username>
+				<db.password>prod_pss</db.password>
+				<!-- JMS Properties -->
+				<jms.factory.initial>org.apache.activemq.jndi.ActiveMQInitialContextFactory</jms.factory.initial>
+				<jms.provider.url>tcp://192.168.1.1:61616</jms.provider.url>
+				<jms.queue>prod.queue</jms.queue>
+			</properties>
+		</profile>
+	</profiles>
+</settings>
