@@ -1,0 +1,16 @@
+<com.nuance.catamaran.dataaccess.objects.MemberDetailsByANIAndDOB>
+	<memberFound>single_match</memberFound>
+ 	<memberInformation>
+    	<patientID>111</patientID>
+    	<dateOfBirth>19940411</dateOfBirth>
+    	<zipCode>01720</zipCode>
+    	<firstName>JR</firstName>
+    	<lastName>McLaughlin</lastName>
+    	<proactiveAlertType>refill</proactiveAlertType>
+    	<rxNumberList>		
+    		<string>12345678</string>
+			<string>23456789</string>
+			<string>34567890</string>
+    	</rxNumberList>
+  	</memberInformation>
+</com.nuance.catamaran.dataaccess.objects.MemberDetailsByANIAndDOB>

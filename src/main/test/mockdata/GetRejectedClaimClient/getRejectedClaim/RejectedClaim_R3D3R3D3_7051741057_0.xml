@@ -1,0 +1,18 @@
+<com.nuance.catamaran.dataaccess.objects.RejectedClaim>
+	<numberOfClaimsFound>4</numberOfClaimsFound>
+	<isCurrentClaimReadable>true</isCurrentClaimReadable>
+	<onFirstClaim>true</onFirstClaim>
+	<onLastClaim>false</onLastClaim>
+	<currentClaimNumber>39394</currentClaimNumber>
+	<numberOfRejectCodes>1</numberOfRejectCodes>
+	<drugPrompt>apap_codeine</drugPrompt>
+	<drugTTS>500 mg per ml</drugTTS>
+	<rejectCodes>
+		<string>76</string>
+	</rejectCodes>
+	<nextRefillDate>20130505</nextRefillDate>
+	<terminationDate>20130505</terminationDate>
+	<originalClaimFileDate>20130205</originalClaimFileDate>
+	<groupNumber>ADFOJ</groupNumber>
+	<dateOfBirth>12-12-12</dateOfBirth>
+</com.nuance.catamaran.dataaccess.objects.RejectedClaim>

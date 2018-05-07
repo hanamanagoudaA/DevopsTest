@@ -1,0 +1,7 @@
+<com.nuance.catamaran.dataaccess.objects.NextRefill>
+	<isAdditionalRefill>true</isAdditionalRefill>
+	<numberOfAdditionalRefillsAvailable>2</numberOfAdditionalRefillsAvailable>
+	<numberOfRefillsOnOrder>3</numberOfRefillsOnOrder>
+	<additionalRefillDrugPrompt>apap_caff_di_tab_hydrocod</additionalRefillDrugPrompt>
+	<additionalRefillDrugTTS>none</additionalRefillDrugTTS>
+</com.nuance.catamaran.dataaccess.objects.NextRefill>

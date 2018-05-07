@@ -1,0 +1,7 @@
+<com.nuance.catamaran.dataaccess.objects.NextRefill>
+	<isAdditionalRefill>false</isAdditionalRefill>
+	<numberOfAdditionalRefillsAvailable/>
+	<numberOfRefillsOnOrder/>
+	<additionalRefillDrugPrompt/>
+	<additionalRefillDrugTTS/>
+</com.nuance.catamaran.dataaccess.objects.NextRefill>

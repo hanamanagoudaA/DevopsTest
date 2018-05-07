@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+	<parameter name="LDMCollectionStartBlockTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMCollectionStartBlockProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMSubdialogTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMSubdialogProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionMainFormTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMCollectionMainFormProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionReentryTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMCollectionReentryBlockProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationMainFormTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMConfirmationMainFormProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationStartTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMConfirmationStartBlockProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMVarTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMVarProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMInlineProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineSubdialogTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMInlineSubdialogTagProcessorImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationSubdialogStartTagProcessor">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.processor.LDMConfirmationSubdialogStartBlockProcessorImpl</value>
+	</parameter>
+</application-config>

@@ -1,0 +1,8 @@
+<com.nuance.catamaran.dataaccess.objects.MemberIDListByZIPAndDOB>
+	<memberNumbers>
+		<string>R2D2R2D2</string>
+		<string>R3D3R3D3</string>
+		<string>C3POC3PO</string>
+	</memberNumbers>
+	<numberOfMemberNumbersFound>3</numberOfMemberNumbersFound>
+</com.nuance.catamaran.dataaccess.objects.MemberIDListByZIPAndDOB>

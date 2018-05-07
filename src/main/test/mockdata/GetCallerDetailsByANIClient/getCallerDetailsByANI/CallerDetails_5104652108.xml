@@ -1,0 +1,8 @@
+<com.nuance.catamaran.dataaccess.objects.CallerDetails>
+    <physicianNPIFound>not_found</physicianNPIFound>
+     <pharmacyNPIFound>single_match</pharmacyNPIFound>
+    <aniMatchFound>single_match</aniMatchFound>
+    <callerType>pharmacy</callerType>
+    <npiNumber>1255658373</npiNumber>
+    <ncpdpNumber>not_found</ncpdpNumber>
+</com.nuance.catamaran.dataaccess.objects.CallerDetails>

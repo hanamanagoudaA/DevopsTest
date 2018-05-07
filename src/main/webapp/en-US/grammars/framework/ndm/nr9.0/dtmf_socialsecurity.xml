@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar mode="dtmf" xml:lang="en-US" version="1.0" root="_socialsecurity" tag-format="swi-semantics/1.0">
+<meta name="swirec_compile_parser" content="1"/>
+<!--
+   Copyright 2006 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   dtmf ssn grammar
+  -->
+  <rule id="_socialsecurity" scope="public">
+    <ruleref uri="#SSN" tag="
+       SWI_meaning = SSN.SWI_literal.replace(/[ ]+/g, '');
+     /* Based on some SSA documentation */
+     /* area (first three) range from 001 to 768 with several gaps. */
+     /* No guarantee that these gaps will not be filled  or */
+     /* that numbers won't continue to be added */
+     /* group cannot be 00 */
+     /* serial cannot be 0000 */
+       var area = parseInt (SWI_meaning.substr(0,3), 10);
+       var group = SWI_meaning.substr (3,2);
+       var serial = SWI_meaning.substr (5,4);
+       if (group == '00') SWI_disallow=1;
+       if (serial == '0000') SWI_disallow=1;
+       if (area == 0 || area &gt;= 800) SWI_disallow = 1;
+       dm_root=SWI_meaning;
+     "/>
+  </rule>
+  <rule id="SSN">
+    <ruleref uri="#DIGIT"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+  </rule>
+  <rule id="DIGIT">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+    </one-of>
+  </rule>
+</grammar>
+

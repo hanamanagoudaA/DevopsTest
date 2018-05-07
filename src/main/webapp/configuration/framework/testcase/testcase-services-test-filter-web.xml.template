@@ -1,0 +1,6 @@
+    <!-- Start Testcase configuration. -->
+    <filter xmlns="http://java.sun.com/xml/ns/j2ee">
+        <filter-name>test-case</filter-name>
+        <filter-class>com.nuance.framework.test.TestCaseFilter</filter-class>
+    </filter>
+    <!-- End Testcase configuration. -->

@@ -1,0 +1,11 @@
+<com.nuance.catamaran.dataaccess.objects.MemberIDListByZIPAndDOB>
+	<memberNumbers>
+		<string>18330AAC</string>
+		<string>ABC123456</string>
+		<string>ABC654321</string>
+		<string>zwx959595959</string>
+		<string>123456ABC</string>
+		<string>F3F312129</string>
+	</memberNumbers>
+	<numberOfMemberNumbersFound>6</numberOfMemberNumbersFound>
+</com.nuance.catamaran.dataaccess.objects.MemberIDListByZIPAndDOB>

@@ -1,0 +1,33 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.nuance.com/framework/controller/xml/configuration" targetNamespace="http://www.nuance.com/framework/controller/xml/configuration" elementFormDefault="qualified">
+	<xsd:element name="application-config" type="tns:ApplicationConfigType"/>
+	<xsd:complexType name="ApplicationConfigType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element ref="tns:parameter"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="parameter">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="tns:list"/>
+				<xsd:element ref="tns:map"/>
+				<xsd:element ref="tns:value"/>
+			</xsd:choice>
+			<xsd:attribute name="name" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="value" type="xsd:string"/>
+	<xsd:element name="map">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:parameter" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="list">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="tns:value" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

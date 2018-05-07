@@ -1,0 +1,146 @@
+
+<!--nar-filter.xml-->
+
+<nar-filter>
+    <swiclst>
+		<param>time</param>
+		<param>chan</param>
+		<param>sesn</param>
+		<param>svnm</param>
+		<param>browserip</param>
+		<param>dnis</param>
+		<param>ani</param>
+    </swiclst>
+
+    <swiclnd>
+		<param>time</param>
+    </swiclnd>
+
+	<swisvst>
+		<param>svnm</param>
+		<param>appserv</param>
+	</swisvst>
+	
+    <oscl>
+		<param>osle</param>
+    </oscl>
+
+    <swiunid>
+		<param>unid</param>
+    </swiunid>
+
+    <swicllr>
+		<param>clid</param>
+		<param>grp1</param>
+		<param>grp2</param>
+		<param>grp3</param>
+    </swicllr >
+	
+    <swidmst>
+		<param>dmnm</param>
+    </swidmst>
+
+    <swidmnd>
+		<param>time</param>
+		<param>tstt</param>	
+		<param>trtt</param>
+    </swidmnd>
+
+    <swippst>
+		<param>ppnm</param>
+    </swippst>
+
+    <swippnd>
+		<param>rslt</param>	
+    </swippnd>
+
+    <swidsst>
+		<param>dsnm</param>
+    </swidsst>
+
+    <swidsnd>
+		<param>rslt</param>	
+    </swidsnd>
+
+    <swiprst>
+		<param>time</param>
+		<param>prnm</param>
+		<param>prtx</param>
+		<param>prtxt</param>
+    </swiprst>
+
+    <swidbtx>
+		<param>time</param>
+		<param>name</param>	
+		<param>serv</param>
+		<param>input</param>
+    </swidbtx>
+
+    <swidbrx>
+		<param>rslt</param>
+		<param>resn</param>
+		<param>output</param>
+    </swidbrx>
+
+	<switrfr>
+		<param>time</param>
+		<param>resn</param>
+		<param>info</param>
+	</switrfr>
+	
+	<switrxb>
+		<param>time</param>
+		<param>name</param>
+	</switrxb>
+	
+	<switrxe>
+		<param>rslt</param>
+		<param>resn</param>
+		<param>info</param>
+	</switrxe>
+	
+	<swiendcall>
+		<param>time</param>
+		<param>outcome</param>
+		<param>exitresn</param>
+	</swiendcall>
+	
+	<error>
+		<param>time</param>
+		<param>node</param>
+		<param>message</param>
+		<param>info</param>
+	</error>
+	
+	<swiphnd>
+		<param>time</param>
+		<param>tstt</param>
+	</swiphnd>
+	
+	<swityst>
+		<param>time</param>
+		<param>role</param>
+	</swityst>
+	
+	<switynd>
+		<param>time</param>
+		<param>hypo</param>
+		<param>dcsn</param>
+	</switynd>
+	
+	<swistst>
+		<param>time</param>
+		<param>role</param>
+		<param>grnm</param>
+	</swistst>
+	
+	<swistnd>
+		<param>time</param>
+		<param>rdec</param>
+		<param>mode</param>
+		<param>rval</param>
+		<param>conf</param>
+		<param>cdec</param>
+	</swistnd>
+	
+</nar-filter>

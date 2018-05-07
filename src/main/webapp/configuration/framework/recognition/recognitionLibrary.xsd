@@ -1,0 +1,52 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+  xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+  jaxb:extensionBindingPrefixes="xjc"
+  jaxb:version="1.0">
+  
+<xsd:annotation>
+   <xsd:appinfo>
+      <jaxb:globalBindings generateIsSetMethod="true">
+          <xjc:serializable/>
+      </jaxb:globalBindings>
+      <jaxb:schemaBindings>
+        <jaxb:package name="com.nuance.framework.vxml.service.recognition"/>
+      </jaxb:schemaBindings>
+   </xsd:appinfo>
+</xsd:annotation>
+
+<xsd:element name="recognition-library" type="RecognitionLibraryType"/>
+<xsd:element name="comment" type="xsd:string"/>
+
+<xsd:complexType name="RecognitionLibraryType">
+  <xsd:sequence>
+    <xsd:element name="recognition" type="RecognitionType" minOccurs="1" maxOccurs="unbounded"/>
+  </xsd:sequence>
+  <xsd:attribute name="name" type="xsd:ID" use="required"/>
+  <xsd:attribute name="language" type="xsd:string"/>
+  <xsd:attribute name="grammarsdirectory" type="xsd:string"/>
+</xsd:complexType>
+
+<xsd:complexType name="RecognitionType">
+  <xsd:sequence>
+<xsd:element name="vxml_properties" maxOccurs="unbounded" minOccurs="0">
+     <xsd:complexType>
+          <xsd:attribute name="name" type="xsd:string" use="required"/>
+          <xsd:attribute name="value" type="xsd:string" use="required"/>
+        </xsd:complexType>
+       </xsd:element > 
+    <xsd:element name="grammar" maxOccurs="unbounded" minOccurs="0">
+    <xsd:complexType>
+          <xsd:attribute name="filename" type="xsd:string" use="required"/>
+          <xsd:attribute name="mode" type="xsd:string" use="required"/>
+        </xsd:complexType>
+       </xsd:element > 
+  </xsd:sequence>
+  <xsd:attribute name="id" type="xsd:string"/>
+  <xsd:attribute name="language" type="xsd:string" use="optional"/>
+  <!-- library from xml is not used.  value will be set at startup of the application by the audio service -->
+  <xsd:attribute name="library" type="xsd:string" use="optional"/>
+</xsd:complexType>
+
+
+</xsd:schema>

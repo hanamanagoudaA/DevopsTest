@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<audio-library name="nuance" language="en.us"
+    xsi:schemaLocation="audioLibrary.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <prompt id="Welcome">
+        <prompt-segments>
+            <audiofile src="Welcome.wav" text="Welcome to Nuance Wireless" />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="MinutesRemaining1">
+        <prompt-segments>
+            <audiofile src="MinutesRemaining1.wav" text="As of" />
+        </prompt-segments>
+    </prompt>
+    
+    <prompt id="MinutesRemaining2">
+        <prompt-segments>
+            <audiofile src="MinutesRemaining2.wav" text="you have" />
+        </prompt-segments>
+    </prompt>
+    
+    <prompt id="MinutesRemaining3">
+        <prompt-segments>
+            <audiofile src="MinutesRemaining3.wav" text="minutes remaining on your nuance wireless plan." />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="samplePrompt1">
+        <prompt-segments>
+            <audiofile src="samplePrompt1.vox" text="samplePrompt1 text." />
+        </prompt-segments>
+    </prompt>
+    
+    <prompt id="samplePrompt2">
+        <prompt-segments>
+            <audiofile src="samplePrompt2.vox" text="samplePrompt2 text." />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="samplePrompt3">
+        <prompt-segments>
+            <audiofile src="samplePrompt3.vox"
+                text="samplePrompt3 text." />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="reachedIfCondition">
+        <prompt-segments>
+            <audiofile src="reachedIfCondition.wav"
+                text="Reached the Java If condition" />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="reachedElseIfCondition">
+        <prompt-segments>
+            <audiofile src="reachedElseIfCondition.wav"
+                text="Reached the Java Else If condition" />
+        </prompt-segments>
+    </prompt>
+
+    <prompt id="reachedElseCondition">
+        <prompt-segments>
+            <audiofile src="reachedElseCondition.wav"
+                text="Reached the Java Else condition" />
+        </prompt-segments>
+    </prompt>
+    
+    <prompt id="AllParametersEqual">
+        <prompt-segments>
+            <audiofile src="AllParametersEqual.wav"
+                text="All the parameter strings are equivalent." />
+        </prompt-segments>
+    </prompt>
+    
+    <prompt id="AllNamesValid">
+        <prompt-segments>
+            <audiofile src="AllNamesValid.wav"
+                text="All the names are formatted correctly." />
+        </prompt-segments>
+    </prompt>
+
+</audio-library>

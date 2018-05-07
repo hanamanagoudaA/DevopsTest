@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.nuance.com/framework/logging/logger-config"
+	xmlns:tns="http://www.nuance.com/framework/logging/logger-config">
+
+	<xsd:element name="logger-config" type="tns:LoggerConfigType"/>
+	
+	<xsd:complexType name="LoggerConfigType">
+        <xsd:sequence>
+            <xsd:element name="property" type="tns:CallLogParameterType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:choice minOccurs="0" maxOccurs="1">
+                <xsd:element name="file" type="tns:CallLogFileType"/>
+                <xsd:element name="server" type="tns:CallLogServerType"/>
+            </xsd:choice>
+        </xsd:sequence>
+	</xsd:complexType>
+
+    <xsd:complexType name="CallLogParameterType">
+        <xsd:sequence minOccurs="1" maxOccurs="1">
+            <xsd:element name="value" type="xsd:token"/>
+        </xsd:sequence>
+        <xsd:attribute name="name" use="required" type="xsd:ID"/>
+    </xsd:complexType>
+   
+   <xsd:complexType name="CallLogFileType">
+	    <xsd:choice minOccurs="0">
+	        <xsd:element name="daily" type="tns:DailyType" />
+	        <xsd:element name="rolling" type="tns:RollingType" />
+	    </xsd:choice>
+	    <xsd:attribute name="classname" type="xsd:string" />
+	    <xsd:attribute name="logdir" type="xsd:string" />
+	    <xsd:attribute name="logfilename" type="xsd:string" />
+	    <xsd:attribute name="logmerge" default="per-call">
+	        <xsd:simpleType>
+	            <xsd:restriction base="xsd:token">
+	                <xsd:enumeration value="classic"/>
+	                <xsd:enumeration value="per-call"/>
+	            </xsd:restriction>
+	        </xsd:simpleType>
+	    </xsd:attribute>
+	    <xsd:attribute name="appender" type="xsd:string" />
+	</xsd:complexType>
+    
+    <xsd:complexType name="CallLogServerType">
+        <xsd:attribute name="classname" type="xsd:string" />
+        <xsd:attribute name="serveruri" type="xsd:string" />
+        <xsd:attribute name="sendSessionInvalidate" type="xsd:boolean" />
+    </xsd:complexType>
+	
+	<xsd:complexType name="DailyType">
+	    <xsd:attribute name="datepattern" use="required"/>
+	</xsd:complexType>
+
+    <xsd:complexType name="RollingType">
+	    <xsd:attribute name="maxBackUpIndex" use="required" type="xsd:int" />
+	    <xsd:attribute name="bufferSize" use="required" type="xsd:int" />
+	</xsd:complexType>
+    
+</xsd:schema>

@@ -1,0 +1,5 @@
+    <!-- Start NDM Test service configuration -->
+    <request-processor id="NDMConfigurationRequestProcessorImpl" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.dialog.ndm.test.NDMConfigurationRequestProcessorImpl</classname>
+    </request-processor>
+    <!-- End NDM Test service configuration -->

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar>
+<!--
+  Copyright 2003-2004 ScanSoft, Inc.
+  All Rights Reserved
+-->
+
+<grammar xml:lang="en-US" version="1.0" root="___ROOT___">
+  <rule id="___ROOT___" scope="public">
+    <item>
+      <ruleref tag="dm_command=COMMAND.command;dm_confirmation_mode=COMMAND.confirmation_mode;dm_confirm_string=COMMAND.confirm_string;" uri="#COMMAND"/>
+    </item>
+  </rule>
+  <rule id="COMMAND">
+    <one-of>
+    	<item tag="command='goodbye';confirmation_mode='DEFAULT';confirm_string='goodbye';">good bye</item>
+    	<item tag="command='goodbye';confirmation_mode='DEFAULT';confirm_string='goodbye';">goodbye</item>
+    	<item tag="command='goodbye';confirmation_mode='DEFAULT';confirm_string='signoff';">sign off</item>
+    	<item tag="command='goodbye';confirmation_mode='DEFAULT';confirm_string='logout';">logout</item>
+    	<item tag="command='help';confirmation_mode='NEVER';confirm_string='help';">help</item>
+    	<item tag="command='help';confirmation_mode='NEVER';confirm_string='list them';">list them</item>
+    	<item tag="command='repeat';confirmation_mode='NEVER';confirm_string='repeat';">repeat</item>
+    </one-of>
+  </rule>
+</grammar>

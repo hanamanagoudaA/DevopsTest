@@ -1,0 +1,539 @@
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>util</short-name>
+	<uri>/WEB-INF/tld/ndf-utils.tld</uri>
+	<description>Utilities tag library.</description>
+	<tag>
+        <name>hostName</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.GetHostnameTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+			<![CDATA[<b>Description:</b> This tag resolves to the host name.  
+			<br><p><b>Example usage:</b> <tt>var applicationServerHostname = &lt;util:hostName/&gt;;</tt></p>
+			<p>On a host named <i>ac-abc</i> this will resolve to <tt>var applicationServerHostname = 'ac-abc';</tt></p>
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> arbitrary</p>
+			<br><p><b>Children:</b> none</p>
+			]]>
+		</description> 
+
+    </tag>
+    <tag>
+        <name>attribute</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.AttributeTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+			<![CDATA[<b>Description:</b> This tag adds the specified attribute to tags which support inline attributes.<br/>
+			<br><p><b>Parents:</b> util:submit</p>
+			<br><p><b>Children:</b> none</p>
+			]]>
+		</description> 
+        <attribute>
+			<name>name</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+        <attribute>
+			<name>namespace</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+        <attribute>
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+        <attribute>
+			<name>type</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>		
+    </tag>
+	<tag>
+		<name>vxml</name>
+		<tag-class>com.nuance.framework.vxml.tag.service.VXMLRootTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> VXML document root. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b>none</p>
+			<br><p><b>Children:</b> util:catch, util:error, util:form, util:help, util:link, util:menu, util:meta, util:noinput, util:nomatch, util:property, util:script, util:var vxml tags as per w3c standard. </p>
+			]]>
+		</description>
+
+		
+		<attribute>
+			<name>pageName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>rootRequired</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>root</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cacheable</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+        <name>configParam</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.GetApplicationConfiguration</tag-class>
+        <body-content>empty</body-content>
+        <description>
+			<![CDATA[<b>Description:</b> configuration parameter
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b>none</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+        
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>type</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+	<tag>
+		<name>var</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.VarTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element declares and defines data variables. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:form,  util:help,  util:if, util:nomatch, util:vxml  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>expr</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>assign</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.AssignTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element changes the value or state of an attribute. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:help,  util:if,  util:noinput,  util:nomatch,  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> util:assign, svc:audio, util:var, util:if, util:ecma, util:elseif, util:if, util:goto, util:submit vxml tags as per w3c standard.</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>expr</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>block</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.BlockTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> Container for executable content. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:form vxml tag as per w3c standard.</p>
+			<br><p><b>Children:</b> util:assign,  util:audio, util:clear, util:disconnect, util:enumerate,  util:exit,  util:goto,  util:if, util:log,  util:prompt,  util:reprompt,  util:return,  util:script,  util:submit,  util:throw,  util:value,  util:var</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>goto</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.GoToTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> Transition to another form item, another dialog or another document. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:help,  util:if,  util:noinput , util:nomatch  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> </p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>next</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>expr</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	
+	
+	<tag>
+		<name>form</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.FormTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:vxml tag as per w3c standard.</p>
+			<br><p><b>Children:</b> util:block,  util:catch,  util:error,  util:field,  util:filled,  util:grammar,  util:help,  util:initial,  util:link,  util:noinput,  util:nomatch,  util:property,  util:record,  util:script,  util:subdialog,  util:transfer,  util:var</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>submit</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.SubmitTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element is used to submit information to the server and then transition to the document sent back in the response. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/. 
+			Please note that the fetchaudio (audio service prompt) is played natively and thus will not appear in the call log. If no method attribute gets specified, it will default to get.
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch, util:error,  util:filled,  util:help,  util:if,  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		<attribute>
+			<name>next</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>expr</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>namelist</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute> 
+		<attribute>
+			<name>method</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute> 
+		<attribute>
+			<name>fetchaudio</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>if</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.IfTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element is used for conditional expressions. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block, util:catch, util:if, menuOption, dm:recoOption, dm:command, dm:success, dm:default, static vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> util:assign, svc:audio, util:var, util:if, util:ecma, util:elseif, util:if, util:goto, util:submit</p>
+			]]>
+		</description>
+		<attribute>
+			<name>cond</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>elseif</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.ElseIfTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element is used for conditional expressions. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:if  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>cond</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>else</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.ElseTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element is used for conditional expressions. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:if  vxml tag as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		
+	</tag>
+	<tag>
+		<name>catch</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.CatchTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element handles thrown events; it is used to react to events. It contains one or more &lt;target&gt; elements. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:field,  util:form, util:initial, util:menu,  util:record,  util:subdialog, util:transfer, util:vxml  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> util:assign, util:audio,  util:clear,  util:disconnect,  util:enumerate,  util:exit, util:goto,  util:if, util:log, util:prompt, util:reprompt,  util:return,  util:script,  util:submit,  util:throw, util:value, util:var </p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>event</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>count</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cond</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>return</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.ReturnTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> Ends execution of a subdialog and returns control and data to a calling dialog. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:help,  util:if,  util:noinput , util:nomatch  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none </p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>namelist</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>ecma</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.EcmaScriptTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> Ecma
+		
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b>util:vxml vxml tag as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>log</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.LogTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> This element writes a message to a log. This optional element contains any text. The runtime framework determines where the message is written (to a file, a database, a console, and so on). Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:help,  util:if,  util:nomatch  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> util:value </p>
+			]]>
+		</description>
+		<attribute>
+			<name>stateId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+        <name>throw</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.ThrowTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+			<![CDATA[<b>Description:</b> Throws an event. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block,  util:catch,  util:error,  util:filled,  util:help,  util:if,  util:nomatch  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b> </p>
+			]]>
+		</description>
+        
+        <attribute>
+            <name>event</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>eventExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>message</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>messageExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+	<tag>
+		<name>property</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.PropertyTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			<![CDATA[<b>Description:</b>This element specifies constant properties. Unlike attributes (which specify variables) properties cannot be modified during the dialog. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:field,  util:form,  util:initial,  util:menu,  util:record,  util:subialog,  util:transfer,  util:vxml  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none</p>
+			]]>
+		</description>
+		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cacheable</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+    <tag>
+        <name>transit</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.TransitTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            <![CDATA[<b>Description:</b> This element is used to transit to another application module within the same call. 
+            Follow standard vxml submit tag usage from http://www.w3.org/TR/voicexml20/. In addition to this this tag also 
+            will send the NAR call log content collected on the VoiceXML browser to the server depending on the setting for 
+            the calllogs.buffer parameter in the application-config.xml file.
+            <br><p><b>Dependencies:</b> framework</p>
+            <br><p><b>Parents:</b> util:form vxml tags as per w3c standard.</p>
+            <br><p><b>Children:</b>none</p>
+            ]]>
+        </description>
+
+        <attribute>
+            <name>next</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>expr</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>namelist</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>script</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.ScriptTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            <![CDATA[<b>Description:</b> The script element is used for enclosing ECMAScript code to execute on the client side.
+            <br><p><b>Dependencies:</b> framework</p>
+            <br><p><b>Parents:</b> util:block, util:catch, util:form, util:if  vxml tags as per w3c standard.</p>
+            <br><p><b>Children:</b>none</p>
+            ]]>
+        </description>
+
+        <attribute>
+            <name>charset</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>fetchhint</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>fetchtimeout</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxage</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>maxstale</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>src</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>srcexpr</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>        
+    </tag>
+   	<tag>
+		<name>value</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.ValueTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[<b>Description:</b> The value element can be used to insert a variable value for use as a TTS prompt. Follow standard vxml tag usage from http://www.w3.org/TR/voicexml20/
+			<br><p><b>Dependencies:</b> framework</p>
+			<br><p><b>Parents:</b> util:block, util:catch, util:if, util:log  vxml tags as per w3c standard.</p>
+			<br><p><b>Children:</b>none </p>
+			]]>
+		</description>
+		<attribute>
+			<name>expr</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+        <name>sessioninvalidate</name>
+        <tag-class>com.nuance.framework.controller.tag.SessioninvalidateTag</tag-class>
+        <body-content>empty</body-content>
+        <description><![CDATA[use to invalidate the session!]]></description>
+        <attribute>
+            <name>blocking</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                    List all names of variables which should be sent to the server for <b>additional data items</b>.
+                    For changing NDF system variables like application session id users should update the variables 
+                    like <code>appsessionID</code> and <code>logging_base_path</code> before calling the 
+                    &lt;cl:callstart/&gt; tag instead of adding the values here.
+                ]]>
+            </description>
+        </attribute>
+    </tag>
+</taglib>

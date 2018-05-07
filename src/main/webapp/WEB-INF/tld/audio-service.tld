@@ -1,0 +1,101 @@
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>as</short-name>
+    <uri>/WEB-INF/tld/audio-service.tld</uri>
+    <description>tag library used to access the audio service functionality</description>
+    <tag>
+        <name>requestvars</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.HttpRequestVarsTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>audio</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.AudioTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>stateId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>calltracking</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>playState</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <!-- Resin 3.x: <attribute> syntax: (<name>, <required>?, <rtexprvalue>?, <type>?, <description>?) -->
+            <name>calllogEventName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                event name for a single lined prompt event; as system default SWIprst is used.
+                This attribute iswill be ignored except playState is set to false.
+            </description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>dynamicAudio</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.DynamicAudioTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>stateId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>namelist</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>bargein</name>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>method</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>calltracking</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>playState</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <!-- Resin 3.x: <attribute> syntax: (<name>, <required>?, <rtexprvalue>?, <type>?, <description>?) -->
+            <name>calllogEventName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                event name for a single lined prompt event; as system default SWIprst is used.
+                This attribute iswill be ignored except playState is set to false.
+            </description>
+        </attribute>
+    </tag>
+</taglib>

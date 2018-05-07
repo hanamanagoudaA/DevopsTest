@@ -1,0 +1,8 @@
+<com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>
+	<numberOfPAs>1</numberOfPAs>
+	<onFirstPA>true</onFirstPA>
+	<onLastPA>true</onLastPA>
+	<drugName>Vitameatavegamin</drugName>
+	<priorAuthorizationDate>20130731</priorAuthorizationDate>
+	<status>Pended</status>
+</com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>

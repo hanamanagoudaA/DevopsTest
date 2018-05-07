@@ -1,0 +1,17 @@
+    <!-- Start Testcase configuration. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.test</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/DownloadTestCase.xml</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/DeleteTestCase</url-pattern>
+    </servlet-mapping>
+    
+    <!-- End Testcase configuration. -->

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="HDDMAudioProcessor">
+        <value>com.nuance.framework.vxml.service.audio.processor.enhancecpr.EnhancedCPRHDDMAudioProcessorImpl</value>
+    </parameter>
+    
+</application-config>

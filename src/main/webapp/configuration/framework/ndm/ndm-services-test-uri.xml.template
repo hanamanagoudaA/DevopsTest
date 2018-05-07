@@ -1,0 +1,17 @@
+    <!-- Start NDM Test configuration. -->
+    <uri-map-element uri="/plugins/ndm-service/NDMConfigViewer.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="NDMConfigurationRequestProcessorImpl" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="dmConfigurations" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/dialogs/framework/ndm/dmConfigurations.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/plugins/ndm-service/instanceConfiguration.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="NDMConfigurationRequestProcessorImpl" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="dmConfiguration" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="/dialogs/framework/ndm/dmConfiguration.jsp" type="View"/>
+    </uri-map-element>
+    <!-- End NDM Test configuration. -->

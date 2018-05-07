@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar>
+<!--
+  Copyright 2003-2004 ScanSoft, Inc.
+  All Rights Reserved
+  
+  Command DTMF Grammar
+  Understands: 0 -> operator
+               * -> help
+               # -> goodbye
+-->
+  
+<grammar xml:lang="en-US" mode="dtmf" version="1.0" root="___ROOT___">
+  <rule id="___ROOT___" scope="public">
+     <one-of>
+		<item tag="dm_command='operator';dm_confirmation_mode='NEVER';dm_confirm_string='operator';">0</item>
+		<item tag="dm_command='help';dm_confirmation_mode='NEVER';dm_confirm_string='help';">*</item>
+		<item tag="dm_command='goodbye';dm_confirmation_mode='ALWAYS';dm_confirm_string='goodbye';">#</item>
+     </one-of>
+   </rule>
+</grammar>

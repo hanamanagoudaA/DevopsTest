@@ -1,0 +1,9 @@
+<com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>
+	<numberOfPAs>4</numberOfPAs>
+	<onFirstPA>false</onFirstPA>
+	<onLastPA>true</onLastPA>
+	<drugPrompt>apap_caff_di_tab_hydrocod</drugPrompt>
+	<drugTTS>none</drugTTS>
+	<priorAuthorizationDate>20130731</priorAuthorizationDate>
+	<status>Pended</status>
+</com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>

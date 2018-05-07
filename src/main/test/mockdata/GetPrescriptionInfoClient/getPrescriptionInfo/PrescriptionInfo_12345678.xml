@@ -1,0 +1,26 @@
+<com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>
+	<canRxBeRefilled>true</canRxBeRefilled>
+	<refillsRemaining>1</refillsRemaining>
+	<cannotRefillReason/>
+	<nextRefillDate>20130414</nextRefillDate>
+	<drugPrompt>apap_caff_di_tab_hydrocod</drugPrompt>
+	<drugTTS>none</drugTTS>
+	<zipCode>01720</zipCode>
+	<floorLimit>1</floorLimit>
+	<streetNumber>25</streetNumber>
+	<creditOnAccount>0</creditOnAccount>
+	<isPreferredCardOnAccount>true</isPreferredCardOnAccount>
+	<isPreferredCardExpired>false</isPreferredCardExpired>
+	<preferredCreditCardType>Discover</preferredCreditCardType>
+	<preferredCreditCardLast4>4884</preferredCreditCardLast4>
+	<numberOfAdditionalCardsOnFile>1</numberOfAdditionalCardsOnFile>
+	<isAdditionalCardsExpired>
+		<string>false</string>
+	</isAdditionalCardsExpired>
+	<additionalCardsType>
+		<string>Visa</string>
+	</additionalCardsType>
+	<additionalCardsLast4>
+		<string>8181</string>
+	</additionalCardsLast4>
+</com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>

@@ -1,0 +1,31 @@
+<com.nuance.catamaran.dataaccess.objects.MemberDetailsList>
+  <memberDetails>
+    <com.nuance.catamaran.dataaccess.data.MemberInformation>
+      <rxBaseMemberID>18330AAC</rxBaseMemberID>
+      <firstName>O'Donnel</firstName>
+      <lastName>McLaughlin</lastName>
+      <backendIndex>0</backendIndex>
+      <isPlanActive>false</isPlanActive>
+      <ActiveIndicator>false</ActiveIndicator>
+      <dateOfBirth>19800101</dateOfBirth>
+      <cardHolder>true</cardHolder>
+      <ambigous>false</ambigous>
+      <primaryZipCode>01720</primaryZipCode>
+    </com.nuance.catamaran.dataaccess.data.MemberInformation>
+    <com.nuance.catamaran.dataaccess.data.MemberInformation>
+      <rxBaseMemberID>ABC123456</rxBaseMemberID>
+      <firstName>Stefan</firstName>
+      <lastName>Benabdallah</lastName>
+      <backendIndex>0</backendIndex>
+      <isPlanActive>false</isPlanActive>
+      <ActiveIndicator>false</ActiveIndicator>
+      <dateOfBirth>19800101</dateOfBirth>
+      <cardHolder>true</cardHolder>
+      <ambigous>false</ambigous>
+      <primaryZipCode>01880</primaryZipCode>
+    </com.nuance.catamaran.dataaccess.data.MemberInformation>
+  </memberDetails>
+  <memberFound>true</memberFound>
+  <returnCode>000</returnCode>
+  <canIVRDisambiguate>true</canIVRDisambiguate>
+</com.nuance.catamaran.dataaccess.objects.MemberDetailsList>

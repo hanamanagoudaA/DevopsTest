@@ -1,0 +1,24 @@
+<com.nuance.catamaran.dataaccess.objects.OrderStatus>
+	<numberOfOrders>1</numberOfOrders>
+	<isFirstOrder>true</isFirstOrder>
+	<isMoreOrders>false</isMoreOrders>
+	<memberFirstName>Donna</memberFirstName>
+	<drugPromptList>
+		<string>Lipitor</string>
+		<string>Ibuprofen</string>
+		<string>Prozac</string>
+	</drugPromptList>
+	<drugTTSList>
+		<string>100</string>
+		<string>200</string>
+		<string>10</string>
+	</drugTTSList>
+	<zipCode>01720</zipCode>
+	<numberOfPrescriptions>3</numberOfPrescriptions>
+	<orderStatus>Directed to CCP</orderStatus>
+	<carrierName>USPS</carrierName>
+	<shipMethod>2-day</shipMethod>
+	<shipDate>0816</shipDate>
+	<trackingNumber>f13541</trackingNumber>
+	<receivedDate>0425</receivedDate>
+</com.nuance.catamaran.dataaccess.objects.OrderStatus>

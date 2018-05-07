@@ -1,0 +1,28 @@
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>node</short-name>
+	<uri>/WEB-INF/tld/node-log-utils.tld</uri>
+	<description>tag library used to log the Node logic</description>
+	<tag>
+		<name>start</name>
+		<tag-class>com.nuance.framework.vxml.tag.util.NodeStartTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+        <name>return</name>
+        <tag-class>com.nuance.framework.vxml.tag.util.NodeReturnTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

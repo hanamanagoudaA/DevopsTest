@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <!-- NDM languages installed -->
+    <parameter name="availableLanguages">
+        <!-- <value>en-US|de-DE</value> -->
+       <value>en-US|es-US</value>
+       <!-- <value>en-US</value> -->
+    </parameter>
+    
+    <!-- NDM types installed -->
+    <parameter name="availableDMs">
+        <value>alphanum|customcontext|date|digits|phone|time|yesno|ccexpdate|creditcard|currency|naturalnumbers|socialsecurity|zipcode|record|secureansweralphanum|secureanswerdate|secureanswerdigits|secureanswerphone|secureanswerphrase</value>
+    </parameter>
+    
+    <parameter name="ndm-config-file-path">
+	   <list>
+           <value>/en-US/configuration/application/ndm</value>
+          <value>/es-US/configuration/application/ndm</value> 
+	   </list>
+    </parameter>
+    
+	<!-- This control the NDM calllogging. If value is true then calllogs will be generated otherwise not-->
+    <parameter name="EnableNDMCallTracking">
+        <value>true</value>
+    </parameter>
+
+     <parameter name="ndm-property-list-file">
+        <value>/configuration/framework/NdmProperties.txt</value>
+    </parameter>
+    
+    <parameter name="DefaultNDMLibrary">
+        <value>default</value>
+    </parameter>
+    
+	<parameter name="builderClassName">
+       <value>com.nuance.framework.dialogmodule.service.DMManager</value>
+    </parameter>  
+     
+    <parameter name="NDMBaseUri">
+	    <value>./</value>
+	</parameter>
+	
+    <!--
+    <parameter name="external-configuration-loader-class">
+        <value>com.nuance.external.ExternalConfigLoader</value>
+    </parameter>
+    -->
+        
+   <parameter name="NDMUriExtension">
+        <value>ndm</value>
+    </parameter>
+    
+    <parameter name="Method">
+        <value>get</value>
+    </parameter>
+    
+    <parameter name="FetchTimeout">
+        <value>60s</value>
+    </parameter>
+    
+    <!-- 
+	    <parameter name="NDMConfigurationFileURL">
+	        <value></value>
+	    </parameter>
+     -->
+
+    <!-- This OverrideConfirmMode parameter need to be uncommented
+         for the global control of confirmation mode functionality. 
+         This works as the dm_confirmmode which grammars can return to influence the DM behaviour. -->
+    <!-- 
+    <parameter name="OverrideConfirmMode">
+        <value>ALWAYS</value>
+    </parameter>
+    -->
+       
+    <parameter name="CachePropertyKeys">
+        <list>
+            <value>language</value>
+            <value>library</value>
+            <value>version</value>
+        </list>
+    </parameter>
+
+    <parameter name="DIGT">
+        <value>digits</value>
+    </parameter>
+
+	<parameter name="ALNM">
+        <value>alphanum</value>
+    </parameter>
+    
+    <parameter name="CUST">
+    	<value>customcontext</value>
+    </parameter>
+    
+    <parameter name="PHON">
+    	<value>phone</value>
+    </parameter>
+    
+    <parameter name="SSNM">
+    	<value>socialsecurity</value>
+    </parameter>
+    
+    <parameter name="DATE">
+    	<value>date</value>
+    </parameter>
+    
+    <parameter name="CRED">
+    	<value>creditcard</value>
+    </parameter>
+    
+    <parameter name="CCEX">
+    	<value>ccexpdate</value>
+    </parameter>
+    
+    <parameter name="CURR">
+    	<value>currency</value>
+    </parameter>
+    
+    <parameter name="YSNO">
+    	<value>yesno</value>
+    </parameter>
+    
+    <parameter name="ZPCD">
+    	<value>zipcode</value>
+    </parameter>
+
+	<parameter name="NUMB">
+    	<value>naturalnumbers</value>
+    </parameter>
+	
+	<parameter name="TIME">
+    	<value>time</value>
+    </parameter>
+
+	<parameter name="RCRD">
+    	<value>record</value>
+    </parameter>
+
+	<parameter name="SADIGT">
+    	<value>secureanswerdigits</value>
+    </parameter>
+
+	<parameter name="SAPHRASE">
+    	<value>secureanswerphrase</value>
+    </parameter>
+
+	<parameter name="SAALNM">
+    	<value>secureansweralphanum</value>
+    </parameter>
+
+	<parameter name="SADATE">
+    	<value>secureanswerdate</value>
+    </parameter>
+
+	<parameter name="SAPHON">
+    	<value>secureanswerphone</value>
+    </parameter>
+
+    <!-- NDM property names -->
+   
+	<!-- Online Updater paths -->
+    <parameter name="ouConfigFileRetrieval">
+        <value>c:\\ou\\prod\\config_files</value>
+    </parameter>
+    
+    <parameter name="ouConfigFileStorage">
+        <value>c:\\ou\\staging\\config_files</value>
+    </parameter>
+
+	<!-- This control the extenstion of the prompts for a browser on which you are running the NDMs -->
+    <parameter name="forcePromptExtension">
+        <value></value>
+    </parameter>
+    
+	<!-- This control the encoding scheme used within NDM client server communication -->
+    <parameter name="encoding">
+        <value>UTF-8</value>
+    </parameter>
+
+	<!-- Variable to control the recognizer version.-->
+    <parameter name="recognizer">
+        <value>nr9.0</value>
+    </parameter>
+	
+	 <!-- This control the language in which we want to run NDF -->
+    <parameter name="language">
+        <value>en-US</value>
+    </parameter>
+    
+     <!-- This control the browser on which you are running the NDMs -->
+     <parameter name="browser">
+        <value>avp</value>
+    </parameter>
+</application-config>

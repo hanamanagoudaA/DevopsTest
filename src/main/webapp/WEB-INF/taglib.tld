@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+
+<!-- TODO : separate legacy taglibs from skynet taglibs. -->
+<taglib>
+
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>dm</short-name>
+  <uri>/WEB-INF/tld/ndm-addon-service.tld</uri>
+    <display-name>taglib</display-name>
+  <description>
+    Access OSDM properties and build prompts
+  </description>
+  <tag>
+    <name>properties</name>
+    <tag-class>com.nuance.framework.dialogmodule.view.tag.SetProperties</tag-class>
+    <body-content>JSP</body-content>
+    <description>Set all VoiceXML and platform specific properties through a property element</description>
+        <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+        <tldx>
+            <packagename>com.speechworks.tags</packagename>
+            <extendsSupportClass>TRUE</extendsSupportClass>
+            <supportClass>BodyTagSupport</supportClass>
+            <implementsTryCatchFinally>FALSE</implementsTryCatchFinally>
+            <findparent>FALSE</findparent>
+        </tldx>
+        -->
+    <attribute>
+       <name>context</name>
+       <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+            <tldx>
+                <IsReferenceID>FALSE</IsReferenceID>
+                <ReferencesTag>FALSE</ReferencesTag>
+                <ReferenceScope>Session</ReferenceScope>
+                <ReferencesTagReferentFirst>TRUE</ReferencesTagReferentFirst>
+            </tldx>
+            -->
+    </attribute>
+  </tag>
+  
+   <tag>
+    <name>disallowoptions</name>
+    <tag-class>com.nuance.framework.dialogmodule.view.tag.DisAllowListTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Generates vxml to evaluate recoOption conditions</description>
+        <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+        <tldx>
+            <packagename>com.speechworks.tags</packagename>
+            <extendsSupportClass>TRUE</extendsSupportClass>
+            <supportClass>BodyTagSupport</supportClass>
+            <implementsTryCatchFinally>FALSE</implementsTryCatchFinally>
+            <findparent>FALSE</findparent>
+        </tldx>        -->
+   
+  </tag>  
+  
+  
+  <tag>
+    <name>grammar</name>
+    <tag-class>com.nuance.framework.dialogmodule.view.tag.GetGrammarTag</tag-class>
+    <body-content>JSP</body-content>
+    <description>Returns a grammar tag string, with the query string appended</description>
+        <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+        <tldx>
+            <packagename>com.speechworks.tags</packagename>
+            <extendsSupportClass>TRUE</extendsSupportClass>
+            <supportClass>BodyTagSupport</supportClass>
+            <implementsTryCatchFinally>FALSE</implementsTryCatchFinally>
+            <findparent>FALSE</findparent>
+        </tldx>
+        -->
+    <attribute>
+       <name>context</name>
+       <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+            <tldx>
+                <IsReferenceID>FALSE</IsReferenceID>
+                <ReferencesTag>FALSE</ReferencesTag>
+                <ReferenceScope>Session</ReferenceScope>
+                <ReferencesTagReferentFirst>TRUE</ReferencesTagReferentFirst>
+            </tldx>
+            -->
+    </attribute>
+  </tag>  
+  <tag>
+    <name>getRecordString</name>
+    <tag-class>com.nuance.framework.vxml.tag.service.GetRecordString</tag-class>
+    <body-content>JSP</body-content>
+    <description>Generate the record element with the proper attributes</description>
+     <attribute>
+        <name>condString</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+      </attribute>
+        <!-- Forte4J_TLDX:  This comment contains code generation information. Do not delete.
+        <tldx>
+            <packagename>com.nuance.framework.vxml.tag.service</packagename>
+            <extendsSupportClass>TRUE</extendsSupportClass>
+            <supportClass>BodyTagSupport</supportClass>
+            <implementsTryCatchFinally>FALSE</implementsTryCatchFinally>
+            <findparent>FALSE</findparent>
+        </tldx>
+        -->
+ </tag>
+ <tag>
+    <name>ndm</name>
+    <tag-class>com.nuance.framework.vxml.tag.service.NDMTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <name>id</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>language</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>library</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>namelist</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>audionamelist</name>
+        <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+<tag>
+    <name>param</name>
+    <tag-class>com.nuance.framework.vxml.tag.service.NDMParamTag</tag-class>
+    <body-content>EMPTY</body-content>
+     <attribute>
+        <name>name</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <name>value</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+ <tag>
+        <name>success</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.NDMSuccessTag</tag-class>
+        <body-content>JSP</body-content>
+    </tag>
+    <tag>
+        <name>command</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.NDMCommandTag</tag-class>
+        <body-content>JSP</body-content>
+    </tag>
+    <tag>
+        <name>default</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.DefaultOptionTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>form</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>submitExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>gotoExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>recoOption</name>
+        <tag-class>com.nuance.framework.vxml.tag.service.MenuOptionTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>form</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>page</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>submitExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>gotoExpr</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+     <tag>
+		<name>sendreceive</name>
+		<tag-class>com.nuance.framework.dialogmodule.view.tag.DataTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>namelist</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>method</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+				
+	</tag>
+</taglib>

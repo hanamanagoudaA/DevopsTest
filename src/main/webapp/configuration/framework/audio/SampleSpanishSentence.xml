@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sentence-library name="default" language="es.es">
+    <sentence id="Minutes">
+        <prompt id="MinutesRemaining1" />
+        <prompt type="date" expr="date">
+            <param name="dateFormat" value="MM-dd-yyyy" />
+            <param name="playDayOfTheWeek" value="false" />
+        </prompt>
+        <prompt id="MinutesRemaining2" />
+        <prompt type="number" expr="minutes">
+            <param name="speakAs" value="digits" />
+        </prompt>
+        <prompt id="MinutesRemaining3" />
+    </sentence>
+
+    <sentence id="CPRSamples">
+        <prompt type="tts" expr="tts" />
+
+        <prompt type="tts" expr="address" scope="request"
+            path="address">
+            <param name="sayAs" value="address" />
+        </prompt>
+
+        <prompt type="tts" expr="sampleDigits" />
+
+        <prompt type="number" expr="sampleNumber">
+            <param name="speakAs" value="digits" />
+        </prompt>
+
+        <prompt type="tts" expr="sampleNatural" />
+
+        <prompt type="number" expr="sampleNumber">
+            <param name="speakAs" value="natural" />
+        </prompt>
+
+        <prompt type="tts" expr="sampletime" />
+
+        <prompt type="time" expr="time">
+            <param name="timeFormat" value="HH:mm" />
+        </prompt>
+
+        <prompt type="tts" expr="sampledate" />
+
+        <prompt type="date" expr="date">
+            <param name="dateFormat" value="MM-dd-yyyy" />
+            <param name="playDayOfTheWeek" value="true" />
+        </prompt>
+
+        <prompt type="tts" expr="samplecurrency" />
+
+        <prompt type="currency" expr="currency">
+            <param name="currencyCode" value="USD" />
+        </prompt>
+
+        <prompt type="tts" expr="samplealphanum" />
+
+        <prompt type="alphanum" expr="alphanum" />
+    </sentence>
+
+
+    <sentence id="SampleVXMLConditional">
+        <prompt type="tts" expr="sessionMessage" scope="session" />
+        <if type="vxml" cond="sampleFlag1 == 'true'">
+            <prompt type="tts" expr="evaluatedIf" />
+            <elseif cond="sampleFlag2 == 'true'">
+                <prompt type="tts" expr="evaluatedElseIf"
+                    scope="request" />
+            </elseif>
+            <else>
+                <prompt type="tts" expr="evaluatedElse" scope="request" />
+            </else>
+        </if>
+    </sentence>
+
+    <sentence id="SampleJavaConditional">
+        <if type="java">
+            <condition
+                classname="com.nuance.framework.vxml.service.audio.test.StringsAreEqualSentenceConditionImpl">
+                <!-- This class returns true if all passed in strings are equal, ignoring case -->
+                <param name="string1" value="SkyNet" />
+                <param name="string2" value="Skynet" />
+                <param name="string3" value="skynet" />
+                <param name="string3" value="Nuance" />
+                <!-- Causes false-->
+            </condition>
+            <prompt id="AllParametersEqual" />
+
+            <elseif>
+                <condition
+                    classname="com.nuance.framework.vxml.service.audio.test.ValidNamesSentenceConditionImpl">
+                    <!-- This class returns true if all passed strings are in a valid name format: john.connor (case ignored) -->
+                    <param name="string1" value="sarah.connor" />
+                    <param name="string1" value="miles.dyson" />
+                    <param name="string2" value="peter.silberman" />
+                    <!-- param name="string2" value="peterSilberman" / -->
+                    <!-- Causes false-->
+                    <!-- param name="string2" value="David" / -->
+                    <!-- Causes false-->
+                </condition>
+                <prompt id="AllNamesValid" />
+            </elseif>
+
+            <else>
+                <prompt id="reachedElseCondition" />
+            </else>
+        </if>
+    </sentence>
+
+</sentence-library>

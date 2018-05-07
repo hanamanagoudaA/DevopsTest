@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="AudioRendererFactoryClassName">
+        <value>com.nuance.framework.vxml.service.audio.PropertiesRendererFactoryImpl</value>
+    </parameter>
+    <parameter name="DynamicPromptVXMLLoggingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicAudioSubdialogVXMLLoggingRendererImpl</value>
+    </parameter>
+    <parameter name="DynamicPromptCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicAudioSubdialogCallTrackingRendererImpl</value>
+    </parameter>
+    <parameter name="DynamicPromptSubdialogRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicAudioSubdialogRendererImpl</value>
+    </parameter>
+    <parameter name="VXMLIfConditionRenderer">
+        <value>com.nuance.framework.vxml.service.audio.VXMLIfConditionRendererImpl</value>
+    </parameter>
+    <parameter name="PromptCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.CallTrackingPromptRendererImpl</value>
+    </parameter>
+    <parameter name="URLPromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.URLPromptRendererImpl</value>
+    </parameter>
+    <parameter name="VXMLPromptThrowEventRenderer">
+        <value>com.nuance.framework.vxml.service.audio.VXMLPromptThrowEventRendererImpl</value>
+    </parameter>
+    <parameter name="PromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.VXMLPromptRendererImpl</value>
+    </parameter>
+    <parameter name="PromptVXMLLoggingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.PromptVXMLLoggingRendererImpl</value>
+    </parameter>
+    <parameter name="DATEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="CURRENCYJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NUMBERJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NATURALJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="DIGITSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="PHONEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="ALPHANUMJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="TIMEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="TTSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLTTSAudioRendererImpl</value>
+    </parameter>
+    <parameter name="ECMASCRIPTJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="DATEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="CURRENCYEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NUMBEREcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NATURALEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="DIGITSEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="PHONEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="ALPHANUMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="TIMEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="CUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="TTSEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLTTSAudioRendererImpl</value>
+    </parameter>
+    <parameter name="EcmascriptEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLPromptVXMLLoggingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.PromptVXMLLoggingRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLVXMLIfConditionRenderer">
+        <value>com.nuance.framework.vxml.service.audio.VXMLIfConditionRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLPromptCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.NDMVXMLCallTrackingPromptRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLECMASCRIPTJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLTTSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLTTSAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLVXMLPromptThrowEventRenderer">
+        <value>com.nuance.framework.vxml.service.audio.VXMLPromptThrowEventRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLDATEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLCURRENCYJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLNUMBERJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLNATURALJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLDIGITSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLPHONEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLALPHANUMJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLTIMEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="NDMVXMLDATEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLCURRENCYEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLNUMBEREcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLNATURALEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLDIGITSEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLPHONEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLALPHANUMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLTIMEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMVXMLCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMVXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="DataAccessRendererFactoryClassName">
+        <value>com.nuance.framework.vxml.service.dataaccess.PropertiesDataAccessRendererFactory</value>
+    </parameter>
+    <parameter name="DataAccessCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.dataaccess.DataAccessCallTrackingRendererImpl</value>
+    </parameter>
+    <parameter name="DataAccessTagRenderer">
+        <value>com.nuance.framework.vxml.service.dataaccess.DataAccessDataTagRendererImpl</value>
+    </parameter>
+    <parameter name="NDMPromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.NDMPromptRendererImpl</value>
+    </parameter>
+    <parameter name="NDMPromptVXMLLoggingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.NDMPromptVXMLLoggingRendererImpl</value>
+    </parameter>
+    <parameter name="NDMecmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMttsRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.NDMTTSAudioRendererImpl</value>
+    </parameter>
+    <parameter name="NDMDataTagRenderer">
+        <value>com.nuance.framework.vxml.service.datatag.NDMDataTagRendererImpl</value>
+    </parameter>
+	
+    <parameter name="HDDMPromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptFunctionPromptIDRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMPromptVXMLLoggingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptNoClientLoggingPromptRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMVXMLIfConditionRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptFunctionIfConditionRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMPromptCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptFunctionPromptCallTrackingRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMECMASCRIPTJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.NDMStyleEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMTTSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptServerSideTTSAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMVXMLPromptThrowEventRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptThrowEventRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMDATEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMCURRENCYJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMNUMBERJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMNATURALJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMDIGITSJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMPHONEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMALPHANUMJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMTIMEJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMDATEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMCURRENCYEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMNUMBEREcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMNATURALEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMDIGITSEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMPHONEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMALPHANUMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMTIMEEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.hddm.CustomEcmascriptAudioListRendererImpl</value>
+    </parameter>
+  
+</application-config>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sentence-library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="default" language="en-US,es-US" xsi:noNamespaceSchemaLocation="../../framework/audio/sentenceLibrary.xsd">
+    <sentence id="ad2015_AskVerifyAddressYN_DM_initial">
+        <prompt id="ad2015_ini_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        <prompt id="ad2015_ini_03"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="silence_250ms"/>
+        <prompt id="ad2015_ini_06"/>
+    </sentence>
+    
+    <sentence id="ad2015_AskVerifyAddressYN_DM_noinput_1">
+        <prompt id="ad2015_ni1_01"/>
+        <prompt type="custom" expr="streetNumber">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        <prompt id="ad2015_ni1_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="silence_250ms"/>
+        <prompt id="ad2015_ni1_03"/>
+    </sentence>
+    
+    <sentence id="ad2015_AskVerifyAddressYN_DM_noinput_2">
+        <prompt id="ad2015_ni2_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        <prompt id="ad2015_ni2_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="silence_250ms"/>
+        <prompt id="ad2015_ni2_03"/>
+    </sentence>
+    
+    <sentence id="ad2015_AskVerifyAddressYN_DM_nomatch_1">
+        <prompt id="ad2015_nm1_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2015_nm1_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="silence_250ms"/>
+        <prompt id="ad2015_nm1_03"/>
+    </sentence>
+    <sentence id="ad2015_AskVerifyAddressYN_DM_nomatch_2">
+        <prompt id="ad2015_nm2_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2015_nm2_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="silence_250ms"/>
+        <prompt id="ad2015_nm2_03"/>
+    </sentence>
+    
+    <sentence id="ad2025_OfferSecondAddressYN_DM_initial">
+        <prompt id="ad2025_ini_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2025_ini_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="ad2025_ini_03"/>
+    </sentence>
+    
+    <sentence id="ad2025_OfferSecondAddressYN_DM_noinput_1">
+        <prompt id="ad2025_ni1_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2025_ni1_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        
+        <prompt id="ad2025_ni1_03"/>
+    </sentence>
+    <sentence id="ad2025_OfferSecondAddressYN_DM_noinput_2">
+        <prompt id="ad2025_ni2_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2025_ni2_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        
+        <prompt id="ad2025_ni2_03"/>
+    </sentence>
+    <sentence id="ad2025_OfferSecondAddressYN_DM_nomatch_1">
+        <prompt id="ad2025_nm1_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        
+        <prompt id="ad2025_nm1_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        
+        <prompt id="ad2025_nm1_03"/>
+    </sentence>
+    <sentence id="ad2025_OfferSecondAddressYN_DM_nomatch_2">
+        <prompt id="ad2025_nm2_01"/>
+        <prompt type="custom" expr="streetNumber" scope="request">
+                <param name="runtime" value="ecmascript" />
+                <param name="ecmascriptFileName" value="scripts/application/cpr/Streetnum.es" />
+                <param name="ecmascriptFunctionName" value="CPRStreetnum" />
+                <param name="ecmascriptFunctionVariableName" value="streetnumString" />
+                <param name="intonation" value="m"/>
+        </prompt>
+        <prompt id="ad2025_nm2_02"/>
+        <prompt type="digits" expr="zipCode" scope="request">
+            <param value="m" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        
+        <prompt id="ad2025_nm2_03"/>
+    </sentence>
+</sentence-library>

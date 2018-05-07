@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sentence-library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="default" language="en-US,es-US" xsi:noNamespaceSchemaLocation="../../framework/audio/sentenceLibrary.xsd">
+    <sentence id="am0120_GetRx_DM_initial">
+        <prompt id="am0120_ini_01" cond="task == 'refill' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_02" cond="task == 'order_status' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_03" cond="task == 'another_order' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_04" cond="task == 'get_rx_again' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_06" cond="task == 'something_else' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_07" cond="task == 'balance_and_payment' &amp;&amp; am0120PreviousResult == ''"/>
+        <prompt id="am0120_ini_05" cond="am0120PreviousResult == 'dont_know'"/>
+        <prompt id="am0120_ini_06" cond="am0120PreviousResult == 'hold_on'"/>
+    </sentence>
+    <sentence id="am0120_GetRx_DM_noinput_1">
+        <prompt id="am0120_ni1_01" cond="task == 'refill' || task == 'another_order' || task == 'get_rx_again'"/>
+        <prompt id="am0120_ni1_02" cond="task == 'order_status' || task == 'balance_and_payment'"/>
+    </sentence>
+    <sentence id="am0120_GetRx_DM_noinput_2">
+        <prompt id="am0120_ni2_01" cond="task == 'refill' || task == 'another_order' || task == 'get_rx_again'"/>
+        <prompt id="am0120_ni2_02" cond="task == 'order_status' || task == 'balance_and_payment'"/>
+    </sentence>
+    <sentence id="am0120_GetRx_DM_nomatch_1">
+        <prompt id="am0120_nm1_01" cond="task == 'refill' || task == 'another_order' || task == 'get_rx_again'"/>
+        <prompt id="am0120_nm1_02" cond="task == 'order_status' || task == 'balance_and_payment'"/>
+    </sentence>
+    <sentence id="am0120_GetRx_DM_nomatch_2">
+        <prompt id="am0120_nm2_01" cond="task == 'refill' || task == 'another_order' || task == 'get_rx_again'"/>
+        <prompt id="am0120_nm2_02" cond="task == 'order_status' || task == 'balance_and_payment'"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_initial">
+        <prompt id="am0123_ini_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_1">
+        <prompt id="am0123_ni1_01"/>
+        <prompt id="pause20s"/>
+        <prompt id="am0123_ni2_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_2">
+        <prompt id="am0123_ni3_01"/>
+        <prompt id="pause20s"/>
+        <prompt id="am0123_ni4_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_3">
+        <prompt id="am0123_ni5_01"/>
+        <prompt id="pause20s"/>
+        <prompt id="am0123_ni6_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_4">
+        <prompt id="am0123_ni4_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_5">
+        <prompt id="am0123_ni5_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_noinput_6">
+        <prompt id="am0123_ni6_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_failure">
+        <prompt id="am0123_ni7_01"/>
+    </sentence>
+    <sentence id="am0123_HoldOnRx_DM_success">
+        <prompt id="am0123_out_01"/>
+    </sentence>
+    <sentence id="am0120_GetRx_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="am0120_cnf_ini_01"/>
+            <prompt type="digits" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="am0120_cnf_ini_02"/>
+        </if>
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_initial">
+        <prompt id="am0130_ini_01" cond="usedAniAuth == false &amp;&amp; task != 'another_order'" />
+        <prompt id="am0130_ini_02" cond="task == 'another_order'" />
+        <prompt id="am0130_ini_03" cond="usedAniAuth == true &amp;&amp; task != 'another_order'" />
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_noinput_1">
+        <prompt id="am0130_ni1_01"/>
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_noinput_2">
+        <prompt id="am0130_ni2_01"/>
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_nomatch_1">
+        <prompt id="am0130_nm1_01"/>
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_nomatch_2">
+        <prompt id="am0130_nm2_01"/>
+    </sentence>
+    <sentence id="am0130_GetDOB_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="am0130_cnf_ini_01"/>
+            <prompt type="date" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="dateFormat" value="yyyyMMdd"/>
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="am0130_cnf_ini_02"/>
+        </if>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_initial">
+        <prompt id="am0134_ini_01"/>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_noinput_1">
+        <prompt id="am0134_ni1_01"/>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_noinput_2">
+        <prompt id="am0134_ni2_01"/>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_nomatch_1">
+        <prompt id="am0134_nm1_01"/>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_nomatch_2">
+        <prompt id="am0134_nm2_01"/>
+    </sentence>
+    <sentence id="am0134_GetLastNameConstrainedGmr_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="am0134_cnf_ini_01"/>
+            <prompt type="tts" expr="lastresult" path="interpretation.dm_root" scope="request"/>
+            <prompt id="am0134_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_initial">
+        <prompt id="am0138_ini_02"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="am0138_ini_04"/>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_success">
+        <prompt id="am0138_out_01" cond="collect.value.dm_root == 'false'"/>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_noinput_1">
+        <prompt id="am0138_ni1_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="am0138_ni1_03"/>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_noinput_2">
+        <prompt id="am0138_ni2_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="am0138_ni2_03"/>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_nomatch_1">
+        <prompt id="am0138_nm1_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="am0138_nm1_03"/>
+    </sentence>
+    <sentence id="am0138_ConfirmFirstName_DM_nomatch_2">
+        <prompt id="am0138_nm2_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="am0138_nm2_03"/>
+    </sentence>
+    <sentence id="am0225_ConfirmRxYN_DM_initial">
+        <prompt id="am0225_ini_02"/>
+        <prompt type="digits" expr="rxNumber">
+            <param value="f" name="intonation"/>
+            <param name="mask" value="true"/>
+        </prompt>
+        <prompt id="am0225_ini_04"/>
+    </sentence>
+    <sentence id="am0225_ConfirmRxYN_DM_noinput_1">
+        <prompt id="am0225_ni1_01"/>
+    </sentence>
+    <sentence id="am0225_ConfirmRxYN_DM_noinput_2">
+        <prompt id="am0225_ni2_01"/>
+    </sentence>
+    <sentence id="am0225_ConfirmRxYN_DM_nomatch_1">
+        <prompt id="am0225_nm1_01"/>
+    </sentence>
+    <sentence id="am0225_ConfirmRxYN_DM_nomatch_2">
+        <prompt id="am0225_nm2_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_initial">
+        <prompt id="am0230_ini_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_noinput_1">
+        <prompt id="am0230_ni1_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_noinput_2">
+        <prompt id="am0230_ni2_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_nomatch_1">
+        <prompt id="am0230_nm1_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_nomatch_2">
+        <prompt id="am0230_nm2_01"/>
+    </sentence>
+    <sentence id="am0230_GetCorrectRx_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="am0230_cnf_ini_01"/>
+            <prompt type="digits" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="am0230_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="am0235_ConfirmDOBYN_DM_initial">
+        <prompt id="am0235_ini_02"/>
+        <prompt type="date" expr="dateOfBirth">
+            <param value="yyyyMMdd" name="dateFormat"/>
+            <param value="true" name="playDayOfMonth"/>
+            <param value="false" name="playDayOfTheWeek"/>
+            <param value="true" name="playYear"/>
+            <param value="f" name="intonation"/>
+        </prompt>
+        <prompt id="am0235_ini_04"/>
+    </sentence>
+    <sentence id="am0235_ConfirmDOBYN_DM_noinput_1">
+        <prompt id="am0235_ni1_01"/>
+    </sentence>
+    <sentence id="am0235_ConfirmDOBYN_DM_noinput_2">
+        <prompt id="am0235_ni2_01"/>
+    </sentence>
+    <sentence id="am0235_ConfirmDOBYN_DM_nomatch_1">
+        <prompt id="am0235_nm1_01"/>
+    </sentence>
+    <sentence id="am0235_ConfirmDOBYN_DM_nomatch_2">
+        <prompt id="am0235_nm2_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_initial">
+        <prompt id="am0240_ini_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_noinput_1">
+        <prompt id="am0240_ni1_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_noinput_2">
+        <prompt id="am0240_ni2_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_nomatch_1">
+        <prompt id="am0240_nm1_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_nomatch_2">
+        <prompt id="am0240_nm2_01"/>
+    </sentence>
+    <sentence id="am0240_GetCorrectDOB_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="am0240_cnf_ini_01"/>
+            <prompt type="date" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="dateFormat" value="yyyyMMdd"/>
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="am0240_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt type="digits" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="am0310_cnf_ini_02"/>
+        </if>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_initial">
+        <if cond="task == 'another_order'">
+            <prompt id="am0310_ini_01"/>
+            <elseif cond="zipAttempts != 0">
+                <prompt id="am0310_ini_02"/>
+            </elseif>
+            <elseif cond="authStatus == 'auth_2_pieces'">
+                <prompt id="am0310_ini_03"/>
+            </elseif>
+            <else>
+                <prompt id="am0310_ini_04"/>
+            </else>
+        </if>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_noinput_1">
+        <prompt id="am0310_ni1_01"/>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_noinput_2">
+        <prompt id="am0310_ni2_01"/>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_nomatch_1">
+        <prompt id="am0310_nm1_01"/>
+    </sentence>
+    <sentence id="am0310_GetZip_DM_nomatch_2">
+        <prompt id="am0310_nm2_01"/>
+    </sentence>
+    <sentence id="am0330_ConfirmZip_DM_initial">
+        <prompt id="am0330_ini_02"/>
+        <if cond="collectedZipCode != 'NULL' &amp;&amp; collectedZipCode != null &amp;&amp; collectedZipCode != ''">
+            <prompt type="digits" expr="collectedZipCode">
+                <param value="f" name="intonation"/>
+                <param name="mask" value="true"/>
+            </prompt>
+        </if>
+        <prompt id="am0330_ini_04"/>
+    </sentence>
+    <sentence id="am0330_ConfirmZip_DM_noinput_1">
+        <prompt id="am0330_ni1_01"/>
+    </sentence>
+    <sentence id="am0330_ConfirmZip_DM_noinput_2">
+        <prompt id="am0330_ni2_01"/>
+    </sentence>
+    <sentence id="am0330_ConfirmZip_DM_nomatch_1">
+        <prompt id="am0330_nm1_01"/>
+    </sentence>
+    <sentence id="am0330_ConfirmZip_DM_nomatch_2">
+        <prompt id="am0330_nm2_01"/>
+    </sentence>
+    <sentence id="am0334_AskToSaveANI_DM_initial">
+        <prompt id="am0334_ini_01"/>
+        <prompt type="phone" expr="origination">
+            <param name="playOne" value="false"/>
+            <param name="playTollFree" value="false"/>
+            <param name="playThousands" value="false"/>
+        </prompt>
+        <prompt id="am0334_ini_02"/>
+        <prompt type="phone" expr="origination">
+            <param name="playOne" value="false"/>
+            <param name="playTollFree" value="false"/>
+            <param name="playThousands" value="false"/>
+        </prompt>
+        <prompt id="am0334_ini_03"/>
+    </sentence>       
+    <sentence id="am0334_AskToSaveANI_DM_noinput_1">
+        <prompt id="am0334_ni1_01"/>
+    </sentence>
+    <sentence id="am0334_AskToSaveANI_DM_noinput_2">
+        <prompt id="am0334_ni2_01"/>
+    </sentence>
+    <sentence id="am0334_AskToSaveANI_DM_nomatch_1">
+        <prompt id="am0334_nm1_01"/>
+    </sentence>
+    <sentence id="am0334_AskToSaveANI_DM_nomatch_2">
+        <prompt id="am0334_nm2_01"/>
+    </sentence>            
+    <sentence id="am0336_SavedANI_PP">
+        <if cond="saveANIStatus == '000'">
+            <prompt id="am0336_out_01"/>
+            <prompt type="custom" expr="ani" scope="request">
+                <param name="className" value="com.nuance.catamaran.custom.ExternalPromptRendererImpl"/>
+                <param name="ttsVarName" value="ani" />
+            </prompt>
+            <else>
+                <prompt id="am0336_out_02"/>         
+            </else>
+        </if>
+    </sentence>    
+</sentence-library>

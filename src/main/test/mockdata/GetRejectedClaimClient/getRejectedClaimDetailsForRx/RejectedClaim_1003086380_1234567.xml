@@ -1,0 +1,20 @@
+<com.nuance.catamaran.dataaccess.objects.RejectedClaim>
+  <numberOfClaimsFound>1</numberOfClaimsFound>
+  <isCurrentClaimReadable>true</isCurrentClaimReadable>
+  <onFirstClaim>true</onFirstClaim>
+  <onLastClaim>false</onLastClaim>
+  <currentClaimNumber>1234567</currentClaimNumber>
+  <numberOfRejectCodes>1</numberOfRejectCodes>
+  <drugPrompt>lipitor</drugPrompt>
+  <drugTTS>500 mg per ml</drugTTS>
+  <rejectCodes>
+    <string>70</string>
+  </rejectCodes>
+  <nextRefillDate></nextRefillDate>
+  <terminationDate></terminationDate>
+  <originalClaimFileDate></originalClaimFileDate>
+  <groupNumber></groupNumber>
+  <firstName>Bruce</firstName>
+  <memberNumber>18330AAC</memberNumber>
+  <dateOfBirth>19850404</dateOfBirth>
+</com.nuance.catamaran.dataaccess.objects.RejectedClaim>

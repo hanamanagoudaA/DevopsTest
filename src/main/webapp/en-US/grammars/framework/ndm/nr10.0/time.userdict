@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lexicon xml:lang="en-us" alphabet="application/sampa;localization=nuance">
+	<entry key="a">
+		<definition value="@"/>
+	</entry>
+	<entry key="a_m">
+		<definition value="eeYi#sil#emm"/>
+	</entry>
+	<entry key="p_m">
+		<definition value="pii#sil#emm"/>
+	</entry>
+</lexicon>

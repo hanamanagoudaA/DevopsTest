@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" version="1.0" root="_alphanum" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2006 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   Alphanumeric grammar
+-->
+<meta name="swirec_state_beam" content="-65 -70 -75 -75"/>
+<meta name="swirec_word_penalty" content="1.7"/>
+<meta name="swirec_whole_word_unit_penalty" content="-0.15"/>
+<meta name="swirec_restart_neighborhood" content="25"/>
+<meta name="swirec_secondpass_selection_num_nbest" content="50 40 30 30"/>
+<meta name="swirec_max_speech_duration" content="14000"/>
+<meta name="incompletetimeout" content="2000"/>
+<meta name="swirec_compile_parser" content="1"/>
+<meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+<meta name="swirec_user_dict_name" content="alphanum.userdict"/>
+  <rule id="_alphanum" scope="public">
+    <item>
+      <ruleref tag="SWI_meaning=S.V; dm_root=SWI_meaning;" uri="#S"/>
+    </item>
+  </rule>
+  <rule id="S">
+    <count number="1+">
+       <ruleref uri="#AN" tag="V = V ? V + AN.V : AN.V"/>
+    </count>
+  </rule>
+  <rule id="AN">
+    <one-of>
+      <item tag="V='0'">0</item>
+      <item tag="V='1'">1</item>
+      <item tag="V='2'">2</item>
+      <item tag="V='3'">3</item>
+      <item tag="V='4'">4</item>
+      <item tag="V='5'">5</item>
+      <item tag="V='6'">6</item>
+      <item tag="V='7'">7</item>
+      <item tag="V='8'">8</item>
+      <item tag="V='9'">9</item>
+      <item tag="V='a'">a</item>
+      <item tag="V='b'">b</item>
+      <item tag="V='c'">c</item>
+      <item tag="V='d'">d</item>
+      <item tag="V='e'">e</item>
+      <item tag="V='f'">f</item>
+      <item tag="V='g'">g</item>
+      <item tag="V='h'">h</item>
+      <item tag="V='i'">i</item>
+      <item tag="V='j'">j</item>
+      <item tag="V='k'">k</item>
+      <item tag="V='l'">l</item>
+      <item tag="V='m'">m</item>
+      <item tag="V='n'">n</item>
+      <item tag="V='o'">o</item>
+      <item tag="V='p'">p</item>
+      <item tag="V='q'">q</item>
+      <item tag="V='r'">r</item>
+      <item tag="V='s'">s</item>
+      <item tag="V='t'">t</item>
+      <item tag="V='u'">u</item>
+      <item tag="V='v'">v</item>
+      <item tag="V='w'">w</item>
+      <item tag="V='x'">x</item>
+      <item tag="V='y'">y</item>
+      <item tag="V='z'">z</item>
+      <item tag="V='a'">A</item>
+      <item tag="V='b'">B</item>
+      <item tag="V='c'">C</item>
+      <item tag="V='d'">D</item>
+      <item tag="V='e'">E</item>
+      <item tag="V='f'">F</item>
+      <item tag="V='g'">G</item>
+      <item tag="V='h'">H</item>
+      <item tag="V='i'">I</item>
+      <item tag="V='j'">J</item>
+      <item tag="V='k'">K</item>
+      <item tag="V='l'">L</item>
+      <item tag="V='m'">M</item>
+      <item tag="V='n'">N</item>
+      <item tag="V='o'">O</item>
+      <item tag="V='p'">P</item>
+      <item tag="V='q'">Q</item>
+      <item tag="V='r'">R</item>
+      <item tag="V='s'">S</item>
+      <item tag="V='t'">T</item>
+      <item tag="V='u'">U</item>
+      <item tag="V='v'">V</item>
+      <item tag="V='w'">W</item>
+      <item tag="V='x'">X</item>
+      <item tag="V='y'">Y</item>
+      <item tag="V='z'">Z</item>
+    </one-of>
+  </rule>
+</grammar>
+

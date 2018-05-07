@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="CUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.DynamicCustomEcmascriptRendererImpl</value>
+    </parameter>
+    <parameter name="DTMFPressInitEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.dialog.ldm.renderer.audio.DTMFPressInitRendererImpl</value>
+    </parameter>
+     <parameter name="DTMFPressDigitEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.dialog.ldm.renderer.audio.DTMFPressDigitCPRRendererImpl</value>
+    </parameter>
+	<parameter name="OrigCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+</application-config>

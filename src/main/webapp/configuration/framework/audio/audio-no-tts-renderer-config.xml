@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="PromptCallTrackingRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.CallTrackingPrompOptionalTTStRendererImpl</value>
+    </parameter>
+    <parameter name="PromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.VXMLPromptOptionalTTSRendererImpl</value>
+    </parameter>
+
+</application-config>

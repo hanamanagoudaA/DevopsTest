@@ -1,0 +1,20 @@
+<com.nuance.catamaran.dataaccess.objects.OrderStatus>
+	<numberOfOrders>3</numberOfOrders>
+	<isFirstOrder>false</isFirstOrder>
+	<isMoreOrders>true</isMoreOrders>
+	<memberFirstName>Carl</memberFirstName>
+	<drugPromptList>
+		<string>Lipitor</string>
+	</drugPromptList>
+	<drugTTSList>
+		<string>100</string>
+	</drugTTSList>
+	<zipCode>01720</zipCode>
+	<numberOfPrescriptions>1</numberOfPrescriptions>
+	<orderStatus>shipped</orderStatus>
+	<carrierName>FedEx</carrierName>
+	<shipMethod>2-day</shipMethod>
+	<shipDate>0816</shipDate>
+	<trackingNumber>f13541</trackingNumber>
+	<receivedDate>0425</receivedDate>
+</com.nuance.catamaran.dataaccess.objects.OrderStatus>

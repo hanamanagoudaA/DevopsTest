@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+	<parameter name="LDMCollectionStartBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMCollectionStartBlockRendererImpl</value>
+	</parameter>
+	    
+	<parameter name="LDMRendererFactoryClassName">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.PropertiesRendererFactory</value>
+	</parameter>
+	
+	<parameter name="LDMSubdialogTagStartRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.StartLDMSubdialogRenderer</value>
+	</parameter>
+	
+	<parameter name="LDMSubdialogTagEndRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.EndLDMSubdialogRenderer</value>
+	</parameter>
+	
+	<parameter name="LDMSubdialogTagSubdialogRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMSubdialogRenderer</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionFieldRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMCollectionFieldRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionFilledRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMCollectionFilledRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionInitialPromptBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMCollectionInitialPromptBlockRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMCollectionReentryBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMCollectionReentryBlockRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationFieldRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMConfirmationFieldRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationFilledRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMConfirmationFilledRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationInitialPromptBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMConfirmationInitialPromptBlockRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationStartBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMConfirmationStartBlockRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMGrammarRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMGrammarRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMNoinputRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMNoinputRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMNomatchRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMNomatchRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMVarRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMVarRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagStartRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagStartRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagEndRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagEndRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagConfirmationSubdialogRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagConfirmationSubdialogRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagConfirmationStartSubdialogRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagConfirmationStartSubdialogRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMConfirmationSubdialogStartBlockRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMConfirmationSubdialogStartBlockRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagConfirmationStartRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagConfirmationStartRendererImpl</value>
+	</parameter>
+	
+	<parameter name="LDMInlineTagConfirmationEndRenderer">
+		<value>com.nuance.framework.vxml.service.dialog.ldm.renderer.LDMInlineTagConfirmationEndRendererImpl</value>
+	</parameter>
+	
+</application-config>

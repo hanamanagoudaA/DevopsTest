@@ -1,0 +1,523 @@
+<!--
+        ====================================================================================
+        | Copyright Nuance Communications, Inc. | | Note: Nuance Source Code
+        File | Notice and Disclaimer of Liability | | This source code
+        software is provided to the user as an example | of a VoiceXML
+        application developed with the Nuance framework | Software. This
+        source code software has not been fully tested | and may contain
+        errors. NUANCE PROVIDES THIS SOFTWARE ON AN | "AS IS' BASIS, AND
+        DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR | IMPLIED, INCLUDING THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY, | FITNESS FOR A PARTICULAR
+        PURPOSE AND NON-INFRINGEMENT.
+        ====================================================================================
+-->
+<application-config 
+    xmlns="http://www.nuance.com/framework/controller/xml/configuration"
+    xsi:schemaLocation="http://www.nuance.com/framework/application/application-config application-config.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <!-- description: Company name. Default value: Nuance -->
+    <parameter name="company.name">
+        <value>OptumRx</value>
+    </parameter>
+
+    <!--
+            description: Application name Note: The application name must be set
+            here, but it can be overwritten in the namelist.
+    -->
+    <parameter name="application.name">
+        <value>optumrx-mst-ivr</value>
+    </parameter>
+
+    <!-- description: Application version -->
+    <parameter name="application.version">
+        <value>1.0.0</value>  <!-- @TODO: update to Release, Build, Revision for production -->
+    </parameter>
+
+    <!--
+            description: Base path for call logging. Default value:
+            %{NUAN_APPLOGDIR}
+    -->
+    <parameter name="logging_base_path">
+        <value>/opt/Tomcat/AppServer/tomcat/logs/IVRLogs/NDM/</value>
+    </parameter>
+
+    <!--
+            description: Base path for DCPURL. Default value: %{dcp.url},The
+            dcp.url defines to which DCP instance NDF's
+            CallLogPostProcessRequestProcessor sends the logs to.
+    -->
+    <parameter name="dcp.url">
+        <value>%{dcp.url}</value>
+    </parameter>
+
+    <!-- description: Relative path of the URI mapper config -->
+    <parameter name="operation.urimap.config">
+        <value>/configuration/application/uri-map-config.xml</value>
+    </parameter>
+
+    <!-- description: URI mapper class path -->
+    <parameter name="operation.urimap.classname">
+        <value>com.nuance.framework.controller.urimapper.UriMapperImpl</value>
+    </parameter>
+
+    <!-- description: If true, the URI mapper disregards context paths -->
+    <parameter name="operation.urimap.disregard-context-path">
+        <value>true</value>
+    </parameter>
+
+    <!--
+            description: Possible options are operation (default), integration, or
+            maintenance. Optional, used for diagnostic purposes only.
+    -->
+    <parameter name="operation.mode">
+        <value>integration</value>
+    </parameter>
+
+    <!--
+            description: If true, the application uses the HTTP session to keep
+            track of call data. If false, call data is stored on the VXML pages on
+            the client side. Normally set to false.
+    -->
+    <parameter name="operation.session.use">
+        <value>false</value>
+    </parameter>
+
+    <parameter name="operation.session.allow">
+        <value>true</value>
+    </parameter>
+
+    <parameter name="calllogs.buffer">
+        <value>Client</value>
+    </parameter>
+
+    <parameter name="ndm.calllogs.buffer">
+        <value>Client</value>
+    </parameter>
+
+    <parameter name="ndm.config">
+        <value>Default Value</value>
+    </parameter>
+
+    <!-- description: Processor class path -->
+    <parameter name="request.processor.classname">
+        <value>com.nuance.framework.controller.requestprocessor.RequestProcessorMgrImpl</value>
+    </parameter>
+
+    <parameter name="request.processor.config">
+        <value>/configuration/application/request-processor-config.xml</value>
+    </parameter>
+
+    <parameter name="oam.config">
+        <value>/configuration/application/oam/oam-config.xml</value>
+    </parameter>
+
+
+    <!-- description: Enables the NOD Support for this application -->
+    <parameter name="EnableNODSupport">
+        <value>true</value>
+    </parameter>
+
+    <!-- description: Enables the VBS Support for this application -->
+    <parameter name="EnableVBSSupport">
+        <value>false</value>
+    </parameter>
+    
+     <!-- description: If true, the language specified in the language attribute in the prompt file will be used. 
+    	If false, it will be ignored Note: Use false when the browser does not support the lang tag. 
+    -->
+    <parameter name="UseXMLLangAttribute">
+        <value>true</value>
+    </parameter>
+
+    <!--
+            description: - logger-config (string): relative path to
+            logger-config.xml
+    -->
+    <parameter name="calllog.config">
+        <map>
+            <parameter name="logger-config">
+                <value>/configuration/application/logger-config.xml</value>
+            </parameter>
+
+            <parameter name="logURL.value">
+                <value>log</value>
+            </parameter>
+            <parameter name="logDataGetterURL.value">
+                <value>logdatagetter</value>
+            </parameter>
+
+            <parameter name="logDataSetterURL.value">
+                <value>logdatasetter</value>
+            </parameter>
+
+            <parameter name="requestProcessorSessionStartResponse.value">
+                <value>RequestProcessorSessionStartResponse</value>
+            </parameter>
+            <parameter name="requestProcessorLogResponse.value">
+                <value>RequestProcessorLogResponse</value>
+            </parameter>
+            <parameter name="requestProcessorSessionEndResponse.value">
+                <value>RequestProcessorSessionEndResponse</value>
+            </parameter>
+            <parameter name="requestProcessorLogDataGetterResponse.value">
+                <value>RequestProcessorLogDataGetterResponse</value>
+            </parameter>
+            <parameter name="requestProcessorLogDataSetterResponse.value">
+                <value>RequestProcessorLogDataSetterResponse</value>
+            </parameter>
+
+            <parameter name="security">
+                <value>Open</value>
+            </parameter>
+            <!-- Uncomment the following to enable info/debug logging of potentially sensitive data -->
+            <!-- 
+            <parameter name="security">
+                    <value>Open</value>
+                </parameter>
+            -->
+
+            <!-- The public encryption key to use.
+            Note: This must not be indented!
+            This is usually set only in the session.xml file. -->
+            <!-- REMOVE spaces in "- - - - -" when uncommented -->
+            <!--  
+            <parameter name="encryption_key">
+            <value>
+            - - - - -BEGIN PUBLIC KEY- - - - -
+            MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwI9aWNJ3DDYY0hG0ma847/SC+
+            B8jyYIlSxK3uaCpImiSC+x27jqAeHlIsg7elWXbIChmL1/OoR2BIgvqwr1gbG68M
+            lkL39HK8Gk+3aMF/1hMbpq3Q7mhucSnKqhHXTTZthFgKxo4ZePBh04+3nTESB89D
+            /mQTruLAxnyQlN1pEQIDAQAB
+            - - - - -END PUBLIC KEY- - - - -
+            </value>
+            </parameter>
+            -->
+
+            <!-- Set the internal encryption (AES-192 (default) or AES-256).
+            For development only AES-128 can also be used. 
+            This is usually set only in the session.xml file. -->
+            <!-- 
+           <parameter name="internal_encryption">
+               <value>AES-192</value>
+           </parameter>
+            -->
+
+            <!-- Set the tag to append to the encrypted log to identify
+            the used public key or other settings in encrypted logs
+            This is usually set only in the session.xml file. -->
+            <!-- 
+           <parameter name="encryption_key_tag">
+               <value>A_CUSTOM_TAG</value>
+           </parameter>
+            -->
+
+        </map>
+    </parameter>
+
+    <!--
+            description: Implements the configuration helper interface. Usual
+            value:
+            com.nuance.framework.controller.utilities.ControllerConfigurationHelper
+    -->
+    <parameter name="configuration.helper.classname">
+        <value>com.nuance.framework.vxml.configuration.util.ApplicationControllerConfigurationHelperImpl</value>
+    </parameter>
+
+    <!--
+            description: - VXMLVersion: version of VXML (currently 2.1) -
+            ApplicationRootURI: application?fs root URI (e.g.
+            ApplicationRoot.dvxml) - ApplicationEcmascriptBaseUri: the ECMAScript
+            path (e.g. scripts/) - ApplicationUseRelativeEcmaScriptPath: indicates
+            if the ApplicationEcmascriptBaseUri is relative - EnableVXMLLogging:
+            indicates if logging is enabled - ApplicationDefault.expires: cache
+            expire time, if enabled - ApplicationDefault.cache: indicates if
+            caching is enabled - CachePropertyKeys (list): custom caching for the
+            Audio, Data Access, and NDM services. Includes language, library, and
+            version
+    -->
+    <parameter name="application.configuration">
+        <map>
+            <parameter name="VXMLVersion">
+                <value>2.1</value>
+
+            </parameter>
+
+            <parameter name="DisableJSPTagReset">
+                <value>false</value>
+            </parameter>
+
+            <parameter name="ApplicationRootURI">
+                <value>ApplicationRoot.dvxml</value>
+            </parameter>
+            <!--
+                    <parameter name="ApplicationEcmascriptUrl"> <value></value>
+                    </parameter>
+            -->
+            <parameter name="ApplicationEcmascriptBaseUri">
+                <value>scripts/</value>
+            </parameter>
+
+            <parameter name="ApplicationUseRelativeEcmaScriptPath">
+                <value>true</value>
+            </parameter>
+
+            <parameter name="EnableVXMLLogging"> <!-- @TODO: set to false for production -->
+                <value>true</value>
+            </parameter>
+
+            <parameter name="EnableVXMLLogTracing"> <!-- @TODO: set to false for production -->
+                <value>true</value>
+            </parameter>
+
+            <parameter name="VXMLLogTrackingLoggerName">
+                <value>VXMLLOGS</value>
+            </parameter>
+
+            <parameter name="ApplicationDefault.expires">
+                <value>86400</value>
+            </parameter>
+
+            <parameter name="ApplicationDefault.cache">
+                <value>false</value>
+            </parameter>
+
+            <parameter name="VXMLLoggerClassName">
+                <value>com.nuance.framework.vxml.service.util.VXMLLoggerImpl</value>
+            </parameter>
+            <parameter name="CachePropertyKeys">
+                <list>
+                    <value>language</value>
+                    <value>library</value>
+                    <value>version</value>
+                </list>
+            </parameter>
+
+            <parameter name="browser">
+                <value>avp</value>
+            </parameter>
+
+            <parameter name="PageTracingLoggerName">
+                <value>com.nuance.framework.jsp.dialogs.application</value>
+            </parameter>
+
+            <parameter name="PageTracingLoggerName">
+                <value>com.nuance.framework.jsp.dialogs.application</value>
+            </parameter>
+
+            <parameter name="TFNMapDirectory">
+                <value>/configuration/application/properties/profiles/</value>
+            </parameter>
+
+            <parameter name="DrugPromptDirectory">
+                <value>/en-US/prompts/application/drugNames/</value>
+            </parameter>
+
+            <parameter name="BackendURLConfig">
+                <value>/configuration/application/properties/backend.properties</value>  <!-- @TODO: Change back to prod before build -->
+            </parameter>
+
+            <parameter name="NDCMapFile">
+                <value>/configuration/application/properties/drugs.properties</value>
+            </parameter>
+
+            <parameter name="ReasonCodeMapFile">
+                <value>/configuration/application/properties/reasonCodes.properties</value>
+            </parameter>
+            
+            <parameter name="BIEByPassANIConfig">
+                <value>/configuration/application/properties/bypassani.properties</value>
+            </parameter>
+            
+            <parameter name="RxcDomainMapFile">
+                <value>/configuration/application/properties/rxcdomain.properties</value>
+            </parameter>
+
+        </map>
+    </parameter>
+
+    <!--
+            description: List of services being used by the application. Possible
+            options are: - audio: Audio Service - dataaccess: Data Access Service
+            - ndm: Nuance Dialog Module Service
+    -->
+    <parameter name="services">
+        <list>
+            <value>audio</value>
+            <value>dataaccess</value>
+            <value>ndm</value>
+            <value>recognition</value>
+        </list>
+    </parameter>
+
+    <!--
+            description: service details: Audio, Dataaccess, and so on. -
+            Classname: class path - ResourceLocation: should be set to context to
+            load the file from the application context - ServiceFileName: relative
+            path of the config file
+    -->
+    <parameter name="audio">
+        <map>
+            <parameter name="className">
+                <value>com.nuance.framework.vxml.service.audio.PropertiesAudioServiceManagerImpl</value>
+            </parameter>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="serviceFileName">
+                <value>/configuration/application/audio/audio-service-config.xml</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="dataaccess">
+        <map>
+            <parameter name="className">
+                <value>com.nuance.framework.vxml.service.dataaccess.XMLDataAccessServiceManagerImpl</value>
+            </parameter>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="serviceFileName">
+                <value>/configuration/application/dataaccess/dataaccess-service-config.xml</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <!--
+            description: - resourceLocation (string): possible options are: -
+            context: file is being loaded relative to application - classpath: XML
+            file needs to exist in the application server class path - file: the
+            file is loaded from the full path on disk anywhere on the server
+            serviceFileName (string): relative path of the ndm config
+    -->
+    <parameter name="ndm">
+        <map>
+            <parameter name="className">
+                <value>com.nuance.framework.vxml.service.dialog.ndm.PropertiesNDMServiceManagerImpl</value>
+            </parameter>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="serviceFileName">
+                <value>/configuration/application/ndm/ndm-service-config.xml</value>
+            </parameter>
+
+            <!--
+                    description: Implements the builder class interface. Usual value:
+                    com.nuance.framework.dialogmodule.service.DMManager
+            -->
+            <parameter name="builderClassName">
+                <value>com.nuance.framework.dialogmodule.service.DMManager</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="recognition">
+        <map>
+            <parameter name="className">
+                <value>com.nuance.framework.vxml.service.recognition.PropertiesRecognitionServiceManagerImpl</value>
+            </parameter>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="serviceFileName">
+                <value>/configuration/application/recognition/recognition-service-config.xml</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <!--
+            description: - resourceLocation (string): default should be set to
+            context to load the file from the application context - filename
+            (string): relative path to the XML file mapping the Processor ID to
+            the class names
+    -->
+    <parameter name="processor.config">
+        <map>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="fileName">
+                <value>/configuration/application/processor-config.xml</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <!--
+            description: - filename (string): relative path to the XML file
+            mapping the Renderer ID to the class names - resourceLocation
+            (string): possible options are: - context: file is being loaded
+            relative to application - classpath: XML file needs to exist in the
+            application server class path - file: the file is loaded from the full
+            path on disk anywhere on the server
+    -->
+    <parameter name="renderer.config">
+        <map>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="fileName">
+                <value>/configuration/application/renderer-config.xml</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="configuration.access.config">
+        <value>/configuration/application/configuration-access-config.xml</value>
+    </parameter>
+    
+    <parameter name="nar.logger.manager">
+        <map>
+
+            <parameter name="LogFilterClassName">
+                <value>com.nuance.framework.logging.converter.engine.mapper.LogFilterImpl</value>
+            </parameter>
+
+            <parameter name="DataStructureClassName">
+                <value>com.nuance.framework.logging.converter.engine.mapper.DataStructureImpl</value>
+            </parameter>
+
+            <parameter name="InputParser">
+                <map>
+                    <parameter name="InputParserClassName">
+                        <value>com.nuance.framework.logging.converter.engine.mapper.InputParserNARImpl</value>
+                    </parameter>
+
+                    <parameter name="DataStructureClassName">
+                        <value>com.nuance.framework.logging.converter.engine.mapper.DataStructureInputImpl</value>
+                    </parameter>
+
+                    <parameter name="DataStructureFile">
+                        <value>/configuration/framework/logger/nar-data-structure.xml</value>
+                    </parameter>
+
+                    <parameter name="InputLogFilterFile">
+                        <value>/configuration/framework/logger/nar-filter.xml</value>
+                    </parameter>
+                </map>
+            </parameter>
+
+            <parameter name="NARLogSuccessView">
+                <value>logFile.jsp</value>
+            </parameter>
+
+            <parameter name="NARLogFailureView">
+                <value/>
+            </parameter>
+
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+        </map>
+    </parameter>
+    <parameter name="audio.service.jsp.validator">
+        <map>
+            <parameter name="jspsToValidate">
+                <list>
+                    <value>/dialogs/application</value>
+                </list>
+            </parameter>
+        </map>
+    </parameter>
+</application-config>

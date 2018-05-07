@@ -1,0 +1,18 @@
+<com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>
+	<canRxBeRefilled>true</canRxBeRefilled>
+	<cannotRefillReason/>
+	<nextRefillDate>20130414</nextRefillDate>
+	<drugPrompt/>
+	<drugTTS>zocor 35 mg</drugTTS>
+	<zipCode>01720</zipCode>
+	<floorLimit>0</floorLimit>
+	<creditOnAccount>0</creditOnAccount>
+	<isPreferredCardOnAccount>false</isPreferredCardOnAccount>
+	<isPreferredCardExpired/>
+	<preferredCreditCardType/>
+	<preferredCreditCardLast4/>
+	<numberOfAdditionalCardsOnFile>0</numberOfAdditionalCardsOnFile>
+	<isAdditionalCardsExpired/>
+	<additionalCardsType/>
+	<additionalCardsLast4/>
+</com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>

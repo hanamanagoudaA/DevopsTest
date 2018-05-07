@@ -1,0 +1,1471 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" version="1.0" root="_number" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   number grammar
+   -->
+
+<meta name="maxspeechtimeout" content="10000" />
+<meta name="incompletetimeout" content="1500"/>
+<meta name="swirec_compile_parser" content="1"/>
+<meta name="swirec_user_dict_name" content="number.userdict"/>
+<meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+
+  <rule id="_number" scope="public">
+    <count number="optional">
+       <one-of>
+         <item tag="mult=-1">minus</item>
+         <item tag="mult=-1">negative</item>
+       </one-of>
+    </count>
+    <ruleref uri="#ROOT_NATNUM" tag="SWI_meaning=ROOT_NATNUM.VALUE; 
+             SWI_meaning = SWI_meaning.replace(/[ ]+/g, '');
+	     SWI_meaning=SWI_meaning.replace (/^0+/, '');
+	     if (SWI_meaning.substr(0,1) == &quot;.&quot; ||
+                 SWI_meaning.length == 0)  SWI_meaning = '0' + SWI_meaning; 
+             SWI_scoreDelta = 0;
+             mult = mult ? mult : 0;
+             if (mult == -1) SWI_meaning = '-' + SWI_meaning;
+             var numeric = parseFloat (SWI_meaning);
+             var mina = SWI_vars.minallowed ? SWI_vars.minallowed : '0';
+             var maxa = SWI_vars.maxallowed ? SWI_vars.maxallowed : '999999.99';
+             var mine = SWI_vars.minexpected ? SWI_vars.minexpected : '0';
+             var maxe = SWI_vars.maxexpected ? SWI_vars.maxexpected : '999999.99';
+             var max_dec = SWI_vars.maxdecimal ? SWI_vars.maxdecimal : '2';
+             mina = parseFloat(mina);
+             maxa = parseFloat(maxa);
+             mine = parseFloat(mine);
+             maxe = parseFloat(maxe);
+             var grana = parseInt(SWI_vars.granularityallowed, 10);
+             var grane = parseInt(SWI_vars.granularityexpected, 10);
+             max_dec = parseInt (max_dec, 10);
+             var num_and_dec = SWI_meaning.split('.');
+             if (num_and_dec.length == 2 &amp;&amp; 
+              num_and_dec[1].length &gt; max_dec) SWI_disallow=1;
+             if (numeric &lt; mina || numeric &gt; maxa ||
+                 (grana &amp;&amp; grana &gt; 0 &amp;&amp; numeric % grana != 0)) 
+                 SWI_disallow=1;
+             if (numeric &lt; mine || numeric &gt; maxe ||
+                 (grane &amp;&amp; grane &gt; 0 &amp;&amp; numeric % grane != 0))
+                 SWI_scoreDelta=-300;
+             MEANING=SWI_meaning;
+              "/>
+  </rule>
+
+  <!--
+     "formal" natural number bnf, where hundreds, thousands, etc. used.
+  
+
+  ############################################################################
+   This grammar represents natural numbers from 0 to 999,999,999             #
+   note that only "zero" is allowed for the number 0 although "oh" is        #
+   allowed in other places like "five oh four"                               #
+   It represents larger magnitude numbers in terms of smaller magnitude      #
+   components. For example, we represent three digit numbers with the        #
+   non_terminal $HUNDREDS. Numbers like                                      #
+   two thousand three hundred forty five (2,345) are composed as             #
+   $THOUSAND_COUNTER thousand $HUNDREDS, where the $THOUSAND_COUNTER         #
+   represents "two" and $HUNDREDS represents three hundred forty five.
+   [Note: we actually don't use THOUSAND_COUNTER but break it up into two    #
+    subtypes for purposes of padding the VALUE properly,                     #
+    as described in the THOUSANDS section below
+   Variants using words like "and" (as in "three hundred and forty five")and #
+   "a", as in "a hundred and ten" are included as well.                      #
+   Four forms of natural numbers are supported:                               #
+    a) "formal" natural numbers, in which words like "hundred" and "thousand"#
+        are used, e.g., two hundred twenty five                              #
+    b) "colloquial" natural numbers, where they are implied, e.g.,           #
+        "two twenty five".                                                   #
+    c) "decimal", like "one point two million"; this is only supported for
+        millions and up to two decimal points can be given
+    d) "fractional", "one and a half million"; this is the only one supported #
+  
+   One key feature of the grammar is heavy use of run_time classes to        #
+   distinguish the same word being used in two different places in the grammar,
+   for instance "three" as in "three hundred" is given a different class than #
+   "three" as in "twenty three". There are two purposes to this.             #
+    1) It constrains the forward search more than a raw word_pair grammar    #
+       would.  In particular, if we did not use                              #
+       different non_terminals, the forward search would admit things like   #
+       "three hundred three hundred three hundred ..." since "three" can     #
+       follow "hundred" in "one hundred three".                              #
+  
+    2) It allows the bigram to represent things more precisely; e.g.,        #
+       the probability of going from the start state to the "two" in         #
+       "two million" will be less than going to the "two" in "tho hundred"   #
+       if numbers in the millions are much rarer.                            #
+                                                                             #
+   The runtime class notation is as follows:                                 #
+   Classes are of form FORM_NAT_<LIT_CLASS>_<ROLE> where
+   <LIT_CLASS> is the class of literals represented. These include           #
+   ZERO[zero, oh], ONES [one, two .., nine], TEEN[ten .. nineteen],
+   TENS[twenty .. ninety], A (a), AND (and), HUNDRED (hundred). The final three
+   are given run_time classes since they can occur at different points in the #
+   utterance (e.g., one hundred thousand one hundred.                        #
+  
+   <ROLE> is one of:                                                         #
+     B: below hundred (e.g., FORM_NAT_ONES_B represents the one in a number  #
+        like "two hundred and one "                                          #
+     H: hundreds counter (the "two" in two hundred and one)                  #
+    TB: thousands counter (the "two" in "two thousand")                      #
+    TH: hundred thousands counter (the "two" in "two hundred thousand"       #
+    MB: millions counter (the "two" in two million)                          #
+    MH: hundred million counter (the "two" in two hundred million)           #
+  
+  ############################################################################
+  RUNTIME_CLASSES = $FORM_NAT_ZERO_B;
+  RUNTIME_CLASSES = $FORM_NAT_AND_H $FORM_NAT_A_H;
+  RUNTIME_CLASSES = $FORM_NAT_ZERO_H;
+  RUNTIME_CLASSES = $FORM_NAT_TEN_H;
+  RUNTIME_CLASSES = $FORM_NAT_A_T $FORM_NAT_A_TH
+  RUNTIME_CLASSES = $FORM_NAT_AND_TH;
+  RUNTIME_CLASSES = $FORM_NAT_ZERO_TB;
+  RUNTIME_CLASSES = $FORM_NAT_ONES_MB $FORM_NAT_TEEN_MB $FORM_NAT_TENS_MB;
+  RUNTIME_CLASSES = $FORM_NAT_A_MH $FORM_NAT_A_M $FORM_NAT_AND_MH;
+  RUNTIME_CLASSES = $FORM_NAT_HUNDRED_MH $FORM_NAT_ONES_MH;
+  RUNTIME_CLASSES = $FORM_NAT_DEC_M1 $FORM_NAT_DEC_M2;
+  RUNTIME_CLASSES = $ZERO $ONE;
+  -->
+
+  <rule id="ROOT_NATNUM">
+    <one-of tag="VALUE= _V1_1; ">
+      <item>
+        <ruleref uri="#FORM_NATNUM" tag="_V1_1=FORM_NATNUM.VALUE; "/>
+         <count number="optional">
+            <ruleref uri="#FORM_NAT_DEC_ONES" tag="_V1_1 += FORM_NAT_DEC_ONES.VALUE"/>
+         </count>         
+      </item>
+      <item>
+         <ruleref uri="#FORM_NAT_DEC_ONES" tag="_V1_1= FORM_NAT_DEC_ONES.VALUE"/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NATNUM">
+    <one-of>
+      <item tag="VALUE='0'">zero</item>
+      <item tag="VALUE='0'">oh</item>
+      <item>
+        <ruleref uri="#FRACTIONAL_NATNUM" tag="VALUE=FRACTIONAL_NATNUM.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#DECIMAL_NATNUM" tag="VALUE=DECIMAL_NATNUM.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#THOUSANDS" tag="VALUE=THOUSANDS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#MILLIONS" tag="VALUE=MILLIONS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#JUST_BELOW_HUNDRED" tag="VALUE=JUST_BELOW_HUNDRED.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#HUNDREDS" tag="VALUE=HUNDREDS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#TWO_DIG_HUNDREDS" tag="VALUE=TWO_DIG_HUNDREDS.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ______________________
+   $JUST_BELOW_HUNDRED covers non_embedded numbers below hundred. 
+  -->
+
+  <rule id="JUST_BELOW_HUNDRED">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_B" tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_B.VALUE; } catch(e){} finally {};"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_B" tag="VALUE=FORM_NAT_TENS_B.VALUE + '0'; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_B" tag="VALUE=FORM_NAT_TEEN_B.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_B" tag="_V1_1=FORM_NAT_TENS_B.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_B" tag="_V1_2=FORM_NAT_ONES_B.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+   $BELOW_HUNDRED covers embedded numbers below hundred. It differs from
+   $ JUST_BELOW_HUNDRED in that it does not treat $ONE specially
+   I have to split the following three classes up because their values have different padding.
+  -->
+
+  <rule id="BELOW_HUNDRED">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_B" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_B.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_B" tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_B.VALUE; } catch(e){} finally {};"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_B" tag="VALUE=FORM_NAT_TEEN_B.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_B" tag="_V1_1=FORM_NAT_TENS_B.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_B" tag="_V1_2=FORM_NAT_ONES_B.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ______________________
+  #########################################
+  ## hundreds (broken into part and whole #
+  ## to avoid ambiguities in currency)    #
+  ## e.g., "four hundred twelve"          #
+  #########################################
+  -->
+
+  <rule id="HUNDREDS">
+    <one-of>
+      <item>
+        <ruleref uri="#PART_HUNDREDS" tag="VALUE=PART_HUNDREDS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#WHOLE_HUNDREDS" tag="VALUE=WHOLE_HUNDREDS.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # In the following, FORM_NAT_AND_H is simply the word "and"
+  #                   FORM_NAT_HUNDRED_H is the word hundred
+  #                   FORM_NAT_ONES_H is a runtime class for ones that are used in counting hundreds
+   "six hundred and forty seven", "a hundred and forty seven"
+   "six hundred forty seven", "a hundred forty seven"
+   "hundred and forty seven"
+   "hundred forty seven"
+  -->
+
+  <rule id="PART_HUNDREDS">
+    <one-of>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+   "six hundred", "a hundred"
+   "hundred"
+  -->
+
+  <rule id="WHOLE_HUNDREDS">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_HUNDRED_H" tag="VALUE='1 0 0'; "/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0'); ">
+        <ruleref uri="#HUNDRED_COUNTER"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="HUNDRED_COUNTER">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_H" tag="VALUE=FORM_NAT_ONES_H.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_A_H" tag="VALUE=FORM_NAT_A_H.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  { $HUNDRED_COUNTER = a;
+    VALUE = 1;
+  }
+  #########################
+   TWO_DIG_HUNDREDS are things like fifteen hundred,
+   twenty seven hundred but not forty hundred. They are a special class
+   because they only get used on their own, not as counters for thousands or
+   millions (e.g., we don't say fifteen hundred thousand)
+   value padded with 0 to be consistent with THOUSANDS. I break them up
+   into whole hundreds and part hundreds to avoid some ambiguities with currency
+  -->
+
+  <rule id="TWO_DIG_HUNDREDS">
+    <one-of>
+      <item>
+        <ruleref uri="#TWO_DIG_PART_HUNDREDS" tag="VALUE=TWO_DIG_PART_HUNDREDS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#TWO_DIG_WHOLE_HUNDREDS" tag="VALUE=TWO_DIG_WHOLE_HUNDREDS.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+   "fifteen hundred and forty seven", "twenty seven hundred forty seven"
+   "fifteen hundred forty seven"
+  -->
+
+  <rule id="TWO_DIG_PART_HUNDREDS">
+    <one-of tag="VALUE='0 '; try {VALUE+=TWO_DIG_HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+      <item>
+        <ruleref uri="#TWO_DIG_HUNDRED_COUNTER"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item>
+        <ruleref uri="#TWO_DIG_HUNDRED_COUNTER"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--    "fifteen hundred" -->
+  <rule id="TWO_DIG_WHOLE_HUNDREDS">
+    <item tag="VALUE='0 '; try {VALUE+=TWO_DIG_HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0'); ">
+      <ruleref uri="#TWO_DIG_HUNDRED_COUNTER"/>
+      <ruleref uri="#FORM_NAT_HUNDRED_H"/>
+    </item>
+  </rule>
+  <rule id="TWO_DIG_HUNDRED_COUNTER">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_H" tag="VALUE=FORM_NAT_TEEN_H.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_H" tag="_V1_1=FORM_NAT_TENS_H.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_H" tag="_V1_2=FORM_NAT_ONES_H.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ########################################################################
+  ## THOUSANDS: Note that the forms with HUNDREDS_T and BELOW_HUNDRED_T ##
+  ##            are distinguished for the purposes of padding the value ##
+  ##            properly, which is especially important if this is to   ##
+  ##            be embedded into millions                               ##
+  ########################################################################
+  -->
+
+  <rule id="THOUSANDS">
+    <one-of>
+      <item>
+        <ruleref uri="#THOUSANDS_PART_H" tag="VALUE=THOUSANDS_PART_H.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#THOUSANDS_WHOLE_H" tag="VALUE=THOUSANDS_WHOLE_H.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # "six hundred forty seven thousand two hundred and twelve",
+  # "six hundred thousand two hundred and twelve",
+  # "six hundred thousand two hundred", etc.
+  # "forty seven thousand two hundred and twelve",
+  # "forty seven thousand two hundred", etc.
+  # "six hundred forty seven thousand and twelve
+  # "six hundred forty seven thousand twelve"
+  # "forty seven thousand and twelve"
+  # "forty seven thousand twelve"
+  # "thousand and twelve"
+  # "thousand twelve"
+  -->
+
+  <rule id="THOUSANDS_PART_H">
+    <one-of>
+      <item tag="VALUE='0 0 1 0 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        thousand 
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='0 0 1 0 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        thousand 
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+        thousand 
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+        thousand 
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDREDS_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDREDS_T"/>
+        thousand 
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDREDS_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDREDS_T"/>
+        thousand 
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=PART_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+        thousand 
+        <ruleref uri="#PART_HUNDREDS"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDREDS_T.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=PART_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDREDS_T"/>
+        thousand 
+        <ruleref uri="#PART_HUNDREDS"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # "thousand two hundred twelve", "thousand two hundred", etc.
+  # "six hundred forty seven thousand"
+  # "forty seven thousand"
+  # "thousand"
+  # "a thousand"
+  -->
+
+  <rule id="THOUSANDS_WHOLE_H">
+    <one-of>
+      <item tag="VALUE='0 0 1 0 0 0'; ">
+        <ruleref uri="#FORM_NAT_A_T"/>
+        thousand
+      </item>
+      <item tag="VALUE='0 0 1 0 0 0'; ">thousand</item>
+      <item tag="VALUE='0 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0'); ">
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+        thousand
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDREDS_T.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0'); ">
+        <ruleref uri="#HUNDREDS_T"/>
+        thousand
+      </item>
+      <item tag="VALUE='0 0 1 '; try {VALUE+=WHOLE_HUNDREDS.VALUE; } catch(e){} finally {};">
+        thousand 
+        <ruleref uri="#WHOLE_HUNDREDS"/>
+      </item>
+      <item tag="VALUE='0 0 1 '; try {VALUE+=PART_HUNDREDS.VALUE; } catch(e){} finally {};">
+        thousand 
+        <ruleref uri="#PART_HUNDREDS"/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=WHOLE_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+        thousand 
+        <ruleref uri="#WHOLE_HUNDREDS"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDREDS_T.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=WHOLE_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDREDS_T"/>
+        thousand 
+        <ruleref uri="#WHOLE_HUNDREDS"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  #########################################################################
+  ## I am replicating the hundreds grammar here but labelling it with a T
+  ## to denote its role as a "thousand" counter
+  #######################################################################
+  -->
+
+  <rule id="HUNDREDS_T">
+    <one-of>
+      <item>
+        <ruleref uri="#PART_HUNDREDS_T" tag="VALUE=PART_HUNDREDS_T.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#WHOLE_HUNDREDS_T" tag="VALUE=WHOLE_HUNDREDS_T.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # In the following, FORM_NAT_AND_H is simply the word "and"
+  #                   FORM_NAT_HUNDRED_H is the word hundred
+  #                   FORM_NAT_ONES_H is a runtime class for ones that are used in counting hundreds
+   "six hundred and forty seven (as in six hundred and forty seven thousand)"
+   "six hundred forty seven (as in six hundred forty seven thousand)"
+   "hundred and forty seven (as in hundred hundred and forty seven thousand)"
+   "hundred forty seven (as in hundred hundred forty seven thousand)"
+  -->
+
+  <rule id="PART_HUNDREDS_T">
+    <one-of>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_TH"/>
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+      </item>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_TH"/>
+        <ruleref uri="#FORM_NAT_AND_TH"/>
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_TH.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER_TH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_TH"/>
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_TH.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER_TH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_TH"/>
+        <ruleref uri="#FORM_NAT_AND_TH"/>
+        <ruleref uri="#BELOW_HUNDRED_T"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+   "six hundred" (as in six hundred thousand)
+   "hundred" as in hundred thousand
+  -->
+
+  <rule id="WHOLE_HUNDREDS_T">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_HUNDRED_TH" tag="VALUE='1 0 0'; "/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_TH.VALUE; } catch(e){} finally {};VALUE+=(' 0 0'); ">
+        <ruleref uri="#HUNDRED_COUNTER_TH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_TH"/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="HUNDRED_COUNTER_TH">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_TH" tag="VALUE=FORM_NAT_ONES_TH.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_A_TH" tag="VALUE=FORM_NAT_A_TH.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="BELOW_HUNDRED_T">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_TB" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_TB.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_TB" tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_TB.VALUE; } catch(e){} finally {};"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_TB" tag="VALUE=FORM_NAT_TEEN_TB.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_TB" tag="_V1_1=FORM_NAT_TENS_TB.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_TB" tag="_V1_2=FORM_NAT_ONES_TB.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ##############
+  ## MILLIONS ##
+  ##############
+  -->
+
+  <rule id="MILLIONS">
+    <one-of>
+      <item>
+        <ruleref uri="#MILLIONS_PART_H" tag="VALUE=MILLIONS_PART_H.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#MILLIONS_WHOLE_H" tag="VALUE=MILLIONS_WHOLE_H.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # "six hundred forty seven million two hundred twelve thousand five hundred
+  #  and forty two"
+  # "million two hundred twelve thousand five hundred and forty two"
+  # "six hundred forty seven million five hundred and forty two"
+  # "million five hundred and forty two"
+  # "six hundred forty seven million and forty two"
+  # "six hundred forty seven million forty two"
+  # "million and forty two"
+  # "million forty two"
+  -->
+
+  <rule id="MILLIONS_PART_H">
+    <one-of>
+      <item tag="VALUE='1 0 0 0 0 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        million 
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='1 0 0 0 0 '; try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        million 
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 0 '); try {VALUE+=BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#FORM_NAT_AND_H"/>
+        <ruleref uri="#BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE='1 0 0 0 '; try {VALUE+=PART_HUNDREDS.VALUE; } catch(e){} finally {};">
+        million 
+        <ruleref uri="#PART_HUNDREDS"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 '); try {VALUE+=PART_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#PART_HUNDREDS"/>
+      </item>
+      <item tag="VALUE='1 '; try {VALUE+=THOUSANDS_PART_H.VALUE; } catch(e){} finally {};">
+        million 
+        <ruleref uri="#THOUSANDS_PART_H"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=THOUSANDS_PART_H.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#THOUSANDS_PART_H"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # "six hundred forty seven million"
+  # "million"
+  -->
+
+  <rule id="MILLIONS_WHOLE_H">
+    <one-of>
+      <item tag="VALUE='1 0 0 0 0 0 0'; ">million</item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 0 0 0'); ">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 '); try {VALUE+=WHOLE_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#WHOLE_HUNDREDS"/>
+      </item>
+      <item tag="VALUE='1 '; try {VALUE+=THOUSANDS_WHOLE_H.VALUE; } catch(e){} finally {};">
+        million 
+        <ruleref uri="#THOUSANDS_WHOLE_H"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=THOUSANDS_WHOLE_H.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#MILLION_COUNTER"/>
+        million 
+        <ruleref uri="#THOUSANDS_WHOLE_H"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  #####
+  # "a" as in a million
+  -->
+
+  <rule id="MILLION_COUNTER">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_A_M" tag="VALUE='1'; "/>
+      </item>
+      <item>
+        <ruleref uri="#HUNDREDS_M" tag="VALUE=HUNDREDS_M.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#BELOW_HUNDRED_M" tag="VALUE=BELOW_HUNDRED_M.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ## I am replicating the hundreds grammar here but labelling it with M
+  ## to denote its role as a "thousand" counter
+  -->
+
+  <rule id="HUNDREDS_M">
+    <one-of>
+      <item>
+        <ruleref uri="#PART_HUNDREDS_M" tag="VALUE=PART_HUNDREDS_M.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#WHOLE_HUNDREDS_M" tag="VALUE=WHOLE_HUNDREDS_M.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # In the following, FORM_NAT_AND_H is simply the word "and"
+  #                   FORM_NAT_HUNDRED_H is the word hundred
+  #                   FORM_NAT_ONES_H is a runtime class for ones that are used in counting hundreds
+   "six hundred and forty seven (as in six hundred and forty seven million)"
+   "six hundred forty seven (as in six hundred forty seven million)"
+  -->
+
+  <rule id="PART_HUNDREDS_M">
+    <one-of>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED_M.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_MH"/>
+        <ruleref uri="#BELOW_HUNDRED_M"/>
+      </item>
+      <item tag="VALUE='1 '; try {VALUE+=BELOW_HUNDRED_M.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_HUNDRED_MH"/>
+        <ruleref uri="#FORM_NAT_AND_MH"/>
+        <ruleref uri="#BELOW_HUNDRED_M"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_MH.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED_M.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER_MH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_MH"/>
+        <ruleref uri="#BELOW_HUNDRED_M"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_MH.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=BELOW_HUNDRED_M.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#HUNDRED_COUNTER_MH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_MH"/>
+        <ruleref uri="#FORM_NAT_AND_MH"/>
+        <ruleref uri="#BELOW_HUNDRED_M"/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="WHOLE_HUNDREDS_M">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_HUNDRED_MH" tag="VALUE='1 0 0'; "/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=HUNDRED_COUNTER_MH.VALUE; } catch(e){} finally {};VALUE+=(' 0 0'); ">
+        <ruleref uri="#HUNDRED_COUNTER_MH"/>
+        <ruleref uri="#FORM_NAT_HUNDRED_MH"/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="HUNDRED_COUNTER_MH">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_MH" tag="VALUE=FORM_NAT_ONES_MH.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_A_MH" tag="VALUE=FORM_NAT_A_MH.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="BELOW_HUNDRED_M">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_MB" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_MB.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_ONES_MB" tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_MB.VALUE; } catch(e){} finally {};"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_MB" tag="VALUE=FORM_NAT_TEEN_MB.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_MB" tag="_V1_1=FORM_NAT_TENS_MB.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_MB" tag="_V1_2=FORM_NAT_ONES_MB.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ###############################
+  ## COLLOQUIAL NATURAL NUMBERS #
+  ###############################
+  # This does not include BELOW_HUNDRED since that is taken care of by
+  # form_natnum. It doesn't allow COLLOQ_BELOW_HUNDRED like oh four since people
+  # don't say stuff like that
+  # COLLOQ_NATNUM is a "parallel" grammar to FORM_NATNUM, which assumes that
+  # numbers are broken into three_digit sequences, with an exception made for
+  # things like "forty two twenty three = 4223".
+  # So numbers with four to six digits (100000 to 999999) are expressed
+  # as some number of thousands and a remainder. The "some number of thousands"
+  # is virtually the same grammmar as the remainder.  So for example,
+  # 123456 in this style would be spoken "one twenty three four fifty six"
+  # in colloquial form
+  # and "one hundred twenty three thousand four hundred fifty six" in formal form
+  # More idiosyncatic ways of breaking things up are not covered, for example
+  # you can't say twelve thirty four fifty six for 123456.
+  # Also, COLLOQ_NATNUM won't cover things like  "one oh four".That would
+  # be covered by a digits style for natural numbers. It puts some other
+  # constraints on how people can say numbers.
+  ####################################################################
+  ############################################
+  -->
+
+  <rule id="COLLOQ_NATNUM">
+    <one-of>
+      <item>
+        <ruleref uri="#COLLOQ_HUNDREDS" tag="VALUE=COLLOQ_HUNDREDS.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#COLLOQ_TWO_DIG_HUNDREDS" tag="VALUE=COLLOQ_TWO_DIG_HUNDREDS.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  #################################################################
+  # COLLOQ_THOSANDS like forty two five fifty two are not used much,
+  # and probably rarely with currencies so will be turned off. This will
+  # generate some warnings about non_terminals not visited
+  ####################################################################
+   $COLLOQ_NATNUM = $COLLOQ_THOUSANDS;
+  -->
+
+  <rule id="COLLOQ_HUNDREDS">
+    <item tag="VALUE=''; try {VALUE+=COLLOQ_HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=COLLOQ_BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+      <ruleref uri="#COLLOQ_HUNDRED_COUNTER"/>
+      <ruleref uri="#COLLOQ_BELOW_HUNDRED"/>
+    </item>
+  </rule>
+  <rule id="COLLOQ_HUNDRED_COUNTER">
+    <ruleref uri="#FORM_NAT_ONES_H" tag="VALUE=FORM_NAT_ONES_H.VALUE; "/>
+  </rule>
+
+  <!--
+  # "fifteen", "forty three"
+  # "oh three"
+  -->
+
+  <rule id="COLLOQ_BELOW_HUNDRED">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_B" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_B.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_B.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_ZERO_B"/>
+        <ruleref uri="#FORM_NAT_ONES_B"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_B" tag="VALUE=FORM_NAT_TEEN_B.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_B" tag="_V1_1=FORM_NAT_TENS_B.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_B" tag="_V1_2=FORM_NAT_ONES_B.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  #########################
+   COLLOQ_TWO_DIG_HUNDREDS are things like twelve twenty, forty twenty,
+   forty sevven twenty, etc.
+   They are a special class
+   because they only get used on their own, not as counters for thousands or
+   millions (e.g., we don't say fifteen hundred thousand)
+  ##################
+  -->
+
+  <rule id="COLLOQ_TWO_DIG_HUNDREDS">
+    <item tag="VALUE='0 '; try {VALUE+=COLLOQ_TWO_DIG_HUNDRED_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=COLLOQ_BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+      <ruleref uri="#COLLOQ_TWO_DIG_HUNDRED_COUNTER"/>
+      <ruleref uri="#COLLOQ_BELOW_HUNDRED"/>
+    </item>
+  </rule>
+
+  <!--   # Note that TENS are allowed here, unlike formal natnum -->
+  <rule id="COLLOQ_TWO_DIG_HUNDRED_COUNTER">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_H" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_H.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_H" tag="VALUE=FORM_NAT_TEEN_H.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEN_H" tag="VALUE=FORM_NAT_TEN_H.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_H" tag="_V1_1=FORM_NAT_TENS_H.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_H" tag="_V1_2=FORM_NAT_ONES_H.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  #########################
+  ##############
+  ## thousands #
+  ##############
+  # "five twenty five two seventy three"
+  # "five twenty five oh seventy three"
+  -->
+
+  <rule id="COLLOQ_THOUSANDS">
+    <one-of>
+      <item tag="VALUE=''; try {VALUE+=COLLOQ_THOUSAND_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 0 '); try {VALUE+=COLLOQ_BELOW_HUNDRED.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#COLLOQ_THOUSAND_COUNTER"/>
+        <ruleref uri="#FORM_NAT_ZERO_H"/>
+        <ruleref uri="#COLLOQ_BELOW_HUNDRED"/>
+      </item>
+      <item tag="VALUE=''; try {VALUE+=COLLOQ_THOUSAND_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=COLLOQ_HUNDREDS.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#COLLOQ_THOUSAND_COUNTER"/>
+        <ruleref uri="#COLLOQ_HUNDREDS"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  # Don't allow ones in the thousand counter.
+  # Disallow, for example, "one two ten". It does not sound right
+  # On the other hand, allow "one twenty five two ten"",
+  #                          "forty three two ten", "fifteen two ten"
+  -->
+
+  <rule id="COLLOQ_THOUSAND_COUNTER">
+    <one-of>
+      <item>
+        <ruleref uri="#COLLOQ_HUNDREDS_T" tag="VALUE=COLLOQ_HUNDREDS_T.VALUE; "/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_TB" tag="VALUE=FORM_NAT_TEEN_TB.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_TB" tag="_V1_1=FORM_NAT_TENS_TB.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_TB" tag="_V1_2=FORM_NAT_ONES_TB.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+  <rule id="COLLOQ_HUNDREDS_T">
+    <item tag="VALUE=''; try {VALUE+=COLLOQ_HUNDRED_COUNTER_TH.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=COLLOQ_BELOW_HUNDRED_T.VALUE; } catch(e){} finally {};">
+      <ruleref uri="#COLLOQ_HUNDRED_COUNTER_TH"/>
+      <ruleref uri="#COLLOQ_BELOW_HUNDRED_T"/>
+    </item>
+  </rule>
+  <rule id="COLLOQ_HUNDRED_COUNTER_TH">
+    <ruleref uri="#FORM_NAT_ONES_TH" tag="VALUE=FORM_NAT_ONES_TH.VALUE; "/>
+  </rule>
+
+  <!--
+  # "fifteen", "forty three"
+  # "oh three"
+  -->
+
+  <rule id="COLLOQ_BELOW_HUNDRED_T">
+    <one-of>
+      <item>
+        <ruleref uri="#FORM_NAT_TENS_TB" tag="VALUE=''; try {VALUE+=FORM_NAT_TENS_TB.VALUE; } catch(e){} finally {};VALUE+=(' 0'); "/>
+      </item>
+      <item tag="VALUE='0 '; try {VALUE+=FORM_NAT_ONES_TB.VALUE; } catch(e){} finally {};">
+        <ruleref uri="#FORM_NAT_ZERO_TB"/>
+        <ruleref uri="#FORM_NAT_ONES_TB"/>
+      </item>
+      <item>
+        <ruleref uri="#FORM_NAT_TEEN_TB" tag="VALUE=FORM_NAT_TEEN_TB.VALUE; "/>
+      </item>
+      <item tag="VALUE= _V1_1 + ' ' + _V1_2; ">
+        <ruleref uri="#FORM_NAT_TENS_TB" tag="_V1_1=FORM_NAT_TENS_TB.VALUE; "/>
+        <ruleref uri="#FORM_NAT_ONES_TB" tag="_V1_2=FORM_NAT_ONES_TB.VALUE; "/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ############################
+  # If you uncomment the following lines, you will allow "twenty two ten" to be
+  # interpreted as 20210. This will be an ambiguous path since the
+  # non_terminal $COLLOQ_TWO_DIG_HUNDREDS interprets this as 2210
+  {
+  
+  { $COLLOQ_THOUSAND_COUNTER = $FORM_NAT_TENS_TB;
+    VALUE = $FORM_NAT_TENS_TB 0;
+  }
+  ############################
+  ################################################################
+   DECIMAL NATURAL NUMBERS                                       #
+     These handle things like one point three million. Note that #
+     it will also allow things like one point oh zero million    #
+  ################################################################
+  -->
+
+  <rule id="DECIMAL_NATNUM">
+    <ruleref uri="#DECIMAL_MILLIONS" tag="VALUE=DECIMAL_MILLIONS.VALUE; "/>
+  </rule>
+
+  <!--
+  # "fifty seven point two million"
+  # "fifty seven point two three million"
+  -->
+
+  <rule id="DECIMAL_MILLIONS">
+    <one-of>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=FORM_NAT_DEC_M1.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=FORM_NAT_DEC_M2.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 0'); ">
+        <ruleref uri="#MILLION_COUNTER"/>
+        point 
+        <ruleref uri="#FORM_NAT_DEC_M1"/>
+        <ruleref uri="#FORM_NAT_DEC_M2"/>
+        million
+      </item>
+      <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE += ' '; try {VALUE+=FORM_NAT_DEC_M1.VALUE; } catch(e){} finally {};VALUE+=(' 0 0 0 0 0'); ">
+        <ruleref uri="#MILLION_COUNTER"/>
+        point 
+        <ruleref uri="#FORM_NAT_DEC_M1"/>
+        million
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ################################################################
+   FRACTIONAL NATURAL NUMBERS                                    #
+     This handles one and a half million                         #
+  ################################################################
+  -->
+
+  <rule id="FRACTIONAL_NATNUM">
+    <ruleref uri="#FRACTIONAL_MILLIONS" tag="VALUE=FRACTIONAL_MILLIONS.VALUE; "/>
+  </rule>
+
+  <!--   # "one and a half million" -->
+  <rule id="FRACTIONAL_MILLIONS">
+    <item tag="VALUE=''; try {VALUE+=MILLION_COUNTER.VALUE; } catch(e){} finally {};VALUE+=(' 5 0 0 0 0 0'); ">
+      <ruleref uri="#MILLION_COUNTER"/>
+      and_a_half million
+    </item>
+
+  </rule>
+
+  <!--
+  ###############
+  # LITERALS ####
+  ###############
+  #################
+  # Below hundred #
+  #################
+  -->
+
+  <rule id="FORM_NAT_TEEN_B">
+    <one-of>
+      <item tag="VALUE='19'; ">nineteen</item>
+      <item tag="VALUE='18'; ">eighteen</item>
+      <item tag="VALUE='17'; ">seventeen</item>
+      <item tag="VALUE='16'; ">sixteen</item>
+      <item tag="VALUE='15'; ">fifteen</item>
+      <item tag="VALUE='14'; ">fourteen</item>
+      <item tag="VALUE='13'; ">thirteen</item>
+      <item tag="VALUE='12'; ">twelve</item>
+      <item tag="VALUE='11'; ">eleven</item>
+      <item tag="VALUE='10'; ">ten</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TENS_B">
+    <one-of>
+      <item tag="VALUE='9'; ">ninety</item>
+      <item tag="VALUE='8'; ">eighty</item>
+      <item tag="VALUE='7'; ">seventy</item>
+      <item tag="VALUE='6'; ">sixty</item>
+      <item tag="VALUE='5'; ">fifty</item>
+      <item tag="VALUE='4'; ">forty</item>
+      <item tag="VALUE='3'; ">thirty</item>
+      <item tag="VALUE='2'; ">twenty</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_ONES_B">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_ZERO_B">
+    <one-of>
+      <item tag="VALUE='zero'; ">zero</item>
+      <item tag="VALUE='oh'; ">oh</item>
+    </one-of>
+  </rule>
+
+  <!--
+  ######################
+  # Hundreds counters ##
+  ######################
+  -->
+
+  <rule id="FORM_NAT_HUNDRED_H">
+    <item tag="VALUE='hundred'; ">hundred </item>
+
+  </rule>
+  <rule id="FORM_NAT_AND_H">
+    <item tag="VALUE='and'; ">and </item>
+
+  </rule>
+  <rule id="FORM_NAT_A_H">
+    <item tag="VALUE='1'; ">a </item>
+
+  </rule>
+  <rule id="FORM_NAT_ONES_H">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TEN_H">
+    <item tag="VALUE='10'; ">ten </item>
+
+  </rule>
+  <rule id="FORM_NAT_TEEN_H">
+    <one-of>
+      <item tag="VALUE='19'; ">nineteen</item>
+      <item tag="VALUE='18'; ">eighteen</item>
+      <item tag="VALUE='17'; ">seventeen</item>
+      <item tag="VALUE='16'; ">sixteen</item>
+      <item tag="VALUE='15'; ">fifteen</item>
+      <item tag="VALUE='14'; ">fourteen</item>
+      <item tag="VALUE='13'; ">thirteen</item>
+      <item tag="VALUE='12'; ">twelve</item>
+      <item tag="VALUE='11'; ">eleven</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TENS_H">
+    <one-of>
+      <item tag="VALUE='9'; ">ninety</item>
+      <item tag="VALUE='8'; ">eighty</item>
+      <item tag="VALUE='7'; ">seventy</item>
+      <item tag="VALUE='6'; ">sixty</item>
+      <item tag="VALUE='5'; ">fifty</item>
+      <item tag="VALUE='4'; ">forty</item>
+      <item tag="VALUE='3'; ">thirty</item>
+      <item tag="VALUE='2'; ">twenty</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_ZERO_H">
+    <one-of>
+      <item tag="VALUE='zero'; ">zero</item>
+      <item tag="VALUE='oh'; ">oh</item>
+    </one-of>
+  </rule>
+
+  <!--
+  #####################################
+  # Counters for hundreds of thousands #
+  #####################################
+  -->
+
+  <rule id="FORM_NAT_A_TH">
+    <item tag="VALUE='1'; ">a </item>
+
+  </rule>
+  <rule id="FORM_NAT_A_T">
+    <item tag="VALUE='1'; ">a </item>
+
+  </rule>
+  <rule id="FORM_NAT_AND_TH">
+    <item tag="VALUE='and'; ">and </item>
+
+  </rule>
+  <rule id="FORM_NAT_HUNDRED_TH">
+    <item tag="VALUE='hundred'; ">hundred </item>
+
+  </rule>
+  <rule id="FORM_NAT_ONES_TH">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+
+  <!--
+  ###########################
+  # Counters for thousands ##
+  ###########################
+  -->
+
+  <rule id="FORM_NAT_ONES_TB">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_ZERO_TB">
+    <one-of>
+      <item tag="VALUE='zero'; ">zero</item>
+      <item tag="VALUE='oh'; ">oh</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TEEN_TB">
+    <one-of>
+      <item tag="VALUE='19'; ">nineteen</item>
+      <item tag="VALUE='18'; ">eighteen</item>
+      <item tag="VALUE='17'; ">seventeen</item>
+      <item tag="VALUE='16'; ">sixteen</item>
+      <item tag="VALUE='15'; ">fifteen</item>
+      <item tag="VALUE='14'; ">fourteen</item>
+      <item tag="VALUE='13'; ">thirteen</item>
+      <item tag="VALUE='12'; ">twelve</item>
+      <item tag="VALUE='11'; ">eleven</item>
+      <item tag="VALUE='10'; ">ten</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TENS_TB">
+    <one-of>
+      <item tag="VALUE='9'; ">ninety</item>
+      <item tag="VALUE='8'; ">eighty</item>
+      <item tag="VALUE='7'; ">seventy</item>
+      <item tag="VALUE='6'; ">sixty</item>
+      <item tag="VALUE='5'; ">fifty</item>
+      <item tag="VALUE='4'; ">forty</item>
+      <item tag="VALUE='3'; ">thirty</item>
+      <item tag="VALUE='2'; ">twenty</item>
+    </one-of>
+  </rule>
+
+  <!--
+  #####################################
+  # Counters for hundreds of millions #
+  #####################################
+  -->
+
+  <rule id="FORM_NAT_A_MH">
+    <item tag="VALUE='1'; ">a </item>
+
+  </rule>
+  <rule id="FORM_NAT_A_M">
+    <item tag="VALUE='1'; ">a </item>
+
+  </rule>
+  <rule id="FORM_NAT_AND_MH">
+    <item tag="VALUE='and'; ">and </item>
+
+  </rule>
+  <rule id="FORM_NAT_HUNDRED_MH">
+    <item tag="VALUE='hundred'; ">hundred </item>
+
+  </rule>
+  <rule id="FORM_NAT_ONES_MH">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+
+  <!--
+  ###########################
+  # Counters for millions ##
+  ###########################
+  -->
+
+  <rule id="FORM_NAT_ONES_MB">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TEEN_MB">
+    <one-of>
+      <item tag="VALUE='19'; ">nineteen</item>
+      <item tag="VALUE='18'; ">eighteen</item>
+      <item tag="VALUE='17'; ">seventeen</item>
+      <item tag="VALUE='16'; ">sixteen</item>
+      <item tag="VALUE='15'; ">fifteen</item>
+      <item tag="VALUE='14'; ">fourteen</item>
+      <item tag="VALUE='13'; ">thirteen</item>
+      <item tag="VALUE='12'; ">twelve</item>
+      <item tag="VALUE='11'; ">eleven</item>
+      <item tag="VALUE='10'; ">ten</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_TENS_MB">
+    <one-of>
+      <item tag="VALUE='9'; ">ninety</item>
+      <item tag="VALUE='8'; ">eighty</item>
+      <item tag="VALUE='7'; ">seventy</item>
+      <item tag="VALUE='6'; ">sixty</item>
+      <item tag="VALUE='5'; ">fifty</item>
+      <item tag="VALUE='4'; ">forty</item>
+      <item tag="VALUE='3'; ">thirty</item>
+      <item tag="VALUE='2'; ">twenty</item>
+    </one-of>
+  </rule>
+  <rule id="ZERO">
+    <item tag="VALUE='0'; ">zero </item>
+
+  </rule>
+
+  <!--
+  ##################
+  # Decimal stuff ##
+  ##################
+  -->
+
+  <rule id="FORM_NAT_DEC_M1">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+      <item tag="VALUE='0'; ">oh</item>
+      <item tag="VALUE='0'; ">zero</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_DEC_M2">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+      <item tag="VALUE='0'; ">oh</item>
+      <item tag="VALUE='0'; ">zero</item>
+    </one-of>
+  </rule>
+ <rule id="FORM_NAT_DEC_ONES">
+    point
+    <ruleref uri="#FORM_NAT_DEC_TENTHS" 
+      tag="VALUE='.' + FORM_NAT_DEC_TENTHS.VALUE"/>
+    <count number="optional">
+       <ruleref uri="#FORM_NAT_DEC_HUNDREDTHS" 
+       tag="VALUE += FORM_NAT_DEC_HUNDREDTHS.VALUE"/>
+      <count number="optional">
+        <ruleref uri="#FORM_NAT_DEC_E" 
+        tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+        <count number="optional">
+          <ruleref uri="#FORM_NAT_DEC_E" 
+          tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+          <count number="optional">
+            <ruleref uri="#FORM_NAT_DEC_E" 
+             tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+            <count number="optional">
+              <ruleref uri="#FORM_NAT_DEC_E" 
+              tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+              <count number="optional">
+                <ruleref uri="#FORM_NAT_DEC_E" 
+                 tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+                <count number="optional">
+                  <ruleref uri="#FORM_NAT_DEC_E" 
+                   tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+                    <count number="optional">
+                      <ruleref uri="#FORM_NAT_DEC_E" 
+                       tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+                       <count number="optional">
+                         <ruleref uri="#FORM_NAT_DEC_E" 
+                          tag="VALUE += FORM_NAT_DEC_E.VALUE"/>
+                       </count>
+                     </count>
+                  </count>
+                </count>
+              </count>
+            </count>
+          </count>
+       </count>
+    </count>
+ </rule>
+  <rule id="FORM_NAT_DEC_TENTHS">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+      <item tag="VALUE='0'; ">oh</item>
+      <item tag="VALUE='0'; ">zero</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_DEC_HUNDREDTHS">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+      <item tag="VALUE='0'; ">oh</item>
+      <item tag="VALUE='0'; ">zero</item>
+    </one-of>
+  </rule>
+  <rule id="FORM_NAT_DEC_E">
+    <one-of>
+      <item tag="VALUE='9'; ">nine</item>
+      <item tag="VALUE='8'; ">eight</item>
+      <item tag="VALUE='7'; ">seven</item>
+      <item tag="VALUE='6'; ">six</item>
+      <item tag="VALUE='5'; ">five</item>
+      <item tag="VALUE='4'; ">four</item>
+      <item tag="VALUE='3'; ">three</item>
+      <item tag="VALUE='2'; ">two</item>
+      <item tag="VALUE='1'; ">one</item>
+      <item tag="VALUE='0'; " >oh</item>
+      <item tag="VALUE='0'; ">zero</item>
+    </one-of>
+  </rule>
+</grammar>

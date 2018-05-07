@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- ************************************************************
+        Copyright C 1995-2013 by Nuance Communications. All rights reserved.
+        Nuance Communications provides this document without representation or
+        warranty of any kind. Nuance Communications reserves the right to revise this
+        document and to change the information contained in this document without
+        further notice.
+
+        Generated from 
+  -->
+
+  <grammar  version="1.0" xml:lang="en-us" mode="dtmf" xmlns="http://www.w3.org/2001/06/grammar" tag-format="swi-semantics/1.0" root="DTMFDIGITS" >
+
+    <rule id="DTMFDIGITS" scope="public">
+      <one-of>
+        <item>
+          <tag>dm_command='dont_know';dm_confirmation_mode='NEVER';grammar_version='20130313';MEANING='dont_know';SWI_meaning='dont_know';</tag>
+          1
+        </item>
+
+        <item>
+          <ruleref uri="zipcode_dtmf.grxml#_zipcode"/><tag>
+
+           SWI_meaning = 'unset';
+           if(_zipcode.SWI_meaning) {SWI_meaning=_zipcode.SWI_meaning.substr(0,5)};
+          
+           dm_confirmation_mode='IF_NECESSARY';
+           dm_root = SWI_meaning;
+           grammar_version='20130313';
+           MEANING=SWI_meaning;
+         </tag>
+        </item>
+      </one-of>
+    </rule>
+</grammar>

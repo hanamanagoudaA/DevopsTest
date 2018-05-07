@@ -1,0 +1,191 @@
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>cl</short-name>
+    <uri>/WEB-INF/tld/calllog-utils.tld</uri>
+    <description>Tag library used to access some aspects of the NDF call logging functionality</description>
+    <tag>
+        <name>init</name>
+        <tag-class>com.nuance.framework.controller.tag.CallLogInitTag</tag-class>
+        <body-content>empty</body-content>
+        <description><![CDATA[<b>DEPRECATED</b> use callinit instead]]></description>
+    </tag>
+    <tag> 
+        <name>callinit</name>
+        <tag-class>com.nuance.framework.controller.tag.CallLogInitTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            <![CDATA[
+            <p><b>Note:</b>This tag was designed to work with data that is only collected when the /init URI is used to start the application (not the Initialization.dvxml)</p>
+            The following two tags are needed to be there for every single application module. So insert in the Initialization.jsp:
+            <ul>
+                <li>&lt;cl:callinit/&gt;</li>
+                <li>&lt;cl:callstart/&gt;</li>
+            </ul>
+            <p>As mentioned in the "Distributed Call Logging" specification there must be a marker for a call end. So insert the following tag in the Exit.jsp:</p>
+            <ul>
+                <li>&lt;cl:callend/&gt;</li>
+            </ul>
+            <p>Since that the Exit.jsp is executed only once, i.e. it is executed only in the case one of the following events occur:
+            hangup event, an error leading to hangup, or the application hangs the caller up. 
+            </p>
+            <p><b>Note:</b> the callend tag must not be used when transferring from one application module to another, which has to be done via the transit tag: &ltutil:transit .../&gt;</p>
+            <p>To allow using data created on the server the &lt;cl:callinit/&gt; tag is needed. 
+            In general the usage of the call log tags should be like the following also in that order:</p>
+            <ul>
+                <li>Use &lt;cl:callinit/&gt; to get data to the VoiceXML level</li>
+                <li>Update this data, e.g. update the applicationName.</li>
+                <li>Use &lt;cl:callstart/&gt; to start the call logging</li>
+                <li>The application runs and creates its call logs</li>
+                <li>Use &lt;cl:callend/&gt; at the end of the call </li>
+            </ul>
+            <p>Note that the &lt;cl:callstart/&gt; event should never hit the server again and create the SWIclst event using an ECMAScript function on the VoiceXML browser.</p>
+            <br><p><b>Attributes:</b> 
+            namelist    DataType: NMTOKEN
+            <br/>    
+            Description: The namelist attribute specifies a space-separated list of variables to send from the invoking application to the sessionstart.
+            logging_base_path   DataType: string-URI
+            <br/>     
+            Description: The logging_base_path attribute specifies the URI of the log files are stored
+            </p>
+            <b>Example:</b> <code>&lt;cl:callinit/&gt;</code>
+            ]]>
+        </description>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+              	<![CDATA[
+              	The namelist attribute specifies a space-separated list of variables to send to the server
+              	if specified. It will consider custom values set for <code>appsessionID</code>, 
+              	<code>appstepID</code>, <code>callLogStartTime</code>, <code>logURL</code>, 
+              	<code>logDataGetterURL</code> and <code>logDataSetterURL</code>.
+            	<p/>
+            	<b>Example:</b> <code>&lt;cl:callinit namelist="appsessionID"/&gt;</code>
+            	]]>
+            </description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>callstart</name>
+        <tag-class>com.nuance.framework.controller.tag.CallLogStartTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            <![CDATA[
+            <b>Purpose:</b> The callstart starts the call logging for one call and must 
+            be called exactly once at the beginning of the call. By default settings in 
+            the application-config.xml all logs are written to the directory set by the 
+            environment variable NUAN_APPLOGDIR. If this variable is not set, the logs 
+            are written to the application's working directory.
+            <p/>
+            The default location for call log storage is here:
+            <code>.../&lt;company&gt;/&lt;application&gt;/&lt;year&gt;/&lt;month&gt;/&lt;day&gt;/&lt;hour&gt;/APP-&lt;minute&gt;-&lt;second&gt;...-LOG&gt;</code>
+            <p/>
+            To change this location, etc use the <code>namelist</code> attribute of the 
+            <code>cl:callinit</code> tag
+            <p/><b>Example:</b> <code>&lt;cl:callstart/&gt;</code>
+            ]]>
+        </description>
+        <attribute>
+            <name>cond</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+	            <![CDATA[
+	            Used to supress logging the <code>SWIclst</code> event if multiple 
+	            application modules are used. Should only be used by NDF framework.
+	            <p/><b>Note:<b> Adding a condition which executes to <code>false</code>
+	            will damage the call log most likely!
+	            ]]>
+	        </description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>sessionstart</name>
+        <tag-class>com.nuance.framework.controller.tag.SessionstartTag</tag-class>
+        <body-content>empty</body-content>
+        <description><![CDATA[<b>DEPRECATED</b> use callinit and callstart instead!</p>]]></description>
+        <attribute>
+            <name>companyname</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[<b>DEPRECATED</b> use callinit and callstart tags instead]]></description>
+        </attribute>
+        <attribute>
+            <name>applicationname</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[<b>DEPRECATED</b> use callinit and callstart tags instead]]></description>
+        </attribute>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[<b>DEPRECATED</b> use callinit and callstart tags instead]]></description>
+		</attribute>
+        <attribute>
+            <name>logging_base_path</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[<b>DEPRECATED</b> use callinit and callstart tags instead]]></description>
+		</attribute>    
+    </tag>
+    <tag>
+        <name>sessionend</name>
+        <tag-class>com.nuance.framework.controller.tag.SessionendTag</tag-class>
+        <body-content>empty</body-content>
+        <description><![CDATA[<b>DEPRECATED</b> use the callend tag instead!]]></description>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description><![CDATA[<b>DEPRECATED</b> use the callend tag instead!]]></description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>callend</name>
+        <tag-class>com.nuance.framework.controller.tag.CallLogEndTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            <![CDATA[
+            <b>Purpose:</b> The callend element is a method for application context.
+            Ends the call logging for the call and must be called exactly once at the end of the call. 
+            No matter which call logging mode is used, at the end of each call the application needs
+            to update the model. Include the following lines in the application code on the exit.jsp
+            page: &lt;cl:callend/&gt;
+            <p/><b>Example:</b> <code>&lt;cl:callend/&gt;</code>
+            ]]>
+        </description>
+    </tag>
+    <tag>
+        <name>log</name>
+        <tag-class>com.nuance.framework.controller.tag.LogTag</tag-class>
+        <description>
+            <![CDATA[
+            <b>Purpose:</b>Logs the call logging data and should be used, when an application needs to send logs to the server(such as before any dialog module service tag).
+            <p/><b>usage:</b> <cl:log namelist>
+            <p/><b>Attributes:</b>namelist   DataType: CDATA   
+            Description: The namelist attribute specifies a space-separated list of variables to send from the invoking application to the Log.
+            NDF adds all necessary element to this list. Users should update the variables like
+            <code>appsessionID</code> and <code>logging_base_path</code> before calling the 
+            &lt;cl:callstart/&gt; tag instead of adding the values here.
+            <p/><b>Example:</b> <code>&lt;cl:log/&gt;</code>
+            ]]>
+        </description>
+        <attribute>
+            <name>namelist</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+                <![CDATA[
+                    List all names of variables which should be sent to the server for <b>additional data items</b>.
+                    For changing NDF system variables like application session id users should update the variables 
+                    like <code>appsessionID</code> and <code>logging_base_path</code> before calling the 
+                    &lt;cl:callstart/&gt; tag instead of adding the values here.
+                ]]>
+            </description>
+        </attribute>
+    </tag>        
+</taglib>

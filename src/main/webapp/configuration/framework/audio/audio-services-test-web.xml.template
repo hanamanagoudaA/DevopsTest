@@ -1,0 +1,12 @@
+    <!-- Start Test Servlet mapping for audio service. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/audio-service/Validator.html</url-pattern>
+    </servlet-mapping>
+	
+	<servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/audio-service/ExistingAudioFiles.html</url-pattern>
+    </servlet-mapping>
+    
+    <!-- End Test Servlet mapping for audio service. -->

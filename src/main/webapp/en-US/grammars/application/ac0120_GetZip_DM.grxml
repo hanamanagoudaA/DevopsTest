@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- ************************************************************
+        Copyright C 1995-2013 by Nuance Communications. All rights reserved.
+        Nuance Communications provides this document without representation or
+        warranty of any kind. Nuance Communications reserves the right to revise this
+        document and to change the information contained in this document without
+        further notice.
+
+        Generated from 
+   -->
+
+  <grammar  version="1.0" xml:lang="en-us" xmlns="http://www.w3.org/2001/06/grammar" tag-format="swi-semantics/1.0" root="_ROOT_" >
+
+    <meta name="swirec_compile_parser" content="1"/>
+
+    <rule id="_ROOT_" scope="public">
+    <one-of>
+        <item>
+          <ruleref uri="#command"/><tag>
+            if (SWI_vars.disallow) {
+              var disallow_arr = SWI_vars.disallow.split('^');
+              disallowList = SWI_vars.disallow;
+              for (var i=0; i &lt; disallow_arr.length; i++) {
+                if (command.SWI_meaning == disallow_arr[i]) {
+                  SWI_disallow=1;
+                  break;
+                }
+              }
+             }
+           if(command.SWI_meaning) {SWI_meaning=command.SWI_meaning};
+           if(command.dm_confirmation_mode) {dm_confirmation_mode=command.dm_confirmation_mode};
+           dm_command=command.SWI_meaning;
+           grammar_version='20130313';
+           MEANING=SWI_meaning;
+         </tag>
+        </item>
+
+        <item>
+          <ruleref uri="zipcode.grxml#_zipcode"/><tag>
+
+           SWI_meaning = 'unset';
+           if(_zipcode.SWI_meaning) {SWI_meaning=_zipcode.SWI_meaning.substr(0,5)};
+          
+           dm_confirmation_mode='IF_NECESSARY';
+           dm_confirm_string = SWI_meaning;
+           dm_root = SWI_meaning;
+           grammar_version='20130313';
+           MEANING=SWI_meaning;
+         </tag>
+        </item>
+      </one-of>
+    </rule>
+
+    <rule id="command" scope="public">
+     <one-of>
+        <item>
+         <tag>SWI_meaning='dont_know';</tag>
+         <one-of>
+
+            <!-- don't have -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                don't have
+            </item>
+
+            <!-- don't have it -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                don't have it
+            </item>
+
+            <!-- don't know -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                don't know
+            </item>
+
+            <!-- don't know it -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                don't know it
+            </item>
+
+            <!-- i don't have -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                i don't have
+            </item>
+
+            <!-- i don't have it -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                i don't have it
+            </item>
+
+            <!-- i don't know -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                i don't know
+            </item>
+
+            <!-- i don't know it -->
+            <item>
+                <tag>dm_confirmation_mode='NEVER'; </tag>
+                i don't know it
+            </item>
+         </one-of>
+        </item>
+     </one-of>
+    </rule>
+</grammar>

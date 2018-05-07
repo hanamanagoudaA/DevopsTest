@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-access-library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <data-access-universal>
+        <source></source>
+        <extension>dataaccess</extension>
+        <method>post</method>
+        <fetchTimeout>30s</fetchTimeout>
+    </data-access-universal>
+</data-access-library>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+====================================================================================
+| Filename $Id: request-processor-settings.xsd,v 1.2 2008/08/20 20:49:39 adalton Exp $
+|
+| Copyright     Nuance Communications, Inc.
+|
+| Note:         Nuance Source Code File
+|               Notice and Disclaimer of Liability
+|
+|               This source code software is provided to the user as an example
+|				of a VoiceXML application developed with the Nuance framework
+|				Software. This source code software has not been fully tested
+|				and may contain errors.  NUANCE PROVIDES THIS SOFTWARE ON AN
+|				"AS IS' BASIS, AND DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR
+|				IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+|				FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+|
+| Revision History
+| $Log: request-processor-settings.xsd,v $
+| Revision 1.2  2008/08/20 20:49:39  adalton
+| nf1-0014 - Added changes to build schema files using JAXB and the code to load and validate the applicaiton configuration.
+|
+| Revision 1.1  2008/08/08 15:36:44  jguiller
+| nf1-0000 - Initial commit in CVS.  This is the initial temporary code base in
+| CVS.  It will eventually reside in ClearCase.  It consists in the detailed design
+| version of all classes and files.  Some contain implementation; some contain
+| pseudocode; almost all are documented.
+|
+====================================================================================
+-->
+<xsd:schema targetNamespace="http://www.nuance.com/framework/controller/xml/configuration/request-processors"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://www.nuance.com/framework/controller/xml/configuration/request-processors" 
+			elementFormDefault="qualified">
+
+<xsd:element name="request-processors" type="tns:RequestProcessorsType"/>
+
+	<xsd:complexType name="RequestProcessorsType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="request-processor"
+				type="tns:RequestProcessorType" />
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="RequestProcessorType">
+		<xsd:sequence minOccurs="1" maxOccurs="1">
+			<xsd:element name="classname" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+	</xsd:complexType>
+
+</xsd:schema>

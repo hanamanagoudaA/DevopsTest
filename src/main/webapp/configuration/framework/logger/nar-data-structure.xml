@@ -1,0 +1,146 @@
+
+<!--nar-data-structure.xml-->
+
+<nar-data-structure>
+    <head>
+		<param>swiclst.time</param>
+		<param>swiclst.chan</param>
+		<param>swiclst.sesn</param>
+		<param>swiclst.svnm</param>
+		<param>swiclst.browserip</param>
+		<param>swiclst.dnis</param>
+		<param>swiclst.ani</param>
+		<param>swisvst.svnm</param>
+		<param>swisvst.appserv</param>
+		<param>oscl.osle</param>
+		<param>swiunid.unid</param>
+    </head>
+	
+	<data>
+		<playprompt>
+			<param>swippst.ppnm</param>
+			<param>swippnd.rslt</param>
+			
+			<swiprst>
+				<param>time</param>
+				<param>prnm</param>
+				<param>prtxt</param>
+				<param>prtx</param>				
+				
+				<prtx>
+					<param>name</param>
+					<param>type</param>
+					
+					<type-value>
+						<one-of>
+							<value>fix</value>
+							<value>val</value>
+						</one-of>
+					</type-value>
+				</prtx>
+			</swiprst>
+		</playprompt>
+		
+		<dialogmodule>
+			<param>swidmst.dmnm</param>
+			<param>swidmnd.time</param>
+			<param>swidmnd.tstt</param>
+			<param>swidmnd.trtt</param>
+
+			<phase>
+				<param>swiphnd.time</param>
+				<param>swiphnd.tstt</param>
+			
+				<try>
+					<param>swityst.time</param>
+					<param>swityst.role</param>
+					<param>switynd.time</param>
+					<param>switynd.hypo</param>
+					<param>switynd.dcsn</param>
+					
+					<swiprst>
+						<param>time</param>
+						<param>prnm</param>
+						<param>prtxt</param>
+						<param>prtx</param>
+						
+						<prtx>
+							<param>name</param>
+							<param>type</param>
+							
+							<type-value>
+								<one-of>
+									<value>fix</value>
+									<value>var</value>
+								</one-of>
+							</type-value>
+						</prtx>
+					</swiprst>
+					
+					<step>
+						<param>swistst.time</param>
+						<param>swistst.role</param>
+						<param>swistst.grnm</param>
+						<param>swistnd.time</param>
+						<param>swistnd.rdec</param>
+						<param>swistnd.mode</param>
+						<param>swistnd.rval</param>
+						<param>swistnd.conf</param>
+						<param>swistnd.cdec</param>
+						
+						<swistnd.rval>
+							<param>description</param>
+						</swistnd.rval>
+						
+						<swistst.grnm>
+							<param>grammar</param>
+						</swistst.grnm>
+					</step>
+				</try>
+			</phase>
+		</dialogmodule>
+		
+		<decisionstate>
+			<param>swidsst.dsnm</param>
+			<param>swidsnd.rslt</param>
+		</decisionstate>
+		
+		<database>
+			<param>swidbtx.time</param>
+			<param>swidbtx.name</param>	
+			<param>swidbtx.serv</param>
+			<param>swidbtx.input</param>				
+			<param>swidbrx.rslt</param>
+			<param>swidbrx.resn</param>
+			<param>swidbrx.output</param>
+		</database>
+	
+		<transaction>
+			<param>switrxb.time</param>
+			<param>switrxb.name</param>
+			<param>switrxe.rslt</param>
+			<param>switrxe.resn</param>
+			<param>switrxe.info</param>
+		</transaction>
+	</data>
+	
+	<tail>
+		<param>switrfr.time</param>
+		<param>switrfr.resn</param>
+		<param>switrfr.info</param>
+		<param>error.time</param>
+		<param>error.node</param>
+		<param>error.error</param>
+		<param>error.message</param>
+		<param>error.info</param>
+		<param>swicllr.clid</param>
+		<param>swicllr.grp1</param>
+		<param>swicllr.grp2</param>
+		<param>swicllr.grp3</param>
+		<param>swicllr.grp4</param>
+		<param>swiendcall.time</param>
+		<param>swiendcall.outcome</param>
+		<param>swiendcall.exitresn</param>
+		<param>swiclnd.time</param>
+	</tail>
+</nar-data-structure>

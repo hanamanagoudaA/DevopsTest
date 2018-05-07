@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="DataAccess">
+        <list>
+            <value>/configuration/application/dataaccess/dataaccess-config.xml</value>
+        </list>
+    </parameter>
+
+    <parameter name="EnableDataAccessCallTracking">
+        <value>true</value>
+    </parameter>
+    
+    <parameter name="EnableDataAccessInputCallTracking">
+        <value>true</value>
+    </parameter>
+    
+    <parameter name="EnableDataAccessOutputCallTracking">
+        <value>true</value>
+    </parameter>
+    
+    <parameter name="DataAccessView">
+        <value>DataAccessView</value>
+    </parameter>
+    
+    
+    <parameter name="ClientType">
+        <value>WS</value> <!--  WS|MOCK -->
+    </parameter>
+    
+   
+    
+</application-config>

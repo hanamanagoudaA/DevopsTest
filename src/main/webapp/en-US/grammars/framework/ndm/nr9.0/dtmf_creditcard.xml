@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" mode="dtmf" version="1.0" root="_creditcard" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2006 Nuance Communications, Inc.
+   All Rights Reserved.
+
+    Credit card grammar
+-->
+
+<meta name="swirec_compile_parser" content="1"/>
+
+  <rule id="_creditcard" scope="public">
+    <ruleref uri="#CREDITCARD"
+     tag="SWI_meaning = CREDITCARD.SWI_literal.replace(/[ ]+/g, '');
+          var mask = [ 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 ];
+          var sum = 0;
+          var double_the_value = 0;                /* start with check digit */
+        /* move from end to start */
+          var i;
+          var add;
+          var allowed;
+          for (i=SWI_meaning.length - 1;i &gt;= 0; i--) {
+             add = parseInt(SWI_meaning[i], 10);  /* get value at index i */
+             sum += double_the_value ? parseInt(mask[add], 10) : add;  /* increase sum */
+             double_the_value = !double_the_value;
+          }
+          if (sum % 10 != 0) SWI_disallow = 1;
+          CARDTYPE=CREDITCARD.CARDTYPE;
+          if (CARDTYPE == 'private' &amp;&amp;
+               (SWI_meaning.match (/^4/) ||
+	        SWI_meaning.match (/^5/) ||
+		SWI_meaning.match (/^34/) ||
+		SWI_meaning.match (/^37/) ||
+		SWI_meaning.match (/^30/) ||
+		SWI_meaning.match (/^38/) ||
+		SWI_meaning.match (/^36/) ||
+		SWI_meaning.match (/^6011/))) SWI_disallow=1;
+
+	  allowed = SWI_vars.typesallowed ?
+             SWI_vars.typesallowed.toLowerCase() :
+              'visa+mastercard+amex+dinersclub+discover+private';
+          if (!allowed ||
+              allowed.indexOf (CARDTYPE) == -1) SWI_disallow=1;
+          dm_root=SWI_meaning;
+
+         "/>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Credit Card types supported:
+   _ American Express: (34|37)XXXXXXXXXXXXX
+   _ Diner's Club:     (30|36|38)XXXXXXXXXXXX
+   _ Discover:         6011XXXXXXXXXXXX[X[X[X]]]
+   _ Mastercard:       5[XXX]XXXXXXXXXXXX[X[X[X]]]
+   _ Private:          XXXXXXXXXX[X[X[X[X[X[X[X[X[X]]]]]]]]]
+   _ Visa              4[XXX]XXXXXXXXXXXX
+  ##############################################################################
+  -->
+
+  <rule id="CREDITCARD">
+    <one-of>
+      <item>
+        <ruleref uri="#ACC_NUMBER_VISA"
+          tag="V=ACC_NUMBER_VISA.V; CARDTYPE='visa'"/>
+      </item>
+      <item>
+        <ruleref uri="#ACC_NUMBER_MASTERCARD"
+              tag="V=ACC_NUMBER_MASTERCARD.V; CARDTYPE='mastercard'"/>
+      </item>
+      <item>
+        <ruleref uri="#ACC_NUMBER_DISCOVER"
+           tag="V=ACC_NUMBER_DISCOVER.V; CARDTYPE='discover'"/>
+      </item>
+      <item>
+        <ruleref uri="#ACC_NUMBER_DINERSCLUB"
+         tag="V=ACC_NUMBER_DINERSCLUB.V; CARDTYPE='dinersclub'"/>
+      </item>
+      <item>
+        <ruleref uri="#ACC_NUMBER_AMEX"
+         tag="V=ACC_NUMBER_AMEX.V; CARDTYPE='amex'"/>
+      </item>
+      <item>
+        <ruleref uri="#ACC_NUMBER_PRIVATE"
+          tag="V=ACC_NUMBER_PRIVATE.V; CARDTYPE='private'"/>
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+   American Express: starting with '34' or '37', grouped as 4/6/5 (15 total)
+  -->
+
+  <rule id="ACC_NUMBER_AMEX">
+    <ruleref uri="#IIN_2_AMEX"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+  </rule>
+  <rule id="IIN_2_AMEX">
+    <one-of>
+      <item>3 7</item>
+      <item>3 4</item>
+    </one-of>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Diner's Club: starting with '30', '36', or '38', grouped as 4/4/4/2 (14 tot.)
+  -->
+
+  <rule id="ACC_NUMBER_DINERSCLUB">
+    <ruleref uri="#IIN_2_DINERSCLUB"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+  </rule>
+  <rule id="IIN_2_DINERSCLUB">
+    <one-of>
+      <item>
+        3 8
+      </item>
+      <item>
+        3 6
+      </item>
+      <item>
+        3 0
+      </item>
+    </one-of>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Discover: starting with '6011', grouped as 4/4/4/4 (16 total)
+  -->
+  <rule id="ACC_NUMBER_DISCOVER">
+    <ruleref uri="#IIN_4_DISCOVER"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+  </rule>
+  <rule id="IIN_4_DISCOVER">
+    <item>
+     6 0 1 1
+    </item>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Mastercard: starting with '5', grouped as 4/4/4/4 or 4/3/3/3 (16 or 13 total)
+  -->
+
+  <rule id="ACC_NUMBER_MASTERCARD">
+    <ruleref uri="#IIN_1_MASTERCARD"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <count number="optional">
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+    </count>
+  </rule>
+  <rule id="IIN_1_MASTERCARD">
+    <item>5</item>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Private: start sequence unknown, acc. number length between 10 and 16 digits
+  -->
+
+  <rule id="ACC_NUMBER_PRIVATE">
+    <ruleref uri="#DIGIT"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <count number="optional">
+      <ruleref uri="#DIGIT" />
+      <count number="optional">
+        <ruleref uri="#DIGIT" />
+        <count number="optional">
+          <ruleref uri="#DIGIT" />
+          <count number="optional">
+            <ruleref uri="#DIGIT" />
+            <count number="optional">
+              <ruleref uri="#DIGIT" />
+               <count number="optional">
+                 <ruleref uri="#DIGIT" />
+               </count>
+            </count>
+          </count>
+        </count>
+      </count>
+    </count>
+  </rule>
+
+  <!--
+  ##############################################################################
+   Visa:	starting with '4', grouped as 4/4/4/4 or 4/3/3/3 (16 or 13 digits total)
+  -->
+
+  <rule id="ACC_NUMBER_VISA">
+    <ruleref uri="#IIN_1_VISA"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <count number="optional">
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+    </count>
+  </rule>
+  <rule id="IIN_1_VISA">
+    <item>4</item>
+  </rule>
+
+  <!--   ############################################################################## -->
+  <rule id="DIGIT">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+    </one-of>
+  </rule>
+</grammar>
+
+
+

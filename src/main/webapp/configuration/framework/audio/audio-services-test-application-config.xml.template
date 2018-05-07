@@ -1,0 +1,10 @@
+	<!-- Start audio service jsp validation configuration -->
+	<parameter name="audio.service.jsp.validator" xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+        <map>
+            <parameter name="jspsToValidate">
+            	<list>
+                	<value>/dialogs/application</value>
+                </list>
+            </parameter>
+        </map>
+    </parameter>

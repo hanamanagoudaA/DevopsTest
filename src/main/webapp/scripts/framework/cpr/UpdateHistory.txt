@@ -1,0 +1,5 @@
+[Build Information]
+Company:     Nuance, Inc.
+Application: CPR
+Version:     2.3.2
+Date:        Mar 17, 2010

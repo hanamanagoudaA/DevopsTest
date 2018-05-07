@@ -1,0 +1,36 @@
+<com.nuance.catamaran.dataaccess.objects.CallerDetails>
+    <aniMatchFound>single_match</aniMatchFound>
+	<memberFound>single_match</memberFound>
+ 	<memberInformation>
+    	<patientID>445</patientID>
+    	<dateOfBirth>19440411</dateOfBirth>
+    	<zipCode>01720</zipCode>
+    	<firstName>JR</firstName>
+    	<lastName>McLaughlin</lastName>
+    	<proactiveAlertType>refill</proactiveAlertType>
+    	<rxNumberList>		
+    		<string>12345678</string>
+			<string>23456789</string>
+			<string>34567890</string>
+    	</rxNumberList>
+    	<creditCardInfo>    		
+      		<com.nuance.catamaran.dataaccess.data.CreditCardInfo>
+        		<cardType>visa</cardType>
+        		<cardLast4Number>2345</cardLast4Number>
+        		<isCardExpired>false</isCardExpired>
+        		<isCardPreferred>true</isCardPreferred>
+      		</com.nuance.catamaran.dataaccess.data.CreditCardInfo>
+    	</creditCardInfo>
+    	<postalAddressInfo>
+      		<com.nuance.catamaran.dataaccess.data.PostalAddressInfo>
+        		<houseNumber>5441</houseNumber>
+        		<streetName>Virginia Ave</streetName>
+        		<zipCode>01720</zipCode>
+        		<city>Phoenix</city>
+        		<state>AZ</state>
+        		<isUSPSValidated>true</isUSPSValidated>
+        		<isPermanent>true</isPermanent>
+      		</com.nuance.catamaran.dataaccess.data.PostalAddressInfo>
+    	</postalAddressInfo>
+  	</memberInformation>
+</com.nuance.catamaran.dataaccess.objects.CallerDetails>

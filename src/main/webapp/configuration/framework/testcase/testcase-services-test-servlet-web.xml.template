@@ -1,0 +1,6 @@
+    <!-- Start Testcase configuration. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/data-access-service/RegressionTest.html</url-pattern>
+    </servlet-mapping>
+    <!-- End Testcase configuration. -->

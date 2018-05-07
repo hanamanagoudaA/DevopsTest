@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ds="urn:jsptld:/WEB-INF/tld/data-access-service.tld"
+	xmlns:as="urn:jsptld:/WEB-INF/tld/audio-service.tld"
+	xmlns:util="urn:jsptld:/WEB-INF/tld/ndf-utils.tld"
+	xmlns:rs="urn:jsptld:/WEB-INF/tld/recognition-service.tld"
+	version="1.2">
+
+	<jsp:directive.page contentType="text/xml" />
+	<jsp:directive.page session="false" />
+
+	<util:vxml pageName="Goodbye.jsp" cacheable="true" rootRequired="true">
+		<util:form id="goodbye">
+			<util:block>
+			    <!-- the goodbye prompt
+	            <as:audio id="sa0015_Goodbye_p001" stateId="sa0015_Goodbye"/>
+	            -->
+			    <!--  could have done it this way since id will be logged as the state id as well
+	            <as:audio id="sa0015_Goodbye"/>
+	            -->
+	            
+	            <!-- add application specific prompts here --> 
+	            <!--$goodbye_prompt-->
+			
+	            <script>
+                	updateCallOutcomeReason(APP_HUNG_UP, COMPLETE);
+                </script>  
+				
+				<goto next="#PromptBeforeTransfer"/>
+			</util:block>
+		</util:form>
+
+		<util:form id="PromptBeforeTransfer">
+			<rs:recognition id="ForcePromptQueueBeforeExiting" calltracking="true">
+				<prompt timeout="50ms"> </prompt>
+				<rs:catch event="noinput">
+					<goto next="#end"/>
+				</rs:catch>
+				<rs:catch event="nomatch">
+					<goto next="#end"/>
+				</rs:catch>
+			</rs:recognition>
+
+			<util:block>
+                <goto next="#end"/>
+			</util:block>
+		</util:form>
+
+		<util:form id="end">
+			<util:block>
+				<util:submit next="exit"/>
+			</util:block>
+		</util:form>
+		
+	</util:vxml>
+</jsp:root>

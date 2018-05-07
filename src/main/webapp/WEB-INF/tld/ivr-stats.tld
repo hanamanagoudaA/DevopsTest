@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+    <tlib-version>1.0</tlib-version>
+    <short-name>stats</short-name>
+    <uri>/WEB-INF/tlds/stats</uri>
+    
+    <tag>
+        <name>init</name>
+        <tag-class>com.nuance.catamaran.ivrstats.InitStatsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>cfp</name>
+        <tag-class>com.nuance.catamaran.ivrstats.CallFlowPointTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <name>cfs</name>
+        <tag-class>com.nuance.catamaran.ivrstats.CallFlowStatTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    
+    <tag>
+        <name>record</name>
+        <tag-class>com.nuance.catamaran.ivrstats.RecordStatTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+</taglib>

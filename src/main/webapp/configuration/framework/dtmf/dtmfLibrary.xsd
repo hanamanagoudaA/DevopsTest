@@ -1,0 +1,301 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0">
+
+	<xsd:annotation>
+		<xsd:documentation xml:lang="en"></xsd:documentation>
+	</xsd:annotation>
+
+	<xsd:annotation>
+		<xsd:appinfo>
+			<jaxb:globalBindings generateIsSetMethod="true">
+				<xjc:serializable />
+			</jaxb:globalBindings>
+			<jaxb:schemaBindings>
+				<jaxb:package
+					name="com.nuance.framework.vxml.service.dialog.dtmf.content" />
+			</jaxb:schemaBindings>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+	<xsd:element name="dialog-library" type="DialogLibraryType"/>
+	
+	<xsd:complexType name="DialogLibraryType">
+		<xsd:sequence>
+			<xsd:element name="dialog-universals"
+				type="DialogUniversalsSet" minOccurs="0" maxOccurs="1" />
+			<xsd:element name="dialog-states" type="DialogStateSet" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						Parent tag for dialog. Contains a list of all	dialogs.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+		<xsd:attribute name="language" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="DialogUniversalsSet">
+		<xsd:sequence>
+			<xsd:element name="dialog-universal" type="DialogUniversal"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DialogUniversal">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Contains a list of dialog information common to all	dialogs.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence id="universalsSequence">
+			<xsd:element name="properties" type="PropertySet"
+				minOccurs="0" />
+			<xsd:element name="grammars" type="GrammarSet"
+				minOccurs="0" />
+			<xsd:element name="nomatch1-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="nomatch2-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="nomatch3-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput1-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput2-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput3-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="max-noinput" type="Attempts"
+				minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="max-nomatch" type="Attempts"
+				minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="max-tries" type="Attempts" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="universal-reco-options"
+				type="UniversalRecoOptionsSet" minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="type" default="universal">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="universal" />
+					<xsd:enumeration value="menu" />
+					<xsd:enumeration value="input" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="re-use-initial-prompt">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="true" />
+                    <xsd:enumeration value="false" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="UniversalRecoOptionsSet">
+		<xsd:sequence>
+			<xsd:element name="universal-reco-option"
+				type="UniversalRecoOption" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="UniversalRecoOption">
+		<xsd:attribute name="value" type="xsd:string" use="required" />
+		<xsd:attribute name="key" type="xsd:string" />
+		<xsd:attribute name="page" type="xsd:string" />
+		<xsd:attribute name="form" type="xsd:string" />
+		<xsd:attribute name="expr" type="xsd:string" />
+		<xsd:attribute name="namelist" type="xsd:string" />
+		<xsd:attribute name="repeat" type="xsd:boolean" default="false"
+			use="optional" />
+	</xsd:complexType>
+
+	<xsd:complexType name="RecoOptionsSet">
+		<xsd:sequence>
+			<xsd:element name="reco-option" type="RecoOption"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RecoOption">
+		<xsd:attribute name="value" type="xsd:string" use="required" />
+		<xsd:attribute name="key" type="xsd:string" />
+		<xsd:attribute name="cond" type="xsd:string" />
+		<xsd:attribute name="prompt" type="xsd:string" />
+		<xsd:attribute name="repeat" type="xsd:boolean" default="false"
+			use="optional" />
+	</xsd:complexType>
+
+
+	<xsd:complexType name="DialogStateSet">
+		<xsd:sequence>
+			<xsd:element name="dialog-state" type="DialogState"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DialogState">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="en">
+				Contains a set of tags that define this dialog state.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="properties" type="PropertySet"
+				minOccurs="0" />
+			<xsd:element name="grammars" type="GrammarSet"
+				minOccurs="0" />
+			<xsd:element name="pre-initial-prompt" type="Audio"
+                minOccurs="0" />
+            <xsd:element name="initial-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="post-initial-prompt" type="Audio"
+                minOccurs="0" />
+            <xsd:element name="nomatch1-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="nomatch2-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="nomatch3-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput1-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput2-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="noinput3-prompt" type="Audio"
+				minOccurs="0" />
+			<xsd:element name="max-noinput" type="Attempts"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="max-nomatch" type="Attempts"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="max-tries" type="Attempts" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element name="reco-options" type="RecoOptionsSet"
+				minOccurs="0" />
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string" use="required" />
+		<xsd:attribute name="type">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="menu" />
+					<xsd:enumeration value="input" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="disable-universals" type="xsd:boolean"
+			default="false" use="optional" />
+		<xsd:attribute name="mask-calltracking" type="xsd:boolean"
+			default="false" use="optional" />
+	    <xsd:attribute name="re-use-initial-prompt">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="true" />
+                    <xsd:enumeration value="false" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="GrammarSet">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="grammar" type="Grammar" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Grammar">
+	   <xsd:sequence>
+	       <xsd:element name="param" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+                <xsd:attribute name="name" type="xsd:string" use="required" />
+                <xsd:attribute name="value" type="xsd:string"/>
+                <xsd:attribute name="path" type="xsd:string" use="optional"/>
+                <xsd:attribute name="scope" use="optional">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="request" />
+                            <xsd:enumeration value="session" />
+                            <xsd:enumeration value="context" />
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+		<xsd:attribute name="mode" default="voice">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:string">
+					<xsd:enumeration value="voice" />
+					<xsd:enumeration value="dtmf" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="src" type="xsd:string" use="optional" />
+		<xsd:attribute name="srcexpr" type="xsd:string" use="optional" />
+	</xsd:complexType>
+
+	<xsd:complexType name="PropertySet">
+		<xsd:sequence>
+			<xsd:element name="confidence-low" minOccurs="0"
+				maxOccurs="1" default="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The value for the low confidence threshold.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:float">
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="100" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="confidence-med" minOccurs="0"
+				maxOccurs="1" default="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The value for the medium confidence threshold.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:float">
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="100" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="confidence-high" minOccurs="0"
+				maxOccurs="1" default="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The value for the high confidence threshold.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:float">
+						<xsd:minInclusive value="0" />
+						<xsd:maxInclusive value="100" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="property" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="value" type="xsd:string"
+						use="required" />
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Audio">
+		<xsd:attribute name="id" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="Attempts">
+		<xsd:attribute name="value" type="xsd:int" use="required" />
+	</xsd:complexType>
+
+</xsd:schema>

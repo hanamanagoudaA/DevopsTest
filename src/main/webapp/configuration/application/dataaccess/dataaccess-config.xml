@@ -1,0 +1,874 @@
+<data-access-library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <data-access-universal>    
+        <source/>
+        <extension>dataaccess</extension>
+        <method>post</method>
+        <fetchTimeout>120s</fetchTimeout>
+    </data-access-universal>
+    <data-access-states>
+
+        <data-access-state id="DataAccessTester" classname="com.nuance.catamaran.dataaccess.DataAccessTester">           
+            <inputs>
+                <input-variable name="ucid" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>  
+              
+        <data-access-state id="ca0100_GetProfileByTFN_DB" classname="com.nuance.catamaran.dataaccess.GetProfileByTFN">
+            <inputs>
+                <input-variable name="ani" secure_context="open"/>
+                <input-variable name="dnis" secure_context="open"/>
+                <input-variable name="ucid" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+                <output-variable name="ani" secure_context="open"/>
+                <output-variable name="tfn" secure_context="open"/>
+                <output-variable name="Client_Name" secure_context="open"/>
+                <output-variable name="Line_Of_Business" secure_context="open"/>
+                <output-variable name="Greeting" secure_context="open"/>
+                <output-variable name="Greeting_Transcript" secure_context="open"/>
+                <output-variable name="Default_Language" secure_context="open"/>
+                <output-variable name="Offer_Language_Selection" secure_context="open"/>
+                <output-variable name="Xfer_Default_VDN" secure_context="open"/>
+                <output-variable name="Claim_Authentication_Mode" secure_context="open"/>
+                <output-variable name="ESB_Provider" secure_context="open"/>
+                <output-variable name="ESB_Instance" secure_context="open"/>
+                <output-variable name="RXC_Domain" secure_context="open"/>
+                <output-variable name="Member_Flag" secure_context="open"/>
+                <output-variable name="Pharmacy_Flag" secure_context="open"/>
+                <output-variable name="Physician_Flag" secure_context="open"/>
+                <output-variable name="Prospect_Flag" secure_context="open"/>
+                <output-variable name="Other_Caller_Flag" secure_context="open"/>
+                <output-variable name="Member_Info_Flag" secure_context="open"/>
+                <output-variable name="Eligibility_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_Alerts_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_New_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_Refill_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_Status_Flag" secure_context="open"/>
+                <output-variable name="Mail_Order_Balance_And_Payment_Flag" secure_context="open"/>
+                <output-variable name="Reject_Codes_Flag" secure_context="open"/>
+                <output-variable name="PA_Status_Member_Flag" secure_context="open"/>
+                <output-variable name="PA_Status_Pharmacy_Flag" secure_context="open"/>
+                <output-variable name="PA_Status_Physician_Flag" secure_context="open"/>
+                <output-variable name="PA_Status_Filter_Silent_Auth_Flag" secure_context="open"/>
+                <output-variable name="Authenticate_Member_Flag" secure_context="open"/>
+                <output-variable name="Authenticate_Pharmacy_Flag" secure_context="open"/>
+                <output-variable name="Authenticate_Physician_Flag" secure_context="open"/>
+                <output-variable name="Member_Price_Quote_Exit_Prompt_Flag" secure_context="open"/>
+                <output-variable name="Member_Spanish_Exit_Prompt_Flag" secure_context="open"/>
+                <output-variable name="MEDD_Flag" secure_context="open"/>
+                <output-variable name="EGWP_Flag" secure_context="open"/>
+                <output-variable name="Member_Prompt" secure_context="open"/>
+                <output-variable name="Pharmacy_Prompt" secure_context="open"/>
+                <output-variable name="Physician_Prompt" secure_context="open"/>
+                <output-variable name="MailOrder_Prompt" secure_context="open"/>
+                <output-variable name="Member_Something_Else_Prompt" secure_context="open"/>
+                <output-variable name="Pharmacy_Something_Else_Prompt" secure_context="open"/>
+                <output-variable name="Brodcast_Transfer_Prompt" secure_context="open"/>
+                <output-variable name="Default_Caller_Type" secure_context="open"/>
+                <output-variable name="Legacy" secure_context="open"/>
+                <output-variable name="IVRExit_PriceQuote" secure_context="open"/>
+                <output-variable name="Something_Else_Flag_Member" secure_context="open"/>
+                <output-variable name="Something_Else_Flag_Pharmacy" secure_context="open"/>
+                <output-variable name="BIE_Bypass_Flag" secure_context="open"/>
+                <output-variable name="VOC_Survey_Flag" secure_context="open"/>
+                <output-variable name="PA_IVR_Specialty_Flag" secure_context="open"/>
+                <output-variable name="Line_Of_Business" secure_context="open"/>
+                <output-variable name="PA_IVR_CreatePA_Flag" secure_context="open"/>
+
+
+            </outputs>
+        </data-access-state>
+        
+        <data-access-state id="ca0122_GetCallerDetailsByANI_DB" classname="com.nuance.catamaran.dataaccess.GetCallerDetailsByANI">
+            <inputs>
+                <input-variable name="ani" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+                <output-variable name="aniMatchFound" secure_context="open"/>
+                <output-variable name="pharmacyNPIFound" secure_context="open"/>
+                <output-variable name="physicianNPIFound" secure_context="open"/>
+                <output-variable name="memberFound" secure_context="open"/>                
+                <output-variable name="callerType" secure_context="open"/>
+                <output-variable name="npiNumber" secure_context="open"/>
+                <output-variable name="ncpdpNumber" secure_context="open"/>
+                <output-variable name="memberInformation" secure_context="open"/>                
+            </outputs>
+        </data-access-state> 
+        
+        
+        <data-access-state id="da0120_GetMemberProcessingInfo_DB" classname="com.nuance.catamaran.dataaccess.GetMemberProcessingInfo">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="bin" secure_context="open"/>
+                <output-variable name="pcn" secure_context="open"/>
+                <output-variable name="groupNumber" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="eg0120_GetEligibilityInfo_DB" classname="com.nuance.catamaran.dataaccess.GetEligibilityInfo">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="status" secure_context="open"/>
+                <output-variable name="memberEffectiveDate" secure_context="open"/>
+                <output-variable name="memberEffectiveThruDate" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pa0115_GetPriorAuthStatus_DB" classname="com.nuance.catamaran.dataaccess.GetPriorAuthStatus">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="navigationCommand" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfPAs" secure_context="open"/>
+                <output-variable name="onFirstPA" secure_context="open"/>
+                <output-variable name="onLastPA" secure_context="open"/>
+                <output-variable name="drugPrompt" secure_context="open"/>
+                <output-variable name="drugTTS" secure_context="open"/>
+                <output-variable name="priorAuthorizationDate" secure_context="open"/>
+                <output-variable name="priorAuthorizationDate" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pa0116_GetPriorAuthStatusORx_DB" classname="com.nuance.catamaran.dataaccess.GetPriorAuthStatusORx">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="navigationCommand" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfPAs" secure_context="open"/>
+                <output-variable name="onFirstPA" secure_context="open"/>
+                <output-variable name="onLastPA" secure_context="open"/>
+                <output-variable name="drugPrompt" secure_context="open"/>
+                <output-variable name="drugTTS" secure_context="open"/>
+                <output-variable name="priorAuthorizationDate" secure_context="open"/>
+                <output-variable name="priorAuthorizationDate" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="rj0120_GetRejectedClaim_DB" classname="com.nuance.catamaran.dataaccess.GetRejectedClaim">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="navigationCommand" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfClaimsFound" secure_context="open"/>
+                <output-variable name="isCurrentClaimReadable" secure_context="open"/>
+                <output-variable name="onFirstClaim" secure_context="open"/>
+                <output-variable name="onLastClaim" secure_context="open"/>
+                <output-variable name="currentClaimNumber" secure_context="open"/>
+                <output-variable name="numberOfRejectCodes" secure_context="open"/>
+                <output-variable name="drugPrompt" secure_context="open"/>
+                <output-variable name="drugTTS" secure_context="open"/>
+                <output-variable name="rejectCodes" secure_context="open"/>
+                <output-variable name="nextRefillDate" secure_context="open"/>
+                <output-variable name="terminationDate" secure_context="open"/>
+                <output-variable name="originalClaimFileDate" secure_context="open"/>
+                <output-variable name="groupNumber" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="os0110_GetOrderStatus_DB" classname="com.nuance.catamaran.dataaccess.GetOrderStatus">
+            <fetchTimeout>60s</fetchTimeout>
+            <fetchAudio>inprocess</fetchAudio>
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="returnNextOrder" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfOrders" secure_context="open"/>
+                <output-variable name="isFirstOrder" secure_context="open"/>
+                <output-variable name="isMoreOrders" secure_context="open"/>
+                <output-variable name="memberFirstName" secure_context="open"/>
+                <output-variable name="drugPromptList" secure_context="open"/>
+                <output-variable name="drugTTSList" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="numberOfPrescriptions" secure_context="open"/>
+                <output-variable name="orderStatus" secure_context="open"/>
+                <output-variable name="workQueue" secure_context="open"/>
+                <output-variable name="carrierName" secure_context="open"/>
+                <output-variable name="shipMethod" secure_context="open"/>
+                <output-variable name="shipDate" secure_context="open"/>
+                <output-variable name="trackingNumber" secure_context="open"/>
+                <output-variable name="receivedDate" secure_context="open"/>
+                <output-variable name="releaseDate" secure_context="open"/>
+                <output-variable name="hasActionableAlert" secure_context="open"/>
+                <output-variable name="actionableAlertType" secure_context="open"/>
+                <output-variable name="validCreditcardAvailable" secure_context="open"/>                
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>        
+        <data-access-state id="os0111_GetOrderStatusORx_DB" classname="com.nuance.catamaran.dataaccess.GetOrderStatusORx">
+            <fetchTimeout>60s</fetchTimeout>
+            <fetchAudio>inprocess</fetchAudio>
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="returnNextOrder" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfOrders" secure_context="open"/>
+                <output-variable name="isFirstOrder" secure_context="open"/>
+                <output-variable name="isMoreOrders" secure_context="open"/>
+                <output-variable name="memberFirstName" secure_context="open"/>
+                <output-variable name="drugPromptList" secure_context="open"/>
+                <output-variable name="drugTTSList" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="numberOfPrescriptions" secure_context="open"/>
+                <output-variable name="orderStatus" secure_context="open"/>
+                <output-variable name="workQueue" secure_context="open"/>
+                <output-variable name="carrierName" secure_context="open"/>
+                <output-variable name="shipMethod" secure_context="open"/>
+                <output-variable name="shipDate" secure_context="open"/>
+                <output-variable name="trackingNumber" secure_context="open"/>
+                <output-variable name="receivedDate" secure_context="open"/>
+                <output-variable name="releaseDate" secure_context="open"/>
+                <output-variable name="hasActionableAlert" secure_context="open"/>
+                <output-variable name="actionableAlertType" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <!--  <data-access-state id="am0105_MailOrderLocatorService_DB" classname="com.nuance.catamaran.dataaccess.GetMemberLocationDetails">
+            <fetchTimeout>6000s</fetchTimeout>           
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+                <output-variable name="resultCode" secure_context="open"/>              
+                <output-variable name="resultCodeDescription" secure_context="open"/>                               
+            </outputs>
+        </data-access-state> -->
+        <data-access-state id="os0155_GetActionableAlertDetails_DB" classname="com.nuance.catamaran.dataaccess.GetActionableAlertDetails">
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="orderNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="accountBalance" secure_context="open"/>
+                <output-variable name="address1List" secure_context="open"/>
+                <output-variable name="address2List" secure_context="open"/>
+                <output-variable name="cityList" secure_context="open"/>
+                <output-variable name="stateList" secure_context="open"/>
+                <output-variable name="zipCodeList" secure_context="open"/>
+                <output-variable name="streetNumberList" secure_context="open"/>
+                <output-variable name="floorLimit" secure_context="open"/>
+                <output-variable name="creditOnAccount" secure_context="open"/>
+                <output-variable name="isPreferredCardOnAccount" secure_context="open"/>
+                <output-variable name="isPreferredCardExpired" secure_context="open"/>
+                <output-variable name="preferredCreditCardType" secure_context="open"/>
+                <output-variable name="preferredCreditCardLast4" secure_context="open"/>
+                <output-variable name="numberOfAdditionalCardsOnFile" secure_context="open"/>
+                <output-variable name="isAdditionalCardsExpired" secure_context="open"/>
+                <output-variable name="additionalCardsType" secure_context="open"/>
+                <output-variable name="additionalCardsLast4" secure_context="open"/>
+                <output-variable name="expiredOrDeclinedCardIndex" secure_context="open"/>
+                <output-variable name="chargeNumber" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+
+        <data-access-state id="os0243_UpdatedAddressInfoOnOrder_DB" classname="com.nuance.catamaran.dataaccess.UpdateAddressInfoOnOrder">
+            <inputs>
+                <input-variable name="orderNumber" secure_context="open"/>
+                <input-variable name="address1" secure_context="open"/>
+                <input-variable name="address2" secure_context="open"/>
+                <input-variable name="city" secure_context="suppress"/>
+                <input-variable name="state" secure_context="open"/>
+                <input-variable name="zip" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        
+        <data-access-state id="os0720_PayOutstandingBalance_DB" classname="com.nuance.catamaran.dataaccess.PayOutstandingBalance">
+            <inputs>
+                <input-variable name="orderNumber" secure_context="open"/>
+                <input-variable name="accountBalance" secure_context="open"/>
+                <input-variable name="chargeNumber" secure_context="open"/>
+                <input-variable name="selectedCardIndex" secure_context="open"/>
+                <input-variable name="creditCardNum" secure_context="suppress"/>
+                <input-variable name="creditCardExpDate" secure_context="open"/>
+                <input-variable name="saveOnProfile" secure_context="open"/>
+                <input-variable name="savePreferred" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+
+        <data-access-state id="os0725_UpdateAccountOnOrder_DB" classname="com.nuance.catamaran.dataaccess.UpdateAccountOnOrder">
+            <inputs>
+                <input-variable name="orderNumber" secure_context="open"/>
+                <input-variable name="selectedCardIndex" secure_context="open"/>
+                <input-variable name="creditCardNum" secure_context="suppress"/>
+                <input-variable name="creditCardExpDate" secure_context="open"/>
+                <input-variable name="saveOnProfile" secure_context="open"/>
+                <input-variable name="savePreferred" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+
+        <data-access-state id="pr0110_GetRxInfo_DB" classname="com.nuance.catamaran.dataaccess.GetPrescriptionInfo">
+            <fetchTimeout>60s</fetchTimeout>
+            <fetchAudio>inprocess</fetchAudio>
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="refillsRemaining" secure_context="open"/>
+                <output-variable name="canRxBeRefilled" secure_context="open"/>
+                <output-variable name="cannotRefillReason" secure_context="open"/>
+                <output-variable name="nextRefillDate" secure_context="open"/>
+                <output-variable name="drugPrompt" secure_context="open"/>
+                <output-variable name="drugTTS" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="streetNumber" secure_context="open"/>
+                <output-variable name="floorLimit" secure_context="open"/>
+                <output-variable name="validCreditcardAvailable" secure_context="open"/>                
+                <output-variable name="creditOnAccount" secure_context="open"/>
+                <output-variable name="isPreferredCardOnAccount" secure_context="open"/>
+                <output-variable name="isPreferredCardExpired" secure_context="open"/>
+                <output-variable name="preferredCreditCardType" secure_context="open"/>
+                <output-variable name="preferredCreditCardLast4" secure_context="open"/>
+                <output-variable name="numberOfAdditionalCardsOnFile" secure_context="open"/>
+                <output-variable name="isAdditionalCardsExpired" secure_context="open"/>
+                <output-variable name="additionalCardsType" secure_context="open"/>
+                <output-variable name="additionalCardsLast4" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+ 
+        <data-access-state id="pr0120_AddToOrder_DB" classname="com.nuance.catamaran.dataaccess.AddPrescriptionToOrder">
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isFirstPrescription" secure_context="open"/>
+                <output-variable name="isIncludeColdPack" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pr0126_GetFirstRefill_DB" classname="com.nuance.catamaran.dataaccess.GetFirstRefill">
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isAdditionalRefill" secure_context="open"/>
+                <output-variable name="numberOfAdditionalRefillsAvailable" secure_context="open"/>
+                <output-variable name="numberOfRefillsOnOrder" secure_context="open"/>
+                <output-variable name="additionalRefillDrugPrompt" secure_context="open"/>
+                <output-variable name="additionalRefillDrugTTS" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pr0128_GetNextRefill_DB" classname="com.nuance.catamaran.dataaccess.GetNextRefill">
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isAdditionalRefill" secure_context="open"/>
+                <output-variable name="numberOfAdditionalRefillsAvailable" secure_context="open"/>
+                <output-variable name="numberOfRefillsOnOrder" secure_context="open"/>
+                <output-variable name="additionalRefillDrugPrompt" secure_context="open"/>
+                <output-variable name="additionalRefillDrugTTS" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pr0712_GetNewOrderSummary_DB" classname="com.nuance.catamaran.dataaccess.GetNewOrderSummary">
+            <inputs>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfRefillsOnOrder" secure_context="open"/>
+                <output-variable name="drugPromptList" secure_context="open"/>
+                <output-variable name="drugTTSList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>        
+        <data-access-state id="pr0720_SubmitOrder_DB" classname="com.nuance.catamaran.dataaccess.SubmitOrder">
+            <fetchTimeout>90s</fetchTimeout>
+            <fetchAudio>inprocess</fetchAudio>
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="shippingMethod" secure_context="open"/>
+                <input-variable name="selectedCardIndex" secure_context="open"/>
+                <input-variable name="creditCardNum" secure_context="suppress"/>
+                <input-variable name="creditCardExpDate" secure_context="open"/>
+                <input-variable name="saveOnProfile" secure_context="open"/>
+                <input-variable name="savePreferred" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+  
+        <data-access-state id="am0127_GetMemberListByANI_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByANI">
+            <inputs>
+                <input-variable name="ani" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfMembersFound" secure_context="open"/>
+                <output-variable name="lastNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>  
+
+        <data-access-state id="am0140_GetMemberDetailsByRxNumber_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByRxNumber">           
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="rxFound" secure_context="open"/>
+                <output-variable name="isMemberIRIS" secure_context="open"/>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="numberOfMembersFound" secure_context="open"/>
+                <output-variable name="primaryPhone" secure_context="open"/>
+                <output-variable name="shippingZipCode" secure_context="open"/>
+                <output-variable name="individualZipCode" secure_context="open"/>
+                <output-variable name="primaryZipCode" secure_context="open"/>
+                <output-variable name="dependentZipCode" secure_context="open"/>
+                <output-variable name="rxClaimNumber" secure_context="open"/>
+                <output-variable name="patientNumber" secure_context="open"/>
+                <output-variable name="cardHolder" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        
+        <data-access-state id="am0142_GetMemberDetailsByLastNameAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByLastNameAndDOB">
+            <inputs>
+                <input-variable name="lastName" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>              
+            </inputs>
+            <outputs>
+                <output-variable name="rxFound" secure_context="open"/>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="primaryPhone" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="shippingZipCode" secure_context="open"/>
+                <output-variable name="individualZipCode" secure_context="open"/>
+                <output-variable name="primaryZipCode" secure_context="open"/>
+                <output-variable name="dependentZipCode" secure_context="open"/>
+                <output-variable name="rxClaimNumber" secure_context="open"/>
+                <output-variable name="patientNumber" secure_context="open"/>
+                <output-variable name="cardHolder" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>  
+        
+        <data-access-state id="am0144_GetMemberRxNumberByPatientNumber_DB" classname="com.nuance.catamaran.dataaccess.GetMemberRxNumberByPatientNumber">
+            <inputs>
+                <input-variable name="patientNumber" secure_context="open"/>              
+            </inputs>
+            <outputs>
+                <output-variable name="rxFound" secure_context="open"/>
+                <output-variable name="rxNumber" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+              
+        <data-access-state id="am0336_SaveANI_DB" classname="com.nuance.catamaran.dataaccess.ChangeMemberAddressByID">
+            <inputs>
+                <input-variable name="ani" secure_context="open"/>
+                <input-variable name="patientNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="status" secure_context="open"/>
+                <output-variable name="statusMessage" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        
+        
+        <data-access-state id="am0340_SubmitSelectedZip_DB" classname="com.nuance.catamaran.dataaccess.SubmitSelectedZIPCode">
+            <inputs>
+                <input-variable name="collectedZipCode" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="prescriptionsOrdered" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0130_GetMemberIDListByZipAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetMemberIDListByZIPAndDOB">
+            <inputs>
+                <input-variable name="zipCode" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfMemberNumbersFound" secure_context="open"/>
+                <output-variable name="memberNumbers" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0145_GetMemberDetailsByIDafterConstrainedGmr_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="state" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0165_GetMemberDetailsByIDafterStaticGmr_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="state" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0310_GetMemberIDinRxCLAIM_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="state" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0430_GetLastNameListByZipAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetLastNameListByZIPAndDOB">
+            <inputs>
+                <input-variable name="zipCode" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="numberOfLastNamesFound" secure_context="open"/>
+                <output-variable name="lastNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0445_GetFirstNameListForLastName_DB" classname="com.nuance.catamaran.dataaccess.GetFirstNameListForLastName">
+            <inputs>
+                <input-variable name="lastName" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="numberOfFirstNamesFound" secure_context="open"/>
+                <output-variable name="firstNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0455_GetMemberIDByName_DB" classname="com.nuance.catamaran.dataaccess.GetMemberIDByName">
+            <inputs>
+                <input-variable name="lastName" secure_context="open"/>
+                <input-variable name="firstName" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isAmbiguous" secure_context="open"/>
+                <output-variable name="memberNumber" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0530_GetLastNameListByZipAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetLastNameListByZIPAndDOB">
+            <inputs>
+                <input-variable name="zipCode" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="numberOfLastNamesFound" secure_context="open"/>
+                <output-variable name="lastNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0545_GetFirstNameListForLastName_DB" classname="com.nuance.catamaran.dataaccess.GetFirstNameListForLastName">
+            <inputs>
+                <input-variable name="lastName" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="canIVRDisambiguate" secure_context="open"/>
+                <output-variable name="numberOfFirstNamesFound" secure_context="open"/>
+                <output-variable name="firstNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0555_GetMemberIDByName_DB" classname="com.nuance.catamaran.dataaccess.GetMemberIDByName">
+            <inputs>
+                <input-variable name="lastName" secure_context="open"/>
+                <input-variable name="firstName" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isAmbiguous" secure_context="open"/>
+                <output-variable name="memberNumber" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0145_LookUpProviderByNPI_DB" classname="com.nuance.catamaran.dataaccess.GetProviderByNPI">
+            <fetchTimeout>60s</fetchTimeout>
+            <fetchAudio>inprocess</fetchAudio>
+            <inputs>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="callerType" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="isValidNPI" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0330_GetMemberIDListByZipAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetMemberIDListByZIPAndDOB">
+            <inputs>
+                <input-variable name="zipCode" secure_context="open"/>
+                <input-variable name="dateOfBirth" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfMemberNumbersFound" secure_context="open"/>
+                <output-variable name="memberNumbers" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0345_GetMemberDetailsByIDafterConstrainedGmr_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="state" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0365_GetMemberDetailsByIDafterStaticGmr_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="zipCode" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="state" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0615_SearchPharmacyClaims_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByNPIAndRxNumber">
+            <inputs>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="rxFound" secure_context="open"/>
+                <output-variable name="memberNumber" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="lastName" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0715_GetMemberDetailsByIDafterConstrainedGmr_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsListByID">
+            <inputs>
+                <input-variable name="memberNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="dateOfBirthList" secure_context="open"/>
+                <output-variable name="firstNameList" secure_context="open"/>
+                <output-variable name="lastNameList" secure_context="open"/>
+                <output-variable name="memberNumberList" secure_context="open"/>
+                <output-variable name="uniqueLastNameList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ap0760_SelectMember_DB" classname="com.nuance.catamaran.dataaccess.SelectMember">
+            <inputs>
+                <input-variable name="collectedDateOfBirth" secure_context="open"/>
+                <input-variable name="collectedLastName" secure_context="open"/>
+                <input-variable name="collectedFirstName" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="memberNumberFound" secure_context="open"/>
+                <output-variable name="isAmbiguous" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="lastName" secure_context="open"/>
+                <output-variable name="memberNumber" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+
+        <data-access-state id="ap0115_GetProactiveRejectedClaim_DB" classname="com.nuance.catamaran.dataaccess.GetProactiveRejectedClaim">
+            <inputs>
+                <input-variable name="npiNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="numberOfClaimsFound" secure_context="open"/>
+                <output-variable name="rejectedClaimList" secure_context="open"/>
+                <output-variable name="isClaimReadableList" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="pj0120_GetRejectedClaimDetailsForRx_DB" classname="com.nuance.catamaran.dataaccess.GetRejectedClaimDetailsForRx">
+            <inputs>
+                <input-variable name="npiNumber" secure_context="open"/>
+                <input-variable name="rxNumber" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="currentClaimNumber" secure_context="open"/>
+                <output-variable name="isClaimReadable" secure_context="open"/>
+                <output-variable name="hasUnreadableCodes" secure_context="open"/>
+                <output-variable name="numberOfRejectCodes" secure_context="open"/>
+                <output-variable name="drugPrompt" secure_context="open"/>
+                <output-variable name="drugTTS" secure_context="open"/>
+                <output-variable name="rejectCodes" secure_context="open"/>
+                <output-variable name="nextRefillDate" secure_context="open"/>
+                <output-variable name="terminationDate" secure_context="open"/>
+                <output-variable name="originalClaimFileDate" secure_context="open"/>
+                <output-variable name="groupNumber" secure_context="open"/>
+                <output-variable name="dateOfBirth" secure_context="open"/>
+                <output-variable name="firstName" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>      
+        
+        <data-access-state id="getUCIDTransferData" classname="com.nuance.catamaran.dataaccess.GetUCIDTransferData">
+            <inputs>            
+                <input-variable name="ucid" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="ucidTransferData" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="invalidateSession" classname="com.nuance.catamaran.dataaccess.InvalidateSession">
+            <inputs>
+            </inputs>
+            <outputs>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0126_GetMemberDetailsByANIAndDOB_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByANIAndDOB">
+            <inputs>
+                <input-variable name="ani" secure_context="open"/>
+                <input-variable name="providedDOB" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+                <output-variable name="memberFound" secure_context="open"/>
+                <output-variable name="memberInformation" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+        <data-access-state id="ac0139_GetMemberDetailsByRx_DB" classname="com.nuance.catamaran.dataaccess.GetMemberDetailsByRx">
+            <inputs>
+                <input-variable name="rxNumber" secure_context="open"/>
+                <input-variable name="providedDOB" secure_context="open"/>
+                <input-variable name="providedZip" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>            
+                <output-variable name="memberFound" secure_context="open"/>
+                <output-variable name="memberInformation" secure_context="open"/>
+            </outputs>
+        </data-access-state>  
+
+        <data-access-state id="ca0236_GetProactiveAlertDetails_DB" classname="com.nuance.catamaran.dataaccess.GetProactiveAlertDetails">
+            <inputs>
+                <input-variable name="patientID" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>            
+                <output-variable name="proactiveAlertType" secure_context="open"/>
+                <output-variable name="refillAlerts" secure_context="open"/>
+                <output-variable name="hffOrderAlerts" secure_context="open"/>
+                <output-variable name="orderAlerts" secure_context="open"/>
+            </outputs>
+        </data-access-state>
+
+        <data-access-state id="or2015_SubmitFullPrescriptionOrder_DB" classname="com.nuance.catamaran.dataaccess.SubmitFullPrescriptionOrder">
+            <fetchAudio>db_latency_audio_loop</fetchAudio>
+            <inputs>
+                <input-variable name="jsonNewRxList" secure_context="open"/>
+                <input-variable name="jsonShipAddressInfo" secure_context="open"/>
+                <input-variable name="jsonSelectedCreditCardInfo" secure_context="open"/>
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>            
+                <output-variable name="orderConfirmNum" secure_context="open"/>
+                <output-variable name="actualAmountCharged" secure_context="open"/>
+                <output-variable name="numberOfShipments" secure_context="open"/>
+                <output-variable name="orderStatusFlag" secure_context="open"/>
+            </outputs>
+        </data-access-state>     
+
+        <data-access-state id="tr0130_SetupContextForTransfer_DB" classname="com.nuance.catamaran.dataaccess.SetupContextForTransfer">
+            <inputs>                
+                <input-variable name="ucid" secure_context="open"/>
+                <input-variable name="medicarePartD" secure_context="open"/>
+                <input-variable name="cosmosDiv" secure_context="open"/>
+                <input-variable name="reasonCode" secure_context="open"/>
+                <input-variable name="callerType" secure_context="open" /> 
+                <input-variable name="selectedLanguage" secure_context="open" /> 
+                <input-variable name="vocSurveySelection" secure_context="open"/>
+                <input-variable name="authenticationIndicator" secure_context="open" /> 
+		<input-variable name="providedDOB" secure_context="open"/>    
+		<input-variable name="paSpecialtySelection" secure_context="open"/>
+                <input-variable name="memberID" secure_context="open"/>
+                <input-variable name="memberDOB" secure_context="open"/>
+                <input-variable name="icdCodeOne" secure_context="open"/>          
+                <input-variable name="icdCodeTwo" secure_context="open" /> 
+                <input-variable name="icdCodeThree" secure_context="open" />  
+            </inputs>
+            <outputs>
+                <output-variable name="transferType" secure_context="open"/>
+                <output-variable name="transferVDN" secure_context="open"/>
+                <output-variable name="returnCode" secure_context="open"/>
+                
+
+            </outputs>
+        </data-access-state>     
+        
+        <data-access-state id="ec0110_SetupContextBeforeHangup_DB" classname="com.nuance.catamaran.dataaccess.SetupContextBeforeHangup">
+            <inputs>                
+                <input-variable name="ucid" secure_context="open"/>
+                <input-variable name="medicarePartD" secure_context="open"/>
+                <input-variable name="cosmosDiv" secure_context="open"/>
+                <input-variable name="reasonCode" secure_context="open"/>
+                <input-variable name="callerType" secure_context="open" /> 
+                <input-variable name="selectedLanguage" secure_context="open" />  
+                <input-variable name="authenticationIndicator" secure_context="open" />      
+                <input-variable name="paSpecialtySelection" secure_context="open"/>   
+		<input-variable name="providedDOB" secure_context="open"/> 
+                <input-variable name="memberID" secure_context="open"/>
+                <input-variable name="memberDOB" secure_context="open"/>
+                <input-variable name="icdCodeOne" secure_context="open"/>          
+                <input-variable name="icdCodeTwo" secure_context="open" /> 
+                <input-variable name="icdCodeThree" secure_context="open" />      
+            </inputs>
+            <outputs>
+                <output-variable name="returnCode" secure_context="open"/>
+            </outputs>
+        </data-access-state>    
+        
+    </data-access-states>
+</data-access-library>

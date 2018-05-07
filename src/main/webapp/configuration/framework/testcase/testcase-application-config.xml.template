@@ -1,0 +1,51 @@
+    <!-- Start test case configuration -->
+    <parameter name="test.case.manager" xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+        <map>
+            <parameter name="testCaseManagerClassName">
+                <value>com.nuance.framework.test.manager.TestCaseManagerImpl</value>
+            </parameter>
+            <parameter name="testCaseManagerView">
+                <value>TestCaseManagerView</value>
+            </parameter>
+            <parameter name="resourceLocation">
+                <value>context</value>
+            </parameter>
+            <parameter name="testCaseFileDirectory">
+            	<value>/configuration/application/testcase/</value>
+            </parameter>
+            <parameter name="TestCaseManagerCacheFileName">
+                <value>/configuration/framework/testcase/test-case-cache.xml</value>
+            </parameter>
+            <parameter name="TestCaseManagerCacheName">
+                <value>TestCaseCache</value>
+            </parameter>
+            <parameter name="TestCaseURIExtensions">
+                <list>
+                    <value>dataaccess</value>
+                    <value>dataaccesstest</value>
+                </list>
+            </parameter>
+            <parameter name="KeysToRemoveFromTest">
+                <list>
+                    <value>Test</value>
+                    <value>TestCase</value>
+                    <value>Model</value>
+                    <value>DataAccessObjectKey</value>
+                    <value>invocationCounterKey</value>
+                    <value>Configuration</value>
+                    <value>Execute</value>
+                    <value>logDataSetterURL</value>
+                    <value>logURL</value>
+                    <value>applicationname</value>
+                    <value>logDataGetterURL</value>
+                    <value>appendedLogs</value>
+                    <value>appsessionID</value>
+                    <value>appstepID</value>
+                    <value>requestContext</value>
+                    <value>browser</value>
+                    <value>responseMap</value>
+                </list>
+            </parameter>
+        </map>
+    </parameter>
+    <!-- End NDM test case configuration -->

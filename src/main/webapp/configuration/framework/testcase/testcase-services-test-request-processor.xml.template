@@ -1,0 +1,22 @@
+    <!-- Start test case configuration -->
+    <!-- test case RequestProcessors -->
+    <request-processor id="TestCaseManagerRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.test.TestCaseManagerRequestProcessorImpl</classname>
+    </request-processor> 
+    
+    <request-processor id="TestCaseWriterRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.test.TestCaseWriterRequestProcessor</classname>
+    </request-processor> 
+    
+    <request-processor id="TestCaseRemoveRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.test.TestCaseRemoveRequestProcessor</classname>
+    </request-processor> 
+    
+    <request-processor id="TestCaseRegressionTest" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.test.TestCaseRegressionTestRequestProcessor</classname>
+    </request-processor> 
+
+    <request-processor id="DataAccessHTMLTestRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.vxml.service.dataaccess.test.DataAccessHTMLTestRequestProcessorImpl</classname>
+    </request-processor>
+    <!-- End NDM test case configuration -->

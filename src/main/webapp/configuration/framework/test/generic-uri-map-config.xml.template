@@ -1,0 +1,5 @@
+	
+	<uri-map-element uri="csvSuccessView" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/dialogs/framework/test/csvView.jsp" type="View"/>
+    </uri-map-element>
+    

@@ -1,0 +1,45 @@
+<com.nuance.catamaran.dataaccess.objects.ProactiveAlertDetails>
+  <proactiveAlertType>refill</proactiveAlertType>
+  <refillAlerts>
+    <rxInfoDetails>
+      <com.nuance.catamaran.dataaccess.data.RxInfoDetails>
+        <rxNumber>12345678</rxNumber>
+        <canRxBeRefilled>false</canRxBeRefilled>
+        <requestRxRefill>false</requestRxRefill>
+        <refillsRemaining>1</refillsRemaining>
+        <drugPrompt>Azithromycin1</drugPrompt>
+        <drugTTS>650 mg</drugTTS>
+        <dupSpeakCodeFlag>false</dupSpeakCodeFlag>
+        <adjRejectionFlag>false</adjRejectionFlag>
+        <rxHFFFlag>Y</rxHFFFlag>
+        <estimatedPrice>250</estimatedPrice>
+      </com.nuance.catamaran.dataaccess.data.RxInfoDetails>  
+      <com.nuance.catamaran.dataaccess.data.RxInfoDetails>
+        <rxNumber>23456789</rxNumber>
+        <canRxBeRefilled>false</canRxBeRefilled>
+        <requestRxRefill>false</requestRxRefill>
+        <refillsRemaining>1</refillsRemaining>
+        <drugPrompt>Azithromycin</drugPrompt>
+        <drugTTS>650 mg</drugTTS>
+        <dupSpeakCodeFlag>true</dupSpeakCodeFlag>
+        <adjRejectionFlag>false</adjRejectionFlag>
+        <rxHFFFlag>Y</rxHFFFlag>
+        <estimatedPrice>250</estimatedPrice>
+      </com.nuance.catamaran.dataaccess.data.RxInfoDetails>   
+     <com.nuance.catamaran.dataaccess.data.RxInfoDetails>
+        <rxNumber>23456788</rxNumber>
+        <canRxBeRefilled>false</canRxBeRefilled>
+        <requestRxRefill>false</requestRxRefill>
+        <refillsRemaining>1</refillsRemaining>
+        <drugPrompt>Azithromycin</drugPrompt>
+        <drugTTS>650 mg</drugTTS>
+        <dupSpeakCodeFlag>true</dupSpeakCodeFlag>
+        <adjRejectionFlag>false</adjRejectionFlag>
+        <rxHFFFlag>Y</rxHFFFlag>
+        <estimatedPrice>250</estimatedPrice>
+      </com.nuance.catamaran.dataaccess.data.RxInfoDetails>   
+    </rxInfoDetails>
+    <numRxAvailableForRefill>2</numRxAvailableForRefill>
+    <numRxWithDupSpeak>2</numRxWithDupSpeak>
+  </refillAlerts>
+</com.nuance.catamaran.dataaccess.objects.ProactiveAlertDetails>

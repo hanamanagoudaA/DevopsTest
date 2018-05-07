@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xml:lang="en-US" version="1.0" tag-format="swi-semantics/1.0" xmlns="http://www.w3.org/2001/06/grammar" root="ROOT" mode="dtmf">
+
+  <rule id="ROOT" scope="public">
+  <one-of>
+	<item> 
+	<tag> V = "" </tag>
+
+	<!-- optional 1 -->
+	<item repeat="0-1"> 1 </item>
+
+	<!-- area code -->
+	<ruleref uri="#Digit2_9"/> <tag> V += Digit2_9.V </tag>
+	<item repeat="2"> <ruleref uri="#Digit0_9"/> <tag> V += Digit0_9.V </tag> </item>
+
+	<!-- 3-digit exchange code -->
+	<ruleref uri="#Digit2_9"/> <tag> V += Digit2_9.V </tag>
+	<item repeat="2"> <ruleref uri="#Digit0_9"/> <tag> V += Digit0_9.V </tag> </item>
+
+	<!-- 4-digit subscriber number -->
+	<item repeat="4"> <ruleref uri="#Digit0_9"/> <tag> V += Digit0_9.V </tag> </item>
+
+
+	<tag>
+	  SWI_meaning = V;
+	  dm_root = SWI_meaning;
+	  MEANING=SWI_meaning;
+	  grammar_version='20160404';
+	</tag>
+	</item> 
+	<item>
+	  <tag>dm_command='dont_know'; MEANING='dont_know';SWI_meaning='dont_know';</tag>
+	  1
+	</item>	  
+  </one-of> 
+  </rule>
+
+  <rule id="Digit2_9">
+    <one-of>
+      <item> 2 <tag> V = "2" </tag> </item>
+      <item> 3 <tag> V = "3" </tag> </item>
+      <item> 4 <tag> V = "4" </tag> </item>
+      <item> 5 <tag> V = "5" </tag> </item>
+      <item> 6 <tag> V = "6" </tag> </item>
+      <item> 7 <tag> V = "7" </tag> </item>
+      <item> 8 <tag> V = "8" </tag> </item>
+      <item> 9 <tag> V = "9" </tag> </item>
+    </one-of>
+  </rule>
+
+  <rule id="Digit0_9">
+    <one-of>
+      <item> 0 <tag> V = "0" </tag> </item>
+      <item> 1 <tag> V = "1" </tag> </item>
+      <item> <ruleref uri="#Digit2_9"/> <tag> V = Digit2_9.V </tag> </item>
+    </one-of>
+  </rule>
+
+</grammar>

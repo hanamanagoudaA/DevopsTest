@@ -1,0 +1,5 @@
+<com.nuance.catamaran.dataaccess.objects.CallerDetails>
+    <physicianNPIFound>not_found</physicianNPIFound>
+    <aniMatchFound>not_found</aniMatchFound>
+    <ncpdpNumber>not_found</ncpdpNumber>
+</com.nuance.catamaran.dataaccess.objects.CallerDetails>

@@ -1,0 +1,34 @@
+    <!-- Start Test URI mapping for audio service. -->
+    <uri-map-element uri="/plugins/audio-service/Validator.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="AudioServiceRequestProcessorImpl" type="RequestProcessor"/>
+    </uri-map-element>
+        
+    <uri-map-element uri="audioServiceSuccessView" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="/dialogs/framework/audio/audioConfiguration.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/plugins/audio-service/ExistingAudioFiles.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="ExistingAudioFilesRequestProcessorImpl" type="RequestProcessor"/>
+    </uri-map-element>
+        
+    <uri-map-element uri="existingAudioFilesSuccessView" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="/dialogs/framework/audio/existingAudioFiles.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/export/MissingAudioFiles.csv" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="MissingAudioFilesCsvExportRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/export/MissingPromptsInSentences.csv" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="MissingPromptsInSentencesCsvExportRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/export/MissingPromptSentencesInNdm.csv" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="MissingPromptSentencesInNdmCsvExportRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+        
+    <uri-map-element uri="/export/ExistingAudioFiles.csv" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="ExistingAudioFilesCsvExportRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <!-- End Test URI mapping for audio service. -->

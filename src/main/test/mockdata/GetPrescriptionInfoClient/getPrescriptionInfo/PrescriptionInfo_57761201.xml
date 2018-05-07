@@ -1,0 +1,27 @@
+<com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>
+	<canRxBeRefilled>false</canRxBeRefilled>
+	<cannotRefillReason>OutofRefills</cannotRefillReason>
+	<nextRefillDate>20130414</nextRefillDate>
+	<drugPrompt>apap_codeine</drugPrompt>
+	<drugTTS>500 mg per ml</drugTTS>
+	<zipCode>01720</zipCode>
+	<floorLimit>0</floorLimit>
+	<creditOnAccount>0</creditOnAccount>
+	<isPreferredCardOnAccount>true</isPreferredCardOnAccount>
+	<isPreferredCardExpired>true</isPreferredCardExpired>
+	<preferredCreditCardType>Visa</preferredCreditCardType>
+	<preferredCreditCardLast4>5848</preferredCreditCardLast4>
+	<numberOfAdditionalCardsOnFile>2</numberOfAdditionalCardsOnFile>
+	<isAdditionalCardsExpired>
+		<string>false</string>
+		<string>false</string>
+	</isAdditionalCardsExpired>
+	<additionalCardsType>
+		<string>MasterCard</string>
+		<string>AMEX</string>
+	</additionalCardsType>
+	<additionalCardsLast4>
+		<string>1234</string>
+		<string>4321</string>
+	</additionalCardsLast4>
+</com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>

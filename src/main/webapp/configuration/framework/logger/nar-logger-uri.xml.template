@@ -1,0 +1,18 @@
+	<!-- URI mapping for NAR logger. -->
+    <uri-map-element uri="logger" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/logs/nar/logFileList.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/plugins/nar-logging/NARLogViewer.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="NARLogViewerRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="logFile" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/logs/nar/logFile.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/logFile.nar" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="NARLogFileViewerRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+
+

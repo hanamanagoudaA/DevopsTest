@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" version="1.0" root="_boolean" tag-format="swi-semantics/1.0">
+
+<!--
+   Copyright 2006 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   Boolean grammar
+-->
+
+<meta name="swirec_max_speech_duration" content="7000" />
+<meta name="incompletetimeout" content="500"/>
+<meta name="swirec_compile_parser" content="1"/>
+<meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+ <rule id="_boolean" scope="public">
+    <one-of>
+      <item tag="SWI_meaning=true; dm_root=SWI_meaning;">yes</item>
+      <item tag="SWI_meaning=true; dm_root=SWI_meaning">correct</item>
+      <item tag="SWI_meaning=false; dm_root=SWI_meaning">no</item>
+    </one-of>
+ </rule>
+</grammar>
+
+
+
+
+
+
+
+
+
+

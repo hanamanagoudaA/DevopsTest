@@ -1,0 +1,342 @@
+/*********************************************************************
+ *
+ *                            General
+ *
+ *********************************************************************/
+
+/*-------------------------------------------------------------------
+                             Whole page
+  -------------------------------------------------------------------*/
+BODY,
+BODY.left-menu,
+BODY.margin0,
+BODY.popup
+    {background-color: #ffffff;}
+
+BODY,
+BODY.left-menu,
+BODY.margin0,
+BODY.popup,
+BUTTON,
+INPUT,
+P,
+SELECT,
+TD,
+.text-emphasized,
+.text-emphasized2,
+.text-h1,
+.text-h2,
+.text-title,
+.text-subtitle,
+.text-input-label,
+.text-normal
+    {color: #000000;
+     font-family: Verdana, Arial, Helvetica, sans-serif;
+     font-size: 14px; font-weight: normal;}
+
+BODY.left-menu,
+BODY.margin0
+    {margin-top: 0; margin-bottom: 0; margin-left: 0; margin-right: 0;}
+
+BODY.left-menu
+    {background-color: #fbfbf8;}
+
+BODY,
+BODY.popup
+    {background-color: #ffffff;
+     margin-top: 5; margin-bottom: 10; margin-left: 0; margin-right: 10;}
+
+BODY.popup
+    {margin-left: 10;}
+
+BUTTON.table-cell,
+INPUT.table-cell,
+SELECT.table-cell,
+TD
+    {font-size: 11px;}
+
+.text-emphasized
+    {color: #ff0000; font-weight: bold;}
+
+.text-emphasized2
+    {color: #ff0000;}
+
+.text-h1,
+.text-h2,
+.text-title,
+.text-input-label
+    {font-weight: bold;}
+
+.text-title
+    {color: #004080;
+     font-size: 20px;}
+
+.popup-header,
+.text-h1
+    {font-size: 18px;}
+
+.text-h2,
+.text-subtitle
+    {font-size: 13px;}
+
+A:link {color: #0000a0; text-decoration: underline;}
+A:visited {color: #a000a0; text-decoration:underline;}
+A:hover {color: #ff0000; text-decoration: underline;}
+A:active {color: #ff0000; text-decoration: underline;}
+
+A.action:link,
+A.action:visited,
+A.action:hover,
+A.action:active
+    {color: #0000a0;}
+
+button-enabled,
+A.button-enabled:link,
+A.button-enabled:visited,
+A.button-enabled:hover,
+A.button-enabled:active,
+button-disabled,
+A.button-disabled:link,
+A.button-disabled:visited,
+A.button-disabled:hover,
+A.button-disabled:active
+    {font-size: 11px; letter-spacing: -1px; text-decoration: none;
+     color: #000000; background-color: #ffffff; border-color: #8c8c8c;
+     border-style: solid; border-width: 1px 1px 1px 1px;
+     padding: 1px 7px 1px 7px; height: 17px}
+
+button-disabled,
+A.button-disabled:link,
+A.button-disabled:visited,
+A.button-disabled:hover,
+A.button-disabled:active
+    {color: #adadad;}
+
+/*********************************************************************
+ *
+ *                       Top part of the page
+ *
+ *********************************************************************/
+
+/*-------------------------------------------------------------------
+                             Page header
+  -------------------------------------------------------------------*/
+A.logout:link,
+A.logout:visited,
+A.logout:hover,
+A.logout:active
+    {color: #ffffff; font-weight: bold; font-size: 11px; letter-spacing: -1px;}
+
+/*-------------------------------------------------------------------
+                             Top sub menu
+  -------------------------------------------------------------------*/
+
+.submenu,
+A.submenu:link,
+A.submenu:visited,
+A.submenu:hover,
+A.submenu:active,
+.submenu-header,
+.submenu-sel,
+A.submenu-sel:link,
+A.submenu-sel:visited,
+A.submenu-sel:hover,
+A.submenu-sel:active
+    {font-size: 11px; letter-spacing: -1px; text-decoration: none; color: #000000;}
+
+.submenu-sel,
+A.submenu-sel:link,
+A.submenu-sel:visited,
+A.submenu-sel:hover,
+A.submenu-sel:active
+    {font-weight: bold;}
+
+.submenu-header
+    {color: #ffffff; font-weight: bold;}
+
+/*-------------------------------------------------------------------
+                            Navigation Bar
+  -------------------------------------------------------------------*/
+
+
+/*********************************************************************
+ *
+ *                       Left part of the page
+ *
+ *********************************************************************/
+
+/*-------------------------------------------------------------------
+                              Left menu
+  -------------------------------------------------------------------*/
+.left-menu-title
+    {font-size: 18px; font-weight: bold; color: #ffffff}
+
+/*-------------------------------------------------------------------
+                             Network tree
+  -------------------------------------------------------------------*/
+A.networkTreeLink:link,
+A.networkTreeLink:visited,
+A.networkTreeLink:active,
+A.networkTreeLink:hover,
+A.networkTreeLinkSel:link,
+A.networkTreeLinkSel:visited,
+A.networkTreeLinkSel:active,
+A.networkTreeLinkSel:hover,
+.networkTreeLinkText
+    {color: #000000; background: #fbfbf8; text-decoration: none;
+     font-size: 11px; letter-spacing: -1px;}
+
+A.networkTreeLinkSel:link,
+A.networkTreeLinkSel:visited,
+A.networkTreeLinkSel:active,
+A.networkTreeLinkSel:hover
+    {font-weight: bold;}
+
+.networkTreeLinkText
+    {position:relative; bottom: 2px;}
+
+/*********************************************************************
+ *
+ *                           Content Frame
+ *
+ *********************************************************************/
+
+/*-------------------------------------------------------------------
+                          Content Page Header
+  -------------------------------------------------------------------*/
+.right-content-title
+    {font-size: 18px;}
+
+.right-content-menu-item,
+A.right-content-menu-item:link,
+A.right-content-menu-item:visited,
+A.right-content-menu-item:active,
+A.right-content-menu-item:hover
+    {font-size: 11px; color: #0152AB;}
+
+.right-content-menu-item-disabled
+    {font-size: 11px; color:#c0c0c0;}
+    
+/*-------------------------------------------------------------------
+                            Content Tables
+  -------------------------------------------------------------------*/
+.table-col-header,
+.table-col-header2,
+A.table-col-header:link,
+A.table-col-header:visited,
+A.table-col-header:hover,
+A.table-col-header:active
+    {font-weight: bold; color: #ffffff; background-color: #828C96;
+     padding: 0; text-align: center;}
+
+.table-col-header2
+    {border-width: 0px 1px 1px 0px; border-style: solid; border-color: #f0f1f2;
+     padding: 2;}
+
+.table-cell-input-label,
+.table-cell-title
+    {font-weight: bold;}
+
+TABLE.table1,
+TD.table-cell1,
+TD.table-cell2
+    {border-width: 0px 1px 0px 1px; border-style: solid; border-color: #828c96;}
+
+TD.table-cell1,
+TR.table-row1
+    {background-color:#fffff7;}
+
+TD.table-cell2,
+TR.table-row-title1,
+TR.table-row2
+    {background-color:#f0f1f2;}
+
+TD.table-cell3
+    {background-color:#f8d14c;}
+
+TD.table-cell1,
+TD.table-cell2,
+TD.table-cell3
+    {border-width: 0px 0px 0px 0px;}
+
+TBODY.hidden
+    {display: none;}
+
+TBODY.show
+    {display: table-row-group;}
+
+
+/*-------------------------------------------------------------------
+                          Events display
+  -------------------------------------------------------------------*/
+.alarms-details-tablecol-header
+    {background-color: #2B83BB; color: #ffffff; font-weight: bold; font-size: 14px;}
+
+/*-------------------------------------------------------------------
+                           Service control
+  -------------------------------------------------------------------*/
+A.service-control:link      {color: blue; text-decoration: underline; background: none}
+A.service-control:visited   {color: blue;  text-decoration: underline; background: none}
+A.service-control:active    {color: blue; text-decoration: underline; background: none}
+A.service-control:hover     {color: blue;  text-decoration: underline; background: none}
+
+/*-------------------------------------------------------------------
+                         Service Properties
+  -------------------------------------------------------------------*/
+.properties-parent     { color: #808080 }
+
+TR.properties-header   { background-color: #000080 }
+TD.properties-header   { text-align: left; font-color: #ffffff; 
+                         font-weight: bold; font-size: 0.7em }
+
+A.properties-header:link    {color: #ffffff;}
+A.properties-header:visited {color: #ffffff;}
+A.properties-header:hover   {color: #ffffff; background: red;}
+A.properties-header:active  {color: #ffffff;}
+
+A.properties-odd:link       {color: black; text-decoration: none; background: none}
+A.properties-odd:visited    {color: black; text-decoration: none; background: none}
+A.properties-odd:hover      {color: blue;  text-decoration: underline; background: none}
+A.properties-odd:active     {color: black; text-decoration: none; background: none}
+
+A.properties-even:link      {color: black; text-decoration: none; background: none}
+A.properties-even:visited   {color: black; text-decoration: none; background: none}
+A.properties-even:hover     {color: blue;  text-decoration: underline; background: none}
+A.properties-even:active    {color: black; text-decoration: none; background: none}
+
+A.properties-parent:link    {color: #808080; text-decoration: none; background: none}
+A.properties-parent:visited {color: #808080; text-decoration: none; background: none}
+A.properties-parent:hover   {color: blue;    text-decoration: underline; background: none}
+A.properties-parent:active  {color: #808080; text-decoration: none; background: none}
+
+TR.properties-odd      { background-color: #ffffff; font-size: 0.7em }
+TR.properties-even     { background-color: #ffffff; font-size: 0.7em }
+TR.properties-parent   { background-color: #ffffff; font-size: 0.7em }
+TR.properties-selected { background-color: #c0c0c0; font-size: 0.7em }
+
+/*-------------------------------------------------------------------
+                 Styles for the tables in the reports
+  -------------------------------------------------------------------*/
+TD.report {
+    font-size:14px; 
+    color:black; 
+    font-weight:normal
+}
+
+TH.report-plain {
+    font-size:14px; 
+    color:black; 
+    font-weight:bold
+}
+
+DIV.report-category {
+    font-size:10pt; 
+    color:black; 
+    font-weight:bold;
+}
+
+LI.report-item {
+    font-size:8pt; 
+    color:black; 
+}
+

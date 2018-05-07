@@ -1,0 +1,44 @@
+<parameter name="nar.logger.manager" xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+    <map>
+    	
+        <parameter name="LogFilterClassName">
+    		<value>com.nuance.framework.logging.converter.engine.mapper.LogFilterImpl</value>
+		</parameter>
+		 
+		<parameter name="DataStructureClassName">
+    		<value>com.nuance.framework.logging.converter.engine.mapper.DataStructureImpl</value>
+		</parameter>
+		
+        <parameter name="InputParser">
+	        <map>
+	            <parameter name="InputParserClassName">
+	                <value>com.nuance.framework.logging.converter.engine.mapper.InputParserNARImpl</value>
+	            </parameter>
+	         	    
+	            <parameter name="DataStructureClassName">
+	                <value>com.nuance.framework.logging.converter.engine.mapper.DataStructureInputImpl</value>
+	            </parameter>
+	    
+	            <parameter name="DataStructureFile">
+	                <value>/configuration/framework/logger/nar-data-structure.xml</value>
+	            </parameter>
+	            
+	            <parameter name="InputLogFilterFile">
+	                <value>/configuration/framework/logger/nar-filter.xml</value>
+	            </parameter>
+	        </map>
+	    </parameter>
+	    
+        <parameter name="NARLogSuccessView">
+            <value>logFile.jsp</value>
+        </parameter>
+        
+        <parameter name="NARLogFailureView">
+            <value></value>
+        </parameter>
+        
+        <parameter name="resourceLocation">
+            <value>context</value>
+        </parameter>
+    </map>
+</parameter>

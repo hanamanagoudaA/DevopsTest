@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright 2003-2004 ScanSoft, Inc.
+  All Rights Reserved
+-->
+
+<grammar xml:lang="en-US" version="1.0" root="___ROOT___" mode="dtmf">
+  <rule id="___ROOT___" scope="public">
+    <one-of>
+	    <item tag="dm_command='help';dm_confirmation_mode='NEVER';dm_confirm_string='help';">*</item>
+	    <item tag="dm_command='goodbye';dm_confirmation_mode='NEVER';dm_confirm_string='goodbye';">0</item>
+    </one-of>
+  </rule>
+</grammar>

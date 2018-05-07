@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<grammar  version="1.0" xml:lang="en-US" xmlns="http://www.w3.org/2001/06/grammar" tag-format="swi-semantics/1.0" root="phoneloop" >
+
+<meta name="swirec_user_dict_name" content="phoneloop.en-US.userdict"/>
+<meta name="swirec_max_dict_prons" content="100"/>
+
+<rule id="phoneloop" scope="public">
+   <item repeat="1-">
+       <ruleref uri="#SoundSeq"/>
+   </item>
+   <tag>SWI_decoy=0;</tag>
+</rule>
+
+<rule id="SoundSeq">
+  <one-of>
+      <item weight="0.024390">w_0</item>
+      <item repeat="100">1 2 3 4 5 6 7 8 9</item>
+  </one-of>
+</rule>
+</grammar>

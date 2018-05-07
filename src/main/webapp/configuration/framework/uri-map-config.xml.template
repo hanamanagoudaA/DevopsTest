@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+====================================================================================
+| Copyright     Nuance Communications, Inc.
+|
+| Note:         Nuance Source Code File
+|               Notice and Disclaimer of Liability
+|
+|               This source code software is provided to the user as an example
+|               of a VoiceXML application developed with the Nuance framework
+|               Software. This source code software has not been fully tested
+|               and may contain errors.  NUANCE PROVIDES THIS SOFTWARE ON AN
+|               "AS IS' BASIS, AND DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR
+|               IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+|               FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+====================================================================================
+-->
+<uri-mapper xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper" view-prefix="" view-suffix="">
+
+    <!-- Call Log Request Processors -->
+    <uri-map-element uri="/sessionstart" type="Normal">
+        <result id="SessionStartProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorSessionStartResponse" type="Normal">
+        <result id="/dialogs/framework/controller/calllog-request-processor.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/log" type="Normal">
+        <result id="LogProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorLogResponse" type="Normal">
+        <result id="/dialogs/framework/generic/JSONXMLResponse.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/calllogend" type="Normal">
+        <result id="CallLogEndRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorCallLogEndResponse" type="Normal">
+        <result id="/dialogs/framework/generic/JSONXMLResponse.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/sessionend" type="Normal">
+        <result id="SessionEndProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorSessionEndResponse" type="Normal">
+        <result id="/dialogs/framework/controller/calllog-request-processor.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/logdatagetter" type="Normal">
+        <result id="LogDataGetterProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorLogDataGetterResponse" type="Normal">
+        <result id="/dialogs/framework/controller/calllog-request-processor.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/logdatasetter" type="Normal">
+        <result id="LogDataSetterProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorLogDataSetterResponse" type="Normal">
+        <result id="/dialogs/framework/controller/calllog-request-processor.jsp" type="View"/>
+    </uri-map-element>
+    
+    <!-- generic -->
+    <uri-map-element uri="JSONXMLResponse" type="Normal">
+        <result id="/dialogs/framework/generic/JSONXMLResponse.jsp" type="View"/>
+    </uri-map-element>    
+    <uri-map-element uri="JSONStringResponse" type="Normal">
+        <result id="/dialogs/framework/generic/JSONStringResponse.jsp" type="View"/>
+    </uri-map-element>    
+
+    <!-- init -->
+    <uri-map-element uri="/init" type="Normal">
+        <result id="InitRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="InitResponse" type="Normal">
+        <result id="CallLogInitRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="CallLogInitResponse" type="Normal">
+        <result id="/dialogs/application/Initialization.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="NoSessionResponse" type="Normal">
+        <result id="/dialogs/management/nosession.jsp" type="View"/>
+    </uri-map-element>
+
+    <!-- exit -->
+    <uri-map-element uri="/exit" type="Normal">
+        <result id="ExitRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="ExitResponse" type="Normal">
+        <result id="/dialogs/application/Exit.jsp" type="View"/>
+    </uri-map-element>
+
+    <!-- tools -->
+    <uri-map-element uri="/controller/command" type="Normal">
+        <result id="CommandProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="/controller/custom/processor" type="Normal">
+        <result id="customproc" type="Servlet"/>
+    </uri-map-element>
+
+    <!-- audio -->
+    <uri-map-element uri="\/.*\.audio" type="RegularExpression">
+        <result id="AudioRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="AudioView" type="Normal">
+        <result id="/dialogs/framework/audio/AudioPresentation.jsp" type="View"/>
+    </uri-map-element>
+
+    <!-- data access -->
+    <uri-map-element uri="\/.*\.dataaccess" type="RegularExpression">
+        <result id="DataAccessRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="DataAccessView" type="Normal">
+        <result id="/dialogs/framework/generic/JSONXMLResponse.jsp" type="View"/>
+    </uri-map-element>
+
+    <!-- NDM Mappings -->
+    <uri-map-element uri="/ndm" type="Normal">
+        <result id="DMRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="\/.*\.ndm" type="RegularExpression">
+        <result id="DMRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="NdmView" type="Normal">
+        <result id="/dialogs/framework/ndm/osdm.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="NdmTemplate/(.*)" type="RegularExpression">
+        <result id="($1)" type="Include"/>
+    </uri-map-element>    
+
+    <!-- NDM-OU Mappings -->
+
+    <!-- OAM GUI -->
+    <uri-map-element uri="/controller/management/settings" type="Normal">
+        <result id="SettingsRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="\/.*settings\.oam" type="RegularExpression">
+        <result id="SettingsRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="SettingsResponse" type="Normal">
+        <result id="/dialogs/management/settings.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/controller/management/reloaddata" type="Normal">
+        <result id="ReloaddataRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="\/.*reloaddata\.oam" type="RegularExpression">
+        <result id="ReloaddataRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="ReloaddataResponse" type="Normal">
+        <result id="/dialogs/management/reloaddata.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="\/.*alarm\.oam" type="RegularExpression">
+        <result id="AlarmRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="AlarmResponse" type="Normal">
+        <result id="/dialogs/management/AlarmResponse.jsp" type="View"/>
+    </uri-map-element>
+    
+    <!-- Regular Expression map to handle all DVXML requests -->
+    <uri-map-element uri=".*/(.+)\.dvxml" type="RegularExpression">
+        <result id="/dialogs/application/($1).jsp" type="View" />
+    </uri-map-element>
+    <uri-map-element uri=".*/(.+)\.logger" type="RegularExpression">
+        <result id="/WEB-INF/logger/($1).jsp" type="View" /> 
+    </uri-map-element>
+    <uri-map-element uri="/callstart" type="Normal">
+        <result id="CallStartRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>  
+    <uri-map-element uri="CallStartResponse" type="Normal">
+        <result id="/dialogs/management/CallStartResponse.jsp" type="View"/>
+    </uri-map-element> 
+    <uri-map-element uri="/ndf.log" type="Normal">
+        <result id="VXMLLogRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="VXMLLogResponse" type="Normal">
+        <result id="/dialogs/management/VXMLLogResponse.jsp" type="View"/>
+    </uri-map-element>
+    <uri-map-element uri="/sessioninvalidate" type="Normal">
+        <result id="SessionInvalidateProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    <uri-map-element uri="RequestProcessorSessionInvalidateResponse" type="Normal">
+        <result id="/dialogs/framework/generic/JSONXMLResponse.jsp" type="View"/>
+    </uri-map-element>
+    
+</uri-mapper>
+
+<!--
+Local Variables:
+mode: nxml
+End:
+-->

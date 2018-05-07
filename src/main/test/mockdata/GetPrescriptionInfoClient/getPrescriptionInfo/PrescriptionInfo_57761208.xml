@@ -1,0 +1,30 @@
+<com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>
+	<canRxBeRefilled>true</canRxBeRefilled>
+	<cannotRefillReason></cannotRefillReason>
+	<nextRefillDate>20130414</nextRefillDate>
+	<drugPrompt/>
+	<drugTTS>zocor 35 mg</drugTTS>
+	<zipCode>01720</zipCode>
+	<floorLimit>0</floorLimit>
+	<creditOnAccount>0</creditOnAccount>
+	<isPreferredCardOnAccount>true</isPreferredCardOnAccount>
+	<isPreferredCardExpired>true</isPreferredCardExpired>
+	<preferredCreditCardType>Visa</preferredCreditCardType>
+	<preferredCreditCardLast4>5848</preferredCreditCardLast4>
+	<numberOfAdditionalCardsOnFile>3</numberOfAdditionalCardsOnFile>
+	<isAdditionalCardsExpired>
+		<string>false</string>
+		<string>false</string>
+		<string>false</string>
+	</isAdditionalCardsExpired>
+	<additionalCardsType>
+		<string>MasterCard</string>
+		<string>Discover</string>
+		<string>AMEX</string>
+	</additionalCardsType>
+	<additionalCardsLast4>
+		<string>9999</string>
+		<string>1111</string>
+		<string>4444</string>
+	</additionalCardsLast4>
+</com.nuance.catamaran.dataaccess.objects.PrescriptionInfo>

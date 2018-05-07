@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:util="urn:jsptld:/WEB-INF/tld/ndf-utils.tld"
+    xmlns:cl="urn:jsptld:/WEB-INF/tld/calllog-utils.tld" version="1.2">
+
+    <jsp:directive.page contentType="text/xml" />
+    <jsp:directive.page session="false" />
+
+    <util:vxml pageName="Exit.jsp" cacheable="false" rootRequired="true">
+        <util:form id="EndApplication">
+            <util:script>
+                startCallEnd();
+            </util:script>
+            <cl:callend />
+            <util:block>
+                <exit />
+            </util:block>
+            <util:catch>
+                <exit />
+            </util:catch>
+        </util:form>
+    </util:vxml>
+</jsp:root>

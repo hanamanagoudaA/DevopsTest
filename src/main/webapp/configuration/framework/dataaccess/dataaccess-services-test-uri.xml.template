@@ -1,0 +1,5 @@
+    <!-- Start Test URI mapping for dataaccess service. -->
+    <uri-map-element uri="/dataaccessService.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+    	<result id="/dialogs/framework/dataaccess/test/dataAccessList.jsp" type="View"/>
+    </uri-map-element>
+    <!-- End Test URI mapping for dataaccess service. -->

@@ -1,0 +1,54 @@
+﻿/* CSS layout */
+.logo {
+	text-align: right;
+}
+
+#masthead {
+	background-color: white;
+}
+#top_nav {
+	background-color: #62A710;
+}
+#page_content {
+	background-color: white;
+}
+#footer {
+	background-color: white;
+	color: black;
+}
+a:link {
+	color: #65246B;
+}
+a:visited {
+	color: rgb(0,204,204);
+}
+a:active {
+	color: rgb(204,153,51);
+}
+body {
+	font-family: Arial, Helvetica;
+	font-size:small;
+	background-color: #65246B;
+	color: white;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: Arial, Helvetica;
+}
+h1 {
+	color: #65246B;
+}
+h2 {
+	color: #65246B;
+}
+h3 {
+	color: #65246B;
+}
+h4 {
+	color: #65246B;
+}
+h5 {
+	color: #65246B;
+}
+h6 {
+	color: #65246B;
+}

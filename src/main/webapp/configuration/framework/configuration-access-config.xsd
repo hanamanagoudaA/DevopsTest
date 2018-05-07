@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <xsd:schema targetNamespace="http://www.nuance.com/framework/configuration/access"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://www.nuance.com/framework/configuration/access"
+			xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+			jxb:version="1.0" 
+			elementFormDefault="qualified">
+
+	<xsd:element name="configuration-access" type="tns:ConfigurationAccessType"/>
+	
+	<xsd:complexType name="ConfigurationAccessType">
+		<xsd:sequence minOccurs="1" maxOccurs="1">
+			<xsd:element name="accessor-list" type="tns:AccessorListType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AccessorListType">
+		<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+             <xsd:annotation>
+                 <xsd:appinfo>
+                     <jxb:property name="accessors"/>
+                 </xsd:appinfo>
+             </xsd:annotation> 
+			<xsd:element name="accessor" type="tns:AccessorType"/>
+		</xsd:sequence>
+		<xsd:attribute name="dispatcher" type="xsd:string"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AccessorType">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+             <xsd:annotation>
+                 <xsd:appinfo>
+                     <jxb:property name="params"/>
+                 </xsd:appinfo>
+             </xsd:annotation> 
+             <xsd:element name="param" type="tns:ParamType"/>
+        </xsd:sequence>
+		<xsd:attribute name="classname" type="xsd:string" use="required"/>
+		<xsd:attribute name="key" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ParamType">
+        <xsd:attribute name="key" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+</xsd:schema>

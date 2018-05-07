@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+====================================================================================
+| Filename $Id$
+|
+| Copyright     Nuance Communications, Inc.
+|
+| Note:         Nuance Source Code File
+|               Notice and Disclaimer of Liability
+|
+|               This source code software is provided to the user as an example
+|               of a VoiceXML application developed with the Nuance framework
+|               Software. This source code software has not been fully tested
+|               and may contain errors.  NUANCE PROVIDES THIS SOFTWARE ON AN
+|               "AS IS' BASIS, AND DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR
+|               IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+|               FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+|
+| Revision History
+| $Log$
+====================================================================================
+-->
+<logger-config 
+    xmlns="http://www.nuance.com/framework/logging/logger-config" 
+    xsi:schemaLocation="http://www.nuance.com/framework/logging/logger-config logger-config.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <!--
+      This file uses three settings: applicationname, companyname, logging_base_path
+      set in the application-config.xml file. The parameters from the 
+      application-config.xml map like this to this file:
+        application.name to applicationname
+        company.name to companyname
+        logging_base_path to logging_base_path
+     -->
+    <!--  
+    <property name="companyname">
+        <value>Nuance</value>
+    </property>
+    <property name="applicationname">
+        <value>NDF Application</value>
+    </property>
+    <property name="logging_base_path">
+        <value>%{NUAN_APPLOGDIR}/</value>
+    </property>
+    -->
+
+    <property name="simpledateformat.year_month">
+        <value>yyyy/MM</value>
+    </property>
+    <property name="simpledateformat.month_hour">
+        <value>MMMMM/dd/HH/</value>
+    </property>
+    <property name="simpledateformat.minute_second">
+        <value>mm-ss</value>
+    </property>
+    
+    <file classname="com.nuance.log.RawFilter" 
+          logdir="%{logging_base_path}/callLogs/" 
+          logfilename="master/%{companyname}/%{applicationname}/%{date(simpledateformat.year_month)}%{date(simpledateformat.month_hour)}/APP-%{date(simpledateformat.minute_second)}-%{sessionid}-LOG">
+    </file>
+</logger-config>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sentence-library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="default" language="en-US,es-US" xsi:noNamespaceSchemaLocation="../../framework/audio/sentenceLibrary.xsd">
+
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_initial">
+        <prompt id="ac0140_ini_01"></prompt>
+    </sentence>
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0140_cnf_ini_01"/>
+            <prompt type="alphanum" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="ac0140_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_noinput_1">
+        <prompt id="ac0140_ni1_01"/>
+    </sentence>
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_noinput_2">
+        <prompt id="ac0140_ni2_01"/>
+    </sentence>
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_nomatch_1">
+        <prompt id="ac0140_nm1_01"/>
+    </sentence>
+    <sentence id="ac0140_GetMemberIDConstrainedGmr_DM_nomatch_2">
+        <prompt id="ac0140_nm2_01"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_initial">
+        <prompt id="ac0150_ini_02"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="ac0150_ini_04"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_success">
+        <prompt id="ac0150_out_01" cond="collect.value.dm_root == 'false'"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_noinput_1">
+        <prompt id="ac0150_ni1_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="ac0150_ni1_03"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_noinput_2">
+        <prompt id="ac0150_ni2_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="ac0150_ni2_03"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_nomatch_1">
+        <prompt id="ac0150_nm1_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="ac0150_nm1_03"/>
+    </sentence>
+    <sentence id="ac0150_ConfirmFirstName_DM_nomatch_2">
+        <prompt id="ac0150_nm2_01"/>
+        <prompt type="tts" expr="firstName"/>
+        <prompt id="ac0150_nm2_03"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_initial">
+        <prompt id="ac0160_ini_02"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_noinput_1">
+        <prompt id="ac0160_ni1_01"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_noinput_2">
+        <prompt id="ac0160_ni2_01"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_nomatch_1">
+        <prompt id="ac0160_nm1_01"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_nomatch_2">
+        <prompt id="ac0160_nm2_01"/>
+    </sentence>
+    <sentence id="ac0160_GetMemberIDStaticGmr_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0160_cnf_ini_01" />
+            <prompt type="alphanum" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="ac0160_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="ac0162_GetMemberIDStaticGmrOneTry_DM_initial">
+        <prompt id="ac0162_ini_01"/>
+    </sentence>
+    <sentence id="ac0162_GetMemberIDStaticGmrOneTry_DM_noinput_1">
+        <prompt id="ac0162_ni1_01"/>
+    </sentence>
+    <sentence id="ac0162_GetMemberIDStaticGmrOneTry_DM_nomatch_1">
+        <prompt id="ac0162_nm1_01"/>
+    </sentence>
+    <sentence id="ac0162_GetMemberIDStaticGmrOneTry_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0162_cnf_ini_01" />
+            <prompt type="alphanum" expr="lastresult" path="interpretation.dm_root" scope="request">
+                <param name="intonation" value="f"/>
+            </prompt>
+            <prompt id="ac0162_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_initial">
+        <prompt id="ac0220_ini_01"/>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_noinput_1">
+        <prompt id="ac0220_ni1_01"/>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_noinput_2">
+        <prompt id="ac0220_ni2_01"/>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_nomatch_1">
+        <prompt id="ac0220_nm1_01"/>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_nomatch_2">
+        <prompt id="ac0220_nm2_01"/>
+    </sentence>
+    <sentence id="ac0220_GetState_DM_confirmation_initial">
+        <prompt id="ac0220_cnf_ini_01"/>
+        <prompt type="ecmascript" expr="es;en-US/scripts/framework/ndm/confirmations.es;confirmCustomContext;1"/>
+        <prompt id="ac0220_cnf_ini_03"/>
+    </sentence>
+
+    <sentence id="ac0435_GetLastNameConstrainedGmrIRIS_DM_initial">
+        <prompt id="ac0435_ini_01"/>
+    </sentence>
+    <sentence id="ac0435_GetLastNameConstrainedGmrIRIS_DM_noinput_1">
+        <prompt id="ac0435_ni1_01"/>
+    </sentence>
+    <sentence id="ac0435_GetLastNameConstrainedGmrIRIS_DM_nomatch_1">   
+        <prompt id="ac0435_nm1_01"/>
+    </sentence>
+    <sentence id="ac0435_GetLastNameConstrainedGmrIRIS_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0435_cnf_ini_01"/>
+            <prompt type="tts" expr="lastresult" path="interpretation.dm_root" scope="request"/>
+            <prompt id="ac0435_cnf_ini_03"/>
+        </if>
+    </sentence>
+
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_initial">
+        <prompt id="ac0440_ini_01"/>
+    </sentence>
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_noinput_1">
+        <prompt id="ac0440_ni1_01"/>
+    </sentence>
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_noinput_2">   
+        <prompt id="ac0440_ni2_01"/>
+    </sentence>
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_nomatch_1">   
+        <prompt id="ac0440_nm1_01"/>
+    </sentence>
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_nomatch_2">   
+        <prompt id="ac0440_nm2_01"/>
+    </sentence>
+    <sentence id="ac0440_GetLastNameConstrainedGmr_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0440_cnf_ini_01"/>
+            <prompt type="tts" expr="lastresult" path="interpretation.dm_root" scope="request"/>
+            <prompt id="ac0440_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_initial">
+        <prompt id="ac0450_ini_01"/>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_noinput_1">
+        <prompt id="ac0450_ni1_01"/>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_noinput_2">
+        <prompt id="ac0450_ni2_01"/>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_nomatch_1">
+        <prompt id="ac0450_nm1_01"/>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_nomatch_2">
+        <prompt id="ac0450_nm2_01"/>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_confirmation_initial">
+        <if cond="lastresult != 'NULL' &amp;&amp; lastresult != null &amp;&amp; lastresult != ''">
+            <prompt id="ac0450_cnf_ini_01"/>
+            <prompt type="tts" expr="lastresult" path="interpretation.dm_root" scope="request"/>
+            <prompt id="ac0450_cnf_ini_03"/>
+        </if>
+    </sentence>
+    <sentence id="ac0450_GetFirstNameConstrainedGmr_DM_success">
+        <prompt id="ac0450_out_01"/>
+    </sentence>
+</sentence-library>

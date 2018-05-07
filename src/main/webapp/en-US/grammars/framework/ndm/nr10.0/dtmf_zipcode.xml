@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar mode="dtmf" xml:lang="en-US" version="1.0" root="_zipcode" tag-format="swi-semantics/1.0">
+<meta name="swirec_compile_parser" content="1"/>
+
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   zipcode DTMF grammar
+-->
+  <rule id="_zipcode" scope="public">
+    <ruleref uri="#ZIP" tag="
+       SWI_meaning = ZIP.SWI_literal.replace(/[ ]+/g, '');
+       if (SWI_meaning.substr(0,5) == '00000') SWI_disallow=1;
+       MEANING=SWI_meaning;
+"/>
+
+  </rule>
+  <rule id="ZIP">
+    <ruleref uri="#DIGIT"/>
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <ruleref uri="#DIGIT" />
+    <count number="optional">
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+      <ruleref uri="#DIGIT" />
+    </count>
+  </rule>
+  <rule id="DIGIT">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+    </one-of>
+  </rule>
+</grammar>
+

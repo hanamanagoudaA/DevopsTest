@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.w3.org/2001/06/grammar
+                             http://www.w3.org/TR/speech-grammar/grammar.xsd"
+ xml:lang="en-US" mode="voice" root="_creditcard">
+
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   Credit card grammar
+-->
+
+   <meta name="maxspeechtimeout" content="18000"/>
+   <meta name="incompletetimeout" content="2000"/>
+   <meta name="swirec_compile_parser" content="1"/>
+   <meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+
+   <rule id="_creditcard" scope="public">
+      <item repeat="0-1" repeat-prob="0.6">
+         @hes@
+      </item>
+      <ruleref uri="#CREDITCARD"/>
+      <tag>
+          SWI_meaning=CREDITCARD.V;
+          var mask = [ 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 ];
+          var sum = 0;
+          var double_the_value = 0;                /* start with check digit */
+        /* move from end to start */
+          var i;
+          var add;
+          var allowed; 
+          for (i=SWI_meaning.length - 1;i &gt;= 0; i--) {
+             add = parseInt(SWI_meaning[i], 10);  /* get value at index i */
+             sum += double_the_value ? parseInt(mask[add], 10) : add;  /* increase sum */
+             double_the_value = !double_the_value; 
+          }
+          if (sum % 10 != 0) SWI_disallow = 1;
+          CARDTYPE=CREDITCARD.CARDTYPE;
+          if (CARDTYPE == 'private' &amp;&amp;
+               (SWI_meaning.match (/^4/) ||
+	        SWI_meaning.match (/^5/) ||
+		SWI_meaning.match (/^34/) ||
+		SWI_meaning.match (/^37/) ||
+		SWI_meaning.match (/^30/) ||
+		SWI_meaning.match (/^38/) ||
+		SWI_meaning.match (/^36/) ||
+		SWI_meaning.match (/^6011/))) SWI_disallow=1;
+
+	  allowed = SWI_vars.typesallowed ? 
+             SWI_vars.typesallowed.toLowerCase() : 'visa+mastercard+amex+dinersclub+discover+private';
+          if (!allowed ||
+              allowed.indexOf (CARDTYPE) == -1) SWI_disallow=1;
+	  MEANING = SWI_meaning;   
+      </tag>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Credit Card types supported:
+           _ American Express: (34|37)XXXXXXXXXXXXX
+           _ Diner's Club:     (30|36|38)XXXXXXXXXXXX
+           _ Discover:         6011XXXXXXXXXXXX[X[X[X]]]
+           _ Mastercard:       5[XXX]XXXXXXXXXXXX[X[X[X]]]
+           _ Private:          XXXXXXXXXX[X[X[X[X[X[X[X[X[X]]]]]]]]]
+           _ Visa              4[XXX]XXXXXXXXXXXX
+          ##############################################################################
+          
+   -->
+      
+   <rule id="CREDITCARD">
+      <one-of>
+         <item weight=".5">
+            <item repeat="0-1">
+               <ruleref uri="#VISA"/>
+            </item>
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_VISA"/>
+            <tag>V=ACC_NUMBER_VISA.V; CARDTYPE='visa'</tag>
+         </item>
+         <item weight=".5">
+            <item repeat="0-1">
+               <ruleref uri="#MASTERCARD"/>
+            </item>
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_MASTERCARD"/>
+            <tag>V=ACC_NUMBER_MASTERCARD.V; CARDTYPE='mastercard'</tag>
+         </item>
+         <item weight=".01">
+            <item repeat="0-1">
+               <ruleref uri="#DISCOVER"/>
+            </item>
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_DISCOVER"/>
+            <tag>V=ACC_NUMBER_DISCOVER.V; CARDTYPE='discover'</tag>
+         </item>
+         <item weight=".01">
+            <item repeat="0-1">
+               <ruleref uri="#DINERSCLUB"/>
+            </item>
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_DINERSCLUB"/>
+            <tag>V=ACC_NUMBER_DINERSCLUB.V; CARDTYPE='dinersclub'</tag>
+         </item>
+         <item weight=".01">
+            <item repeat="0-1">
+               <ruleref uri="#AMEX"/>
+            </item>
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_AMEX"/>
+            <tag>V=ACC_NUMBER_AMEX.V; CARDTYPE='amex'</tag>
+         </item>
+         <item weight=".01">
+            <item repeat="0-1">
+               account 
+               <item repeat="0-1">
+                  number
+               </item>
+            </item>
+            <ruleref uri="#ACC_NUMBER_PRIVATE"/>
+            <tag>V=ACC_NUMBER_PRIVATE.V; CARDTYPE='private'</tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+           American Express: starting with '34' or '37', grouped as 4/6/5 (15 total)
+          
+   -->
+      
+   <rule id="AMEX">
+      <one-of>
+         <item>
+            optima 
+            <item repeat="0-1">
+               card
+            </item>
+         </item>
+         <item>
+            <ruleref uri="#AMEXNAME"/>
+            <one-of>
+               <item>
+                  gold 
+               </item>
+               <item>
+                  platinum 
+               </item>
+               <item>
+                  corporate 
+               </item>
+            </one-of>
+            <item repeat="0-1">
+               card
+            </item>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     gold 
+                  </item>
+                  <item>
+                     platinum 
+                  </item>
+                  <item>
+                     corporate 
+                  </item>
+               </one-of>
+            </item>
+            <ruleref uri="#AMEXNAME"/>
+            <item repeat="0-1">
+               card
+            </item>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AMEXNAME">
+      <one-of>
+         <item>
+            american express 
+         </item>
+         <item>
+            amex 
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="ACC_NUMBER_AMEX">
+      <ruleref uri="#IIN_2_AMEX"/>
+      <tag>V=IIN_2_AMEX.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+   </rule>
+      
+   <rule id="IIN_2_AMEX">
+      <one-of>
+         <item>
+            three seven 
+            <tag>V='37'</tag>
+         </item>
+         <item>
+            three four 
+            <tag>V='34'</tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Diner's Club: starting with '30', '36', or '38', grouped as 4/4/4/2 (14 tot.)
+          
+   -->
+      
+   <rule id="DINERSCLUB">
+      diners 
+      <item repeat="0-1">
+         club
+      </item>
+      <item repeat="0-1">
+         international
+      </item>
+      <item repeat="0-1">
+         card
+      </item>
+   </rule>
+      
+   <rule id="ACC_NUMBER_DINERSCLUB">
+      <ruleref uri="#IIN_2_DINERSCLUB"/>
+      <tag>V=IIN_2_DINERSCLUB.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+   </rule>
+      
+   <rule id="IIN_2_DINERSCLUB">
+      <one-of>
+         <item>
+            three eight 
+            <tag>V='38'</tag>
+         </item>
+         <item>
+            three six 
+            <tag>V='36'</tag>
+         </item>
+         <item>
+            three 
+            <ruleref uri="#ZERO"/>
+            <tag>V='30'</tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Discover: starting with '6011', grouped as 4/4/4/4 (16 total)
+          
+   -->
+      
+   <rule id="DISCOVER">
+      discover 
+      <item repeat="0-1">
+         card
+      </item>
+   </rule>
+      
+   <rule id="ACC_NUMBER_DISCOVER">
+      <ruleref uri="#IIN_4_DISCOVER"/>
+      <tag>V=IIN_4_DISCOVER.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+   </rule>
+      
+   <rule id="IIN_4_DISCOVER">
+      six 
+      <ruleref uri="#ZERO"/>
+      one one 
+      <tag>V='6011'</tag>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Mastercard: starting with '5', grouped as 4/4/4/4 or 4/3/3/3 (16 or 13 total)
+          
+   -->
+      
+   <rule id="MASTERCARD">
+      <one-of>
+         <item>
+            mastercard 
+            <one-of>
+
+               <item>
+                  gold 
+               </item>
+               <item>
+                  platinum 
+               </item>
+            </one-of>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     gold 
+                  </item>
+                  <item>
+                     platinum 
+                  </item>
+               </one-of>
+            </item>
+            mastercard 
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="ACC_NUMBER_MASTERCARD">
+      <ruleref uri="#IIN_1_MASTERCARD"/>
+      <tag>V=IIN_1_MASTERCARD.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <item repeat="0-1">
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+      </item>
+   </rule>
+      
+   <rule id="IIN_1_MASTERCARD">
+      <item>five</item>
+      <tag>V='5'</tag>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Private: start sequence unknown, acc. number length between 10 and 16 digits
+          
+   -->
+      
+   <rule id="ACC_NUMBER_PRIVATE">
+      <ruleref uri="#DIGIT"/>
+      <tag>V = DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <item repeat="0-1">
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+         <item repeat="0-1">
+            <ruleref uri="#DIGIT"/>
+            <tag>V += DIGIT.V</tag>
+            <item repeat="0-1">
+               <ruleref uri="#DIGIT"/>
+               <tag>V += DIGIT.V</tag>
+               <item repeat="0-1">
+                  <ruleref uri="#DIGIT"/>
+                  <tag>V += DIGIT.V</tag>
+                  <item repeat="0-1">
+                     <ruleref uri="#DIGIT"/>
+                     <tag>V += DIGIT.V</tag>
+                     <item repeat="0-1">
+                        <ruleref uri="#DIGIT"/>
+                        <tag>V += DIGIT.V</tag>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </item>
+      </item>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Visa:	starting with '4', grouped as 4/4/4/4 or 4/3/3/3 (16 or 13 digits total)
+          
+   -->
+      
+   <rule id="VISA">
+      <one-of>
+         <item>
+            visa 
+            <one-of>
+
+               <item>
+                  gold 
+               </item>
+               <item>
+                  platinum 
+               </item>
+            </one-of>
+            <item repeat="0-1">
+               card
+            </item>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     gold 
+                  </item>
+                  <item>
+                     platinum 
+                  </item>
+               </one-of>
+            </item>
+            visa 
+            <item repeat="0-1">
+               card
+            </item>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="ACC_NUMBER_VISA">
+      <ruleref uri="#IIN_1_VISA"/>
+      <tag>V=IIN_1_VISA.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <ruleref uri="#DIGIT"/>
+      <tag>V += DIGIT.V</tag>
+      <item repeat="0-1">
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+         <ruleref uri="#DIGIT"/>
+         <tag>V += DIGIT.V</tag>
+      </item>
+   </rule>
+      
+   <rule id="IIN_1_VISA">
+      <item>four</item>
+      <tag>V='4'</tag>
+   </rule>
+   <!--    ##############################################################################  -->
+      
+   <rule id="DIGIT">
+      <one-of>
+         <item>
+            <ruleref uri="#ZERO"/>
+            <tag>V='0'</tag>
+         </item>
+         <item>
+            one 
+            <tag>V='1'</tag>
+         </item>
+         <item>
+            two 
+            <tag>V='2'</tag>
+         </item>
+         <item>
+            three 
+            <tag>V='3'</tag>
+         </item>
+         <item>
+            four 
+            <tag>V='4'</tag>
+         </item>
+         <item>
+            five 
+            <tag>V='5'</tag>
+         </item>
+         <item>
+            six 
+            <tag>V='6'</tag>
+         </item>
+         <item>
+            seven 
+            <tag>V='7'</tag>
+         </item>
+         <item>
+            eight 
+            <tag>V='8'</tag>
+         </item>
+         <item>
+            nine 
+            <tag>V='9'</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="ZERO">
+      <one-of>
+         <item weight="1">
+            zero 
+         </item>
+         <item weight=".3">
+            oh 
+         </item>
+      </one-of>
+   </rule>
+
+</grammar>
+

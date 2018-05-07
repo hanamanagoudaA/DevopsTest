@@ -1,0 +1,8 @@
+	<!-- Request processor for NAR logger tool. -->
+    <request-processor id="NARLogViewerRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.logging.nar.NARLogViewerRequestProcessorImpl</classname>
+    </request-processor>
+    
+    <request-processor id="NARLogFileViewerRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+        <classname>com.nuance.framework.logging.nar.NARLogFileViewerRequestProcessorImpl</classname>
+    </request-processor>

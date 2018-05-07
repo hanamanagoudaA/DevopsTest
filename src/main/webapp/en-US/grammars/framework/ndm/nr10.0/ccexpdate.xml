@@ -1,0 +1,1777 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.w3.org/2001/06/grammar
+                             http://www.w3.org/TR/speech-grammar/grammar.xsd"
+ xml:lang="en-US" mode="voice" root="_ccexpdate">
+
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   Credit card expiry date grammar
+-->
+
+   <meta name="swirec_compile_parser" content="1"/>
+   <meta name="incompletetimeout" content="2000"/>
+   <meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+      
+   <rule id="_ccexpdate" scope="public">
+      <item repeat="0-1" repeat-prob="0.8">
+         @hes@
+      </item>
+      <ruleref uri="#ROOT"/>
+      <tag>         
+      SWI_meaning=ROOT.VALUE;
+      SWI_meaning = SWI_meaning.split(/[ ]+/g).join('');
+      var startIndex;
+      if (SWI_meaning.charAt(0)==' ')
+      startIndex=1;
+      else
+      startIndex=0;
+      var endIndex = SWI_meaning.length;
+      if (SWI_meaning.charAt( endIndex-1 )==' ')
+      endIndex=endIndex-1;
+      SWI_meaning=SWI_meaning.substr(startIndex, endIndex);
+      var today = new Date();
+      var default_ref = '' + today.getFullYear();
+      var tmp = today.getMonth() + 1;
+      if(tmp &lt; 10) {default_ref += '0';}
+      default_ref += tmp;
+      var tmp = today.getDate();
+      if(tmp &lt; 10) {default_ref += '0';}
+      default_ref += tmp;  var ref_date = SWI_vars.referencedate ? SWI_vars.referencedate : default_ref;
+      var ref_ym = ref_date.substr(2,4);
+      var ref_century = parseInt(ref_date.substr (0,2), 10);
+      var ref_year = parseInt(ref_date.substr(2,2), 10);
+      var ref_month = parseInt(ref_date.substr(4,2), 10);
+      var maxa = SWI_vars.maxallowed ? SWI_vars.maxallowed : 84;
+      maxa = parseInt (maxa, 10);
+      if (maxa &lt; 0) SWI_disallow = 1;
+      var maxe = SWI_vars.maxexpected ? SWI_vars.maxexpected : 84;
+      maxe = parseInt (maxe, 10);
+      var century = SWI_meaning.substr(0,2);
+      var ym = SWI_meaning.substr (2,4);
+      if (century == '??') {
+      if (ref_ym &gt; ym) century = ref_century+1;
+      else century = ref_century;
+      SWI_meaning = century.toString() + SWI_meaning.substr(2,6);
+      }  if (SWI_meaning &lt; ref_date) SWI_disallow=1;
+      var ref_num_month = (parseInt(ref_century, 10)-20)*1200 + parseInt(ref_year, 10)*12 + parseInt(ref_month, 10) - 1;
+      var year = parseInt(SWI_meaning.substr(2,2), 10);
+      var month = parseInt(SWI_meaning.substr(4,2), 10);
+      var num_month = (century-20)*1200 + year*12 + month - 1;
+      if (num_month &gt; (ref_num_month + maxa) ) SWI_disallow=1;
+      if (num_month &gt; (ref_num_month + maxe) ) SWI_scoreDelta=-300;
+      MEANING=SWI_meaning;
+      </tag>
+   </rule>
+      
+   <rule id="YEAR_NOCENT">
+      <one-of>
+         <item>
+            <ruleref uri="#YEAR_TENS"/>
+            <tag>             VALUE='';              try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};             VALUE+=(' 0'); </tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_TEENS"/>
+            <tag>             VALUE='';              try {VALUE+=YEAR_TEENS.VALUE; } catch(e){} finally {};             VALUE += ' ';              try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};             VALUE += ' ';              try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_TENS"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='';            try {VALUE+=YEAR_TEENS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_ZERO"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='';            try {VALUE+=YEAR_ZERO.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <ruleref uri="#YEAR_ZERO"/>
+            <tag>           VALUE='';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_ZERO.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            oh oh 
+            <tag>           VALUE='0 0'; </tag>
+         </item>
+         <item>
+            zero zero 
+            <tag>           VALUE='0 0'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>             _V1_1=YEAR_DIGITS.VALUE; </tag>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>             _V1_2=YEAR_DIGITS.VALUE; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="YEAR_ONE_DIG">
+      <one-of>
+         <item>
+            <ruleref uri="#YEAR_JUST_ZERO"/>
+            <tag>             VALUE=YEAR_JUST_ZERO.VALUE; </tag>
+         </item>
+         <item>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>             VALUE=YEAR_DIGITS.VALUE; </tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Commented out for Credit Card Expiry Dates (EvdN)
+          ##############################################################################
+          { $YEAR_NOCENT = oh $YEAR_DIGITS;
+             VALUE = 0 $YEAR_DIGITS;
+          }
+          ##############################################################################
+          
+   -->
+      
+   <rule id="YEAR_FULL">
+      <ruleref uri="#YEAR_FULL_VALUE"/>
+      <tag>         VALUE=YEAR_FULL_VALUE.VALUE; </tag>
+   </rule>
+   <!--
+        
+          #########################
+          ### These are ok for both hundred and not
+          ###################
+          ###############################
+          ### You use an "oh" if you don't say hundred, optional "and" if you do
+          ##################
+          
+   -->
+      
+   <rule id="YEAR_FULL_VALUE">
+      <one-of>
+         <item>
+            two_thousand 
+            <item repeat="0-1">
+               and
+            </item>
+            <ruleref uri="#YEAR_TENS"/>
+            <tag>           VALUE='20 ';            try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};           VALUE+=(' 0'); </tag>
+         </item>
+         <item>
+            two_thousand 
+            <item repeat="0-1">
+               and
+            </item>
+            <ruleref uri="#YEAR_TENS"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='20 ';            try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            two_thousand 
+            <item repeat="0-1">
+               and
+            </item>
+            <ruleref uri="#YEAR_TEENS"/>
+            <tag>           VALUE='20 ';            try {VALUE+=YEAR_TEENS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            two_thousand 
+            <item repeat="0-1">
+               and
+            </item>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='20 0 ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            two_thousand 
+            <tag>           VALUE='2000'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            hundred 
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE+=(' 00'); </tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            hundred 
+            <item repeat="0-1">
+               and
+            </item>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE+=(' 0 ');            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            one nine nine nine 
+            <tag>           VALUE='19 9 9'; </tag>
+         </item>
+         <item>
+            two 
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#ZERO"/>
+            <tag>           VALUE='20 0 0'; </tag>
+         </item>
+         <item>
+            two 
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <ruleref uri="#ZERO"/>
+            <tag>           VALUE='20 ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};           VALUE+=(' 0'); </tag>
+         </item>
+         <item>
+            two 
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='20 0 ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            two 
+            <ruleref uri="#ZERO"/>
+            <ruleref uri="#YEAR_DIGITS_TENS"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='20 ';            try {VALUE+=YEAR_DIGITS_TENS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            oh 
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE+=(' 0 ');            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            <item repeat="0-1">
+               hundred 
+               <item repeat="0-1">
+                  and
+               </item>
+            </item>
+            <ruleref uri="#YEAR_TEENS"/>
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_TEENS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            <item repeat="0-1">
+               hundred 
+               <item repeat="0-1">
+                  and
+               </item>
+            </item>
+            <ruleref uri="#YEAR_TENS"/>
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};           VALUE+=(' 0'); </tag>
+         </item>
+         <item>
+            <ruleref uri="#TEN_OR_TEEN_CENTURY"/>
+            <item repeat="0-1">
+               hundred 
+               <item repeat="0-1">
+                  and
+               </item>
+            </item>
+            <ruleref uri="#YEAR_TENS"/>
+            <ruleref uri="#YEAR_DIGITS"/>
+            <tag>           VALUE='';            try {VALUE+=TEN_OR_TEEN_CENTURY.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_TENS.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=YEAR_DIGITS.VALUE; } catch(e){} finally {};</tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ## Until I get a handle on language models, I am not allowing
+          ## dates starting with 18 since they are too confusable with 19
+          ## 18 NOT NEEDED FOR CREDIT CARD EXPIRY DATES ANYWAY
+          ## Do we really want to allow 21 here?
+          
+   -->
+      
+   <rule id="TEN_OR_TEEN_CENTURY">
+      <one-of>
+         <item>
+            twenty_one 
+            <tag>           VALUE='21'; </tag>
+         </item>
+         <item>
+            twenty 
+            <tag>           VALUE='20'; </tag>
+         </item>
+         <item>
+            nineteen 
+            <tag>           VALUE='19'; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="YEAR_TEENS">
+      <ruleref uri="#YEAR_TEENS_VALUE"/>
+      <tag>         VALUE=YEAR_TEENS_VALUE.VALUE;          YEAR_TEENS=YEAR_TEENS_VALUE.VALUE;          YEAR_TENS='1'; </tag>
+   </rule>
+      
+   <rule id="YEAR_TEENS_VALUE">
+      <one-of>
+         <item>
+            nineteen 
+            <tag>           VALUE='19';            YEAR_DIGITS='9'; </tag>
+         </item>
+         <item>
+            eighteen 
+            <tag>           VALUE='18';            YEAR_DIGITS='8'; </tag>
+         </item>
+         <item>
+            seventeen 
+            <tag>           VALUE='17';            YEAR_DIGITS='7'; </tag>
+         </item>
+         <item>
+            sixteen 
+            <tag>           VALUE='16';            YEAR_DIGITS='6'; </tag>
+         </item>
+         <item>
+            fifteen 
+            <tag>           VALUE='15';            YEAR_DIGITS='5'; </tag>
+         </item>
+         <item>
+            fourteen 
+            <tag>           VALUE='14';            YEAR_DIGITS='4'; </tag>
+         </item>
+         <item>
+            thirteen 
+            <tag>           VALUE='13';            YEAR_DIGITS='3'; </tag>
+         </item>
+         <item>
+            twelve 
+            <tag>           VALUE='12';            YEAR_DIGITS='2'; </tag>
+         </item>
+         <item>
+            eleven 
+            <tag>           VALUE='11';            YEAR_DIGITS='1'; </tag>
+         </item>
+         <item>
+            ten 
+            <tag>           VALUE='10';            YEAR_DIGITS='0'; </tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           Additions for Credit Card Expiry Dates (EvdN)
+          ##############################################################################
+          
+   -->
+      
+   <rule id="YEAR_ZERO">
+      <one-of>
+         <item>
+            oh 
+         </item>
+         <item>
+            zero 
+         </item>
+      </one-of>
+      <tag>         VALUE='0'; </tag>
+   </rule>
+      
+   <rule id="YEAR_JUST_ZERO">
+      <item>zero</item>
+      <tag>         VALUE='0'; </tag>
+   </rule>
+   <!--    ##############################################################################  -->
+      
+   <rule id="YEAR_DIGITS">
+      <ruleref uri="#YEAR_DIGITS_VALUE"/>
+      <tag>         VALUE=YEAR_DIGITS_VALUE.VALUE;          YEAR_DIGITS=YEAR_DIGITS_VALUE.VALUE; </tag>
+   </rule>
+      
+   <rule id="YEAR_DIGITS_VALUE">
+      <one-of>
+         <item>
+            nine 
+            <tag>           VALUE='9'; </tag>
+         </item>
+         <item>
+            eight 
+            <tag>           VALUE='8'; </tag>
+         </item>
+         <item>
+            seven 
+            <tag>           VALUE='7'; </tag>
+         </item>
+         <item>
+            six 
+            <tag>           VALUE='6'; </tag>
+         </item>
+         <item>
+            five 
+            <tag>           VALUE='5'; </tag>
+         </item>
+         <item>
+            four 
+            <tag>           VALUE='4'; </tag>
+         </item>
+         <item>
+            three 
+            <tag>           VALUE='3'; </tag>
+         </item>
+         <item>
+            two 
+            <tag>           VALUE='2'; </tag>
+         </item>
+         <item>
+            one 
+            <tag>           VALUE='1'; </tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          { $YEAR_DIGITS_TENS = three;   VALUE = 3; }
+          { $YEAR_DIGITS_TENS = four;    VALUE = 4; }
+          { $YEAR_DIGITS_TENS = five;    VALUE = 5; }
+          { $YEAR_DIGITS_TENS = six;     VALUE = 6; }
+          { $YEAR_DIGITS_TENS = seven;   VALUE = 7; }
+          { $YEAR_DIGITS_TENS = eight;   VALUE = 8; }
+          
+   -->
+      
+   <rule id="YEAR_DIGITS_TENS">
+      <one-of>
+         <item>
+            nine 
+            <tag>           VALUE='9'; </tag>
+         </item>
+         <item>
+            two 
+            <tag>           VALUE='2'; </tag>
+         </item>
+         <item>
+            one 
+            <tag>           VALUE='1'; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="YEAR_TENS">
+      <ruleref uri="#YEAR_TENS_VALUE"/>
+      <tag>         VALUE=YEAR_TENS_VALUE.VALUE;          YEAR_TENS=YEAR_TENS_VALUE.VALUE; </tag>
+   </rule>
+   <!--
+        
+          { $YEAR_TENS_VALUE = thirty ;	VALUE = 3; }
+          { $YEAR_TENS_VALUE = forty ;	VALUE = 4; }
+          { $YEAR_TENS_VALUE = fifty ;	VALUE = 5; }
+          { $YEAR_TENS_VALUE = sixty ; 	VALUE = 6; }
+          { $YEAR_TENS_VALUE = seventy ;	VALUE = 7; }
+          { $YEAR_TENS_VALUE = eighty ;	VALUE = 8; }
+          ##############################################################################
+           END OF FILE `cc_exp_year.bnf'                                               #
+          ##############################################################################
+          
+   -->
+      
+   <rule id="YEAR_TENS_VALUE">
+      <one-of>
+         <item>
+            ninety 
+            <tag>           VALUE='9'; </tag>
+         </item>
+         <item>
+            twenty 
+            <tag>           VALUE='2'; </tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+          ##############################################################################
+          
+          	BNF for Credit Card Expiry Date DialogModule
+          
+          ##############################################################################
+           `cc_exp_year.inc' is `year.inc' from date.bnf,
+           with the addition of the rule: $YEAR_NOCENT = $DIGITS $DIGITS
+          
+   -->
+      
+   <rule id="ROOT">
+      <item>
+      <ruleref uri="#CCEXPDATE"/>
+      <tag>           _V1_1=CCEXPDATE.VALUE; </tag>
+</item>
+      <tag>VALUE= _V1_1; </tag>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           This BNF supports date formats typical for credit card expiry dates, i.e:
+           only <month / year>, or <month / last day of the month / year>.  In addition,
+           both month and year can be spoken as two separate digits, as well as in na_
+           tural numbers or by name.
+          
+           A few examples are: "september of nineteen ninety nine," "oh one oh one,"
+           "nine of two thousand," "nine thirty ninety nine," "oh one thirty one oh two"
+          
+           Date format returned by this BNF is: yyyymmdd, with dd always being the last
+           day of the month (not taking into account leap years: always 28 for Feb.).
+          
+          ##############################################################################
+           $YEAR_NOCENT is for example: "ninety nine"
+           $YEAR_FULL is for example: "nineteen hundred ninety nine"
+          # AMBIG months cannot be used along with one_digit years, e.g., if we allow October
+          # to be represented as "one oh" and the year 2001 to be represented as "one",
+          # then we would allow "one oh one" to be interpeted as 10/01. But it should only be
+          # interpreted as 01/01.
+          
+   -->
+      
+   <rule id="CCEXPDATE">
+      <one-of>
+         <item>
+            <ruleref uri="#MONTH"/>
+            <item repeat="0-1">
+               slash
+            </item>
+            <ruleref uri="#YEAR_ONE_DIG"/>
+            <tag>           VALUE='?? 0 ';            try {VALUE+=YEAR_ONE_DIG.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=MONTH.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#AMBIG_MONTH"/>
+            <item repeat="0-1">
+               slash
+            </item>
+            <ruleref uri="#YEAR_FULL"/>
+            <tag>           VALUE='';            try {VALUE+=YEAR_FULL.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=AMBIG_MONTH.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#MONTH"/>
+            <item repeat="0-1">
+               slash
+            </item>
+            <ruleref uri="#YEAR_FULL"/>
+            <tag>           VALUE='';            try {VALUE+=YEAR_FULL.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=MONTH.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#AMBIG_MONTH"/>
+            <item repeat="0-1">
+               slash
+            </item>
+            <ruleref uri="#YEAR_NOCENT"/>
+            <tag>           VALUE='?? ';            try {VALUE+=YEAR_NOCENT.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=AMBIG_MONTH.VALUE; } catch(e){} finally {};</tag>
+         </item>
+         <item>
+            <ruleref uri="#MONTH"/>
+            <item repeat="0-1">
+               slash
+            </item>
+            <ruleref uri="#YEAR_NOCENT"/>
+            <tag>           VALUE='?? ';            try {VALUE+=YEAR_NOCENT.VALUE; } catch(e){} finally {};           VALUE += ' ';            try {VALUE+=MONTH.VALUE; } catch(e){} finally {};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="MONTH">
+      <one-of>
+         <item>
+            <ruleref uri="#DECEMBER"/>
+            <tag>             VALUE='1231'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#NOVEMBER"/>
+            <tag>             VALUE='1130'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#OCTOBER"/>
+            <tag>             VALUE='1031'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#SEPTEMBER"/>
+            <tag>             VALUE='0930'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#AUGUST"/>
+            <tag>             VALUE='0831'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#JULY"/>
+            <tag>             VALUE='0731'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#JUNE"/>
+            <tag>             VALUE='0630'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#MAY"/>
+            <tag>             VALUE='0531'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#APRIL"/>
+            <tag>             VALUE='0430'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#MARCH"/>
+            <tag>             VALUE='0331'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#FEBRUARY"/>
+            <tag>             VALUE='0228'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#JANUARY"/>
+            <tag>             VALUE='0131'; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AMBIG_MONTH">
+      <one-of>
+         <item>
+            <ruleref uri="#AMBIG_DECEMBER"/>
+            <tag>             VALUE='1231'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#AMBIG_NOVEMBER"/>
+            <tag>             VALUE='1130'; </tag>
+         </item>
+         <item>
+            <ruleref uri="#AMBIG_OCTOBER"/>
+            <tag>             VALUE='1031'; </tag>
+         </item>
+      </one-of>
+   </rule>
+   <!--
+        
+           Optional of only spoken when date is left out, e.g:
+           June of 1999, but not June 30th of 1999."
+          
+   -->
+      
+   <rule id="JANUARY">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>january</item>
+            <tag>             _V1_2='january'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>january</item>
+            <tag>             _V1_1='january'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>one</item>
+            <tag>             _V1_2='one'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_31"/>
+                           <tag>                       _V2_2=DATE_DIGIT_31.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_31"/>
+                           <tag>                       _V2_2=DATE_CARD_31.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="FEBRUARY">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_29"/>
+                  <tag>                 _V1_1=DATE_CARD_29.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_29"/>
+                  <tag>                 _V1_1=DATE_ORD_29.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_29"/>
+                  <tag>                 _V1_1=DATE_DIGIT_29.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>february</item>
+            <tag>             _V1_2='february'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_28"/>
+                  <tag>                 _V1_1=DATE_CARD_28.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_28"/>
+                  <tag>                 _V1_1=DATE_ORD_28.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_28"/>
+                  <tag>                 _V1_1=DATE_DIGIT_28.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>february</item>
+            <tag>             _V1_2='february'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>february</item>
+            <tag>             _V1_1='february'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_29"/>
+                     <tag>                   _V1_2=DATE_CARD_29.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_29"/>
+                     <tag>                   _V1_2=DATE_ORD_29.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>february</item>
+            <tag>             _V1_1='february'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_28"/>
+                     <tag>                   _V1_2=DATE_CARD_28.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_28"/>
+                     <tag>                   _V1_2=DATE_ORD_28.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>two</item>
+            <tag>             _V1_2='two'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_29"/>
+                           <tag>                       _V2_2=DATE_DIGIT_29.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_29"/>
+                           <tag>                       _V2_2=DATE_CARD_29.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>two</item>
+            <tag>             _V1_2='two'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_28"/>
+                           <tag>                       _V2_2=DATE_DIGIT_28.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_28"/>
+                           <tag>                       _V2_2=DATE_CARD_28.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="MARCH">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>march</item>
+            <tag>             _V1_2='march'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>march</item>
+            <tag>             _V1_1='march'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>three</item>
+            <tag>             _V1_2='three'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_31"/>
+                           <tag>                       _V2_2=DATE_DIGIT_31.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_31"/>
+                           <tag>                       _V2_2=DATE_CARD_31.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="APRIL">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_30"/>
+                  <tag>                 _V1_1=DATE_CARD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_30"/>
+                  <tag>                 _V1_1=DATE_ORD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_30"/>
+                  <tag>                 _V1_1=DATE_DIGIT_30.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>april</item>
+            <tag>             _V1_2='april'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>april</item>
+            <tag>             _V1_1='april'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_30"/>
+                     <tag>                   _V1_2=DATE_CARD_30.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_30"/>
+                     <tag>                   _V1_2=DATE_ORD_30.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>four</item>
+            <tag>             _V1_2='four'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_30"/>
+                           <tag>                       _V2_2=DATE_DIGIT_30.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_30"/>
+                           <tag>                       _V2_2=DATE_CARD_30.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="MAY">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>may</item>
+            <tag>             _V1_2='may'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>may</item>
+            <tag>             _V1_1='may'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>five</item>
+            <tag>             _V1_2='five'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_31"/>
+                           <tag>                       _V2_2=DATE_DIGIT_31.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_31"/>
+                           <tag>                       _V2_2=DATE_CARD_31.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="JUNE">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_30"/>
+                  <tag>                 _V1_1=DATE_CARD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_30"/>
+                  <tag>                 _V1_1=DATE_ORD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_30"/>
+                  <tag>                 _V1_1=DATE_DIGIT_30.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>june</item>
+            <tag>             _V1_2='june'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>june</item>
+            <tag>             _V1_1='june'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_30"/>
+                     <tag>                   _V1_2=DATE_CARD_30.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_30"/>
+                     <tag>                   _V1_2=DATE_ORD_30.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>six</item>
+            <tag>             _V1_2='six'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_30"/>
+                           <tag>                       _V2_2=DATE_DIGIT_30.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_30"/>
+                           <tag>                       _V2_2=DATE_CARD_30.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="JULY">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>july</item>
+            <tag>             _V1_2='july'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>july</item>
+            <tag>             _V1_1='july'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>seven</item>
+            <tag>             _V1_2='seven'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_DIGIT_31"/>
+                     <tag>                   _V1_3=DATE_DIGIT_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_3=DATE_CARD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AUGUST">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>august</item>
+            <tag>             _V1_2='august'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>august</item>
+            <tag>             _V1_1='august'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>eight</item>
+            <tag>             _V1_2='eight'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_DIGIT_31"/>
+                     <tag>                   _V1_3=DATE_DIGIT_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_3=DATE_CARD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="SEPTEMBER">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_30"/>
+                  <tag>                 _V1_1=DATE_CARD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_30"/>
+                  <tag>                 _V1_1=DATE_ORD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_30"/>
+                  <tag>                 _V1_1=DATE_DIGIT_30.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>september</item>
+            <tag>             _V1_2='september'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>september</item>
+            <tag>             _V1_1='september'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_30"/>
+                     <tag>                   _V1_2=DATE_CARD_30.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_30"/>
+                     <tag>                   _V1_2=DATE_ORD_30.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item repeat="0-1">
+               <ruleref uri="#ZERO"/>
+               <tag>               _V1_1=ZERO.VALUE; </tag>
+            </item>
+            <item>nine</item>
+            <tag>             _V1_2='nine'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_3='of'; </tag>
+                  </item>
+                  <item>
+                     <item repeat="0-1">
+                        <item>slash</item>
+                        <tag>                     _V2_1='slash'; </tag>
+                     </item>
+                     <one-of>
+                        <item>
+                           <ruleref uri="#DATE_DIGIT_30"/>
+                           <tag>                       _V2_2=DATE_DIGIT_30.VALUE; </tag>
+                        </item>
+                        <item>
+                           <ruleref uri="#DATE_CARD_30"/>
+                           <tag>                       _V2_2=DATE_CARD_30.VALUE; </tag>
+                        </item>
+                     </one-of>
+                     <tag>                 try{_V1_3=_V2_1; } catch(e) {_V1_3='';} finally{};                 _V1_3+=(' ' + _V2_2); </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           try{VALUE=_V1_1; } catch(e) {VALUE='';} finally{};           VALUE+=(' ' + _V1_2);            try{VALUE+=(' ' + _V1_3); } catch(e) {} finally{};</tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="OCTOBER">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>october</item>
+            <tag>             _V1_2='october'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>october</item>
+            <tag>             _V1_1='october'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>ten</item>
+            <tag>             _V1_1='ten'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_DIGIT_31"/>
+                     <tag>                   _V1_2=DATE_DIGIT_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>one</item>
+            <tag>             _V1_1='one'; </tag>
+            <ruleref uri="#ZERO"/>
+            <tag>             _V1_2=ZERO.VALUE; </tag>
+            <one-of>
+               <item>
+                  of 
+                  <tag>               _V1_3='of'; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_3=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_3=DATE_CARD_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2 + ' ' + _V1_3; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AMBIG_OCTOBER">
+      <item>one</item>
+      <tag>           _V1_1='one'; </tag>
+      <ruleref uri="#ZERO"/>
+      <tag>           _V1_2=ZERO.VALUE; </tag>
+      <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+   </rule>
+      
+   <rule id="NOVEMBER">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_30"/>
+                  <tag>                 _V1_1=DATE_CARD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_30"/>
+                  <tag>                 _V1_1=DATE_ORD_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_30"/>
+                  <tag>                 _V1_1=DATE_DIGIT_30.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>november</item>
+            <tag>             _V1_2='november'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>november</item>
+            <tag>             _V1_1='november'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_30"/>
+                     <tag>                   _V1_2=DATE_CARD_30.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_30"/>
+                     <tag>                   _V1_2=DATE_ORD_30.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>eleven</item>
+            <tag>             _V1_1='eleven'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_DIGIT_30"/>
+                     <tag>                   _V1_2=DATE_DIGIT_30.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_30"/>
+                     <tag>                   _V1_2=DATE_CARD_30.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>one</item>
+            <tag>             _V1_1='one'; </tag>
+            <item>one</item>
+            <tag>             _V1_2='one'; </tag>
+            <one-of>
+               <item>
+                  of 
+                  <tag>               _V1_3='of'; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_30"/>
+                  <tag>                 _V1_3=DATE_DIGIT_30.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_CARD_30"/>
+                  <tag>                 _V1_3=DATE_CARD_30.VALUE; </tag>
+               </item>
+            </one-of>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2 + ' ' + _V1_3; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AMBIG_NOVEMBER">
+      <item>one one</item>
+      <tag>         VALUE='one one'; </tag>
+   </rule>
+      
+   <rule id="DECEMBER">
+      <one-of>
+         <item>
+            <one-of>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_1=DATE_CARD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_ORD_31"/>
+                  <tag>                 _V1_1=DATE_ORD_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_1=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <item>december</item>
+            <tag>             _V1_2='december'; </tag>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+         </item>
+         <item>
+            <item>december</item>
+            <tag>             _V1_1='december'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_ORD_31"/>
+                     <tag>                   _V1_2=DATE_ORD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>twelve</item>
+            <tag>             _V1_1='twelve'; </tag>
+            <item repeat="0-1">
+               <one-of>
+                  <item>
+                     of 
+                     <tag>                 _V1_2='of'; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_DIGIT_31"/>
+                     <tag>                   _V1_2=DATE_DIGIT_31.VALUE; </tag>
+                  </item>
+                  <item>
+                     <ruleref uri="#DATE_CARD_31"/>
+                     <tag>                   _V1_2=DATE_CARD_31.VALUE; </tag>
+                  </item>
+               </one-of>
+            </item>
+            <tag>           VALUE=_V1_1;            try{VALUE+=(' ' + _V1_2); } catch(e) {} finally{};</tag>
+         </item>
+         <item>
+            <item>one</item>
+            <tag>             _V1_1='one'; </tag>
+            <item>two</item>
+            <tag>             _V1_2='two'; </tag>
+            <one-of>
+               <item>
+                  of 
+                  <tag>               _V1_3='of'; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_DIGIT_31"/>
+                  <tag>                 _V1_3=DATE_DIGIT_31.VALUE; </tag>
+               </item>
+               <item>
+                  <ruleref uri="#DATE_CARD_31"/>
+                  <tag>                 _V1_3=DATE_CARD_31.VALUE; </tag>
+               </item>
+            </one-of>
+            <tag>VALUE= _V1_1 + ' ' + _V1_2 + ' ' + _V1_3; </tag>
+         </item>
+      </one-of>
+   </rule>
+      
+   <rule id="AMBIG_DECEMBER">
+      <item>one two</item>
+      <tag>         VALUE='one two'; </tag>
+   </rule>
+      
+   <rule id="DATE_DIGIT_28">
+      <item>two eight</item>
+      <tag>         VALUE='two eight'; </tag>
+   </rule>
+      
+   <rule id="DATE_DIGIT_29">
+      <item>two nine</item>
+      <tag>         VALUE='two nine'; </tag>
+   </rule>
+      
+   <rule id="DATE_DIGIT_30">
+      <item>three</item>
+      <tag>           _V1_1='three'; </tag>
+      <ruleref uri="#ZERO"/>
+      <tag>           _V1_2=ZERO.VALUE; </tag>
+      <tag>VALUE= _V1_1 + ' ' + _V1_2; </tag>
+   </rule>
+      
+   <rule id="DATE_DIGIT_31">
+      <item>three one</item>
+      <tag>         VALUE='three one'; </tag>
+   </rule>
+      
+   <rule id="DATE_CARD_28">
+      <item>twenty eight</item>
+      <tag>         VALUE='twenty eight'; </tag>
+   </rule>
+      
+   <rule id="DATE_CARD_29">
+      <item>twenty nine</item>
+      <tag>         VALUE='twenty nine'; </tag>
+   </rule>
+      
+   <rule id="DATE_CARD_30">
+      <item>thirty</item>
+      <tag>         VALUE='thirty'; </tag>
+   </rule>
+      
+   <rule id="DATE_CARD_31">
+      <item>thirty one</item>
+      <tag>         VALUE='thirty one'; </tag>
+   </rule>
+      
+   <rule id="DATE_ORD_28">
+      <item>twenty eighth</item>
+      <tag>         VALUE='twenty eighth'; </tag>
+   </rule>
+      
+   <rule id="DATE_ORD_29">
+      <item>twenty ninth</item>
+      <tag>         VALUE='twenty ninth'; </tag>
+   </rule>
+      
+   <rule id="DATE_ORD_30">
+      <item>thirtieth</item>
+      <tag>         VALUE='thirtieth'; </tag>
+   </rule>
+      
+   <rule id="DATE_ORD_31">
+      <item>thirty first</item>
+      <tag>         VALUE='thirty first'; </tag>
+   </rule>
+   <!--
+        
+          ##############################################################################
+           END OF FILE `cc_exp_date.bnf'                                               #
+          ##############################################################################
+          
+   -->
+      
+   <rule id="ZERO">
+      <one-of>
+         <item>
+            oh 
+            <tag>           VALUE='oh'; </tag>
+         </item>
+         <item>
+            zero 
+            <tag>           VALUE='zero'; </tag>
+         </item>
+      </one-of>
+   </rule>
+
+</grammar>
+

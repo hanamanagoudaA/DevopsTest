@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+
+<grammar xml:lang="en-US" version="1.0" root="_zipcode" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2006 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   zipcode grammar
+-->
+
+<meta name="swirec_max_speech_duration" content="14000"/>
+<meta name="swirec_compile_parser" content="1"/>
+<meta name="swirec_optimization" content="7"/> <!-- This makes it so the xml compilation level is the same as with sgc -->
+  <rule id="_zipcode" scope="public">
+    <ruleref uri="#ZIP" tag="
+       SWI_meaning = ZIP.V;
+       if (SWI_meaning.substr(0,5) == '00000') SWI_disallow=1;
+       dm_root=SWI_meaning;
+     "/>
+   </rule>
+  <rule id="ZIP">
+    <ruleref uri="#DIGIT" tag="V = DIGIT.V"/>
+    <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+    <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+    <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+    <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+    <count number="optional">
+      <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+      <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+      <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+      <ruleref uri="#DIGIT" tag="V += DIGIT.V"/>
+    </count>
+  </rule>
+  <rule id="DIGIT">
+    <one-of>
+      <item tag="V='0'">oh</item>
+      <item tag="V='0'">zero</item>
+      <item tag="V='1'">one</item>
+      <item tag="V='2'">two</item>
+      <item tag="V='3'">three</item>
+      <item tag="V='4'">four</item>
+      <item tag="V='5'">five</item>
+      <item tag="V='6'">six</item>
+      <item tag="V='7'">seven</item>
+      <item tag="V='8'">eight</item>
+      <item tag="V='9'">nine</item>
+    </one-of>
+  </rule>
+</grammar>
+

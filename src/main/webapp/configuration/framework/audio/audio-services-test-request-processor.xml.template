@@ -1,0 +1,20 @@
+    <!-- Start Test Request processor for audio service. -->
+    <request-processor id="AudioServiceRequestProcessorImpl" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.AudioServiceRequestProcessorImpl</classname>
+    </request-processor>
+    <request-processor id="ExistingAudioFilesRequestProcessorImpl" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.ExistingAudioFilesRequestProcessorImpl</classname>
+    </request-processor>
+    <request-processor id="MissingAudioFilesCsvExportRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.MissingAudioFilesCsvExportRequestProcessor</classname>
+    </request-processor>
+    <request-processor id="MissingPromptsInSentencesCsvExportRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.MissingPromptsInSentencesCsvExportRequestProcessor</classname>
+    </request-processor>
+    <request-processor id="MissingPromptSentencesInNdmCsvExportRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.MissingPromptSentencesInNdmCsvExportRequestProcessor</classname>
+    </request-processor>
+	<request-processor id="ExistingAudioFilesCsvExportRequestProcessor" xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    	<classname>com.nuance.framework.vxml.service.audio.test.ExistingAudioFilesCsvExportRequestProcessor</classname>
+    </request-processor>
+    <!-- End Test Request processor for audio service. -->

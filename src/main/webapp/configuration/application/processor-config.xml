@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+    <parameter name="ProcessorFactoryClassName">
+        <value>com.nuance.framework.vxml.service.PropertiesProcessorFactoryImpl</value>
+    </parameter>
+    <parameter name="StaticAudioProcessor">
+        <value>com.nuance.framework.vxml.service.audio.SentenceAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicAudioSubdialogProcessor">
+        <value>com.nuance.framework.vxml.service.audio.DynamicAudioSubdialogProcessorImpl</value>
+    </parameter>
+    <parameter name="StaticAudioProcessorNoLogging">
+        <value>com.nuance.framework.vxml.service.audio.SentenceAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="GenericPromptAudioProcessor">
+        <value>com.nuance.framework.vxml.service.audio.GenericPromptAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="StaticPromptProcessor">
+        <value>com.nuance.framework.vxml.service.audio.PromptAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="SentenceProcessor">
+        <value>com.nuance.framework.vxml.service.audio.SentenceAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicDataPromptProcessor">
+        <value>com.nuance.framework.vxml.service.audio.DynamicDataAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="NDMPromptObjectProcessor">
+        <value>com.nuance.framework.vxml.service.audio.NDMPromptAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="NDMPromptMapProcessor">
+        <value>com.nuance.framework.vxml.service.audio.NDMCollectionAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="NDMProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.ndm.NDMCoreSubdialogProcessorImpl</value>
+    </parameter>
+    <parameter name="NDMAudioProcessor">
+        <value>com.nuance.framework.vxml.service.audio.NDMVXMLAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="DataAccessTagProcessor">
+        <value>com.nuance.framework.vxml.service.dataaccess.DataAccessTagProcessorImpl</value>
+    </parameter>
+    <parameter name="StaticInputProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DtmfInputProcessorImpl</value>
+    </parameter>
+    <parameter name="StaticMenuProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DtmfMenuProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicMenuPresentationProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DynamicPresentationMenuProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicMenuProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DynamicMenuProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicInputPresentationProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DynamicPresentationInputProcessorImpl</value>
+    </parameter>
+    <parameter name="DynamicInputProcessor">
+        <value>com.nuance.framework.vxml.service.dialog.dtmf.DynamicInputProcessorImpl</value>
+    </parameter>
+    <parameter name="ExceptionProcessor">
+        <value>com.nuance.framework.vxml.service.ExceptionProcessorImpl</value>
+    </parameter>
+    <parameter name="ExceptionProcessorBlockTags">
+        <value>com.nuance.framework.vxml.service.ExceptionProcessorBlockTagImpl</value>
+    </parameter>
+    <parameter name="HDDMAudioProcessor">
+        <value>com.nuance.framework.vxml.service.audio.hddm.EcmascriptFunctionAudioProcessorImpl</value>
+    </parameter>
+    <parameter name="RecognitionServiceProcessor">
+        <value>com.nuance.framework.vxml.service.recognition.RecognitionServiceProcessorImpl</value>
+    </parameter>
+    <parameter name="NDMDataTagProcessor">
+        <value>com.nuance.framework.vxml.service.datatag.NDMDataTagProcessorImpl</value>
+    </parameter>
+</application-config>

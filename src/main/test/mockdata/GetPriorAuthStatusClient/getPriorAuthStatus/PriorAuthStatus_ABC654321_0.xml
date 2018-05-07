@@ -1,0 +1,9 @@
+<com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>
+	<numberOfPAs>0</numberOfPAs>
+	<onFirstPA/>
+	<onLastPA/>
+	<drugPrompt/>
+	<drugTTS>zocor 35 mg</drugTTS>
+	<priorAuthorizationDate/>
+	<status/>
+</com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>

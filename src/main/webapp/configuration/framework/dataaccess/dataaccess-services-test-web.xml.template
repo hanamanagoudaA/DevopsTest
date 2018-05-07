@@ -1,0 +1,6 @@
+    <!-- Start Servlet mapping for dataaccess service. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/dataaccessService.html</url-pattern>
+    </servlet-mapping>
+    <!-- End Servlet mapping for dataaccess service. -->

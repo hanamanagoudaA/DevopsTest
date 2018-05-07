@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <!-- description: The characters to be escaped within prompts. 
+         If not otherwise specified, ECMAScript and JavaScript interpret all possible characters as
+         commands or parts of commands. For example, if ' (single quote) is defined as a
+         character to escape, then \' is interpreted as an apostrophe instead of a delimiter. 
+         
+         <prompt cond=
+         "startPlayPrompt('sa0001_Welcome',
+         'Here\'s a test')">
+    -->
+    <parameter name="CharactersToEscape">
+        <list>
+            <value>'</value>
+        </list>
+    </parameter>
+
+    <!-- description: If true, audio call tracking is enabled -->
+    <parameter name="EnableAudioCallTracking">
+        <value>true</value>
+    </parameter>
+
+    <!-- description: File extension used for prompt files
+         Note: If a file extension is specified in prompt.xml, that extension overrides this one 
+    -->
+    <parameter name="AudioFileExtension">
+        <value>wav</value>
+    </parameter>
+
+    <!-- description: If true, a break is added in the VXML tag when there is an empty text to speech tag (audiofile text="") -->
+    <!--              This parameter should set to true when using Vocalizer 5 behind NSS -->
+    <parameter name="UseBreakTagForEmptyTTS">
+        <value>false</value>
+    </parameter>
+
+    <!-- description: If true, the language specified in the language attribute in the prompt file will be used. 
+         If false, it will be ignored Note: Use false when the browser does not support the lang tag. 
+    -->
+    <!-- 
+    <parameter name="UseXMLLangAttribute">
+        <value>true</value>
+    </parameter>
+ -->
+    <!-- description: Provides equivalent names for prompts and CPR types. For example, en-US maps to en.us -->
+    <parameter name="LanguageMap">
+        <map>
+            <parameter name="en-US">
+                <value>en.us</value>
+            </parameter>
+            <parameter name="es-US">
+                <value>es.us</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <!-- description: the CPR maps defined below apply only to the CPR ECMA script API -->
+
+    <parameter name="CURRENCYMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.alpha.short</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+
+            <parameter name="currencyCode">
+                <value>USD</value>
+            </parameter>
+
+            <parameter name="playZeroDollars">
+                <value>true</value>
+            </parameter>
+
+            <parameter name="playZeroCents">
+                <value>true</value>
+            </parameter>
+
+            <!-- relative to EcmascriptBaseUri -->
+            <!-- gets appended onto the EcmascriptBaseUri parameter in Audio Service configuration -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Currency.es</value>
+            </parameter>
+
+            <!-- function added to CPR to work with Audio Service configuration -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRCurrency</value>
+            </parameter>
+
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>currencyString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="ALPHANUMMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.alpha.short</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Alphanum.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRAlphaNum</value>
+            </parameter>
+            
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>alphanumString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="DATEMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.date.precpr</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Date.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRDate</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>dateString</value>
+            </parameter>
+
+            <parameter name="dateFormat">
+                <value>MMddyyyy</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="DIGITSMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.digits.short</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Digits.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRDigits</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>digitsString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="FLIGHTNUMMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.flight.precpr</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Flightnum.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRFlightnum</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>flightnumString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="NATURALMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.natnum</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Natnum.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRNaturalNumber</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>natnumString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="PHONEMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.phone.pause1</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Phone.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRPhone</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>phoneString</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <parameter name="TIMEMap">
+        <map>
+            <parameter name="silenceType">
+                <value>silence.time.precpr</value>
+            </parameter>
+
+            <parameter name="intonation">
+                <value>m</value>
+            </parameter>
+            <!-- file name -->
+            <parameter name="ecmascriptFileName">
+                <value>scripts/framework/cpr/Time.es</value>
+            </parameter>
+            <!-- function name -->
+            <parameter name="ecmascriptFunctionName">
+                <value>CPRTime</value>
+            </parameter>
+            <!-- script variable to assign app var to -->
+            <parameter name="ecmascriptFunctionVariableName">
+                <value>timeString</value>
+            </parameter>
+            <parameter name="timeFormat">
+                <value>hh:mm</value>
+            </parameter>
+        </map>
+    </parameter>
+
+    <!-- description: Relative path of the prompt XML files -->
+    <parameter name="Prompts">
+        <list>
+            <value>/en-US/configuration/framework/audio/CPR_Prompts_en-US.xml</value>
+            <!-- Prompts -->
+
+            <value>/en-US/configuration/application/audio/PriorAuthStatusPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/RejectedClaimPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/MemberProcessingInfoPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/EligibilityPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/GlobalPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/MainMenuPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/OrderStatusPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/RefillsPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/AuthMailPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/AuthMemberClaimPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/AuthProviderClaimPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/TransferPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/ProactiveRejectedClaimPrompts.xml</value>
+            <value>/en-US/configuration/application/audio/AuthMemberIRISPrompts.xml</value>
+			<value>/en-US/configuration/application/audio/OrderPrompts.xml</value>
+			<value>/en-US/configuration/application/audio/RefillPrompts.xml</value>	
+			<value>/en-US/configuration/application/audio/CreditCardPrompts.xml</value>			
+			<value>/en-US/configuration/application/audio/AddressPrompts.xml</value>
+			<value>/en-US/configuration/application/audio/HassleFreeFillPrompts.xml</value>
+			<value>/en-US/configuration/application/audio/EndCallPrompts.xml</value>
+			
+			    <value>/es-US/configuration/framework/audio/CPR_Prompts_es-US.xml</value> 
+			 
+			<value>/es-US/configuration/application/audio/PriorAuthStatusPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/EligibilityPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/GlobalPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/MainMenuPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/OrderStatusPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/RefillsPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/AuthMemberClaimPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/TransferPrompts.xml</value>
+            <value>/es-US/configuration/application/audio/AuthMemberIRISPrompts.xml</value>
+			<value>/es-US/configuration/application/audio/OrderPrompts.xml</value>
+			<value>/es-US/configuration/application/audio/RefillPrompts.xml</value>	
+			<value>/es-US/configuration/application/audio/CreditCardPrompts.xml</value>			
+			<value>/es-US/configuration/application/audio/AddressPrompts.xml</value>
+			<value>/es-US/configuration/application/audio/HassleFreeFillPrompts.xml</value>
+			<value>/es-US/configuration/application/audio/EndCallPrompts.xml</value>
+			
+
+
+        </list>
+    </parameter>
+
+    <!-- description: Relative path of the sentence XML files -->
+    <parameter name="Sentences">
+        <list>
+        
+            <value>/configuration/application/audio/PriorAuthStatusSentences.xml</value>
+            <value>/configuration/application/audio/RejectedClaimSentences.xml</value>
+            <value>/configuration/application/audio/MemberProcessingInfoSentences.xml</value>
+            <value>/configuration/application/audio/EligibilitySentences.xml</value>
+            <value>/configuration/application/audio/GlobalSentences.xml</value>
+            <value>/configuration/application/audio/MainMenuSentences.xml</value>
+            <value>/configuration/application/audio/OrderStatusSentences.xml</value>
+            <value>/configuration/application/audio/RefillsSentences.xml</value>
+            <value>/configuration/application/audio/AuthMailSentences.xml</value>
+            <value>/configuration/application/audio/AuthMemberClaimSentences.xml</value>
+            <value>/configuration/application/audio/AuthProviderClaimSentences.xml</value>
+            <value>/configuration/application/audio/TransferSentences.xml</value>
+            <value>/configuration/application/audio/ProactiveRejectedClaimSentences.xml</value>
+            <value>/configuration/application/audio/AuthMemberIRISSentences.xml</value>
+            <value>/configuration/application/audio/OrderSentences.xml</value>
+            <value>/configuration/application/audio/RefillSentences.xml</value> 
+            <value>/configuration/application/audio/CreditCardSentences.xml</value>
+            <value>/configuration/application/audio/AddressSentences.xml</value>
+			<value>/configuration/application/audio/HassleFreeFillSentences.xml</value>
+			<value>/configuration/application/audio/EndCallSentences.xml</value>
+			<!--  
+			<value>/es-US/configuration/application/audio/sentences.xml</value>
+			-->
+        </list>
+    </parameter>
+
+    <!-- description: Name of the default audio library -->
+    <parameter name="DefaultAudioLibrary">
+        <value>default</value>
+    </parameter>
+
+    <!-- description: If true, VXML prompt/audio tag src URLs are relative to the application -->
+    <parameter name="UseRelativeAudioSourceUrl">
+        <value>true</value>
+    </parameter>
+
+    <!-- description: Base URI path to be appended to the SRC value in the prompt XML file
+         Note: If a path is specified in AbsoluteAudioSourceUrl, this property must be uncommented. 
+    -->
+
+    <!-- Base URI for all prompt files -->
+    <parameter name="AudioSourceBaseUri">
+        <value>{language}/prompts/application</value>
+    </parameter>
+
+    <!-- description: Specifies if the audio file can be fetched before it is needed (prefetch), or must be fetched only when needed (safe) -->
+    <parameter name="FetchHint">
+        <value>prefetch</value>
+    </parameter>
+
+    <!-- description: Fetch time out -->
+    <parameter name="FetchTimeout">
+        <value>3s</value>
+    </parameter>
+
+    <!-- description: Extension used to map dynamic audio back to the correct request processors -->
+    <parameter name="DynamicSentenceUriExtension">
+        <value>audio</value>
+    </parameter>
+
+    <!-- description: Default View JSP returned by the audio request processor -->
+    <parameter name="DefaultAudioView">
+        <value>AudioView</value>
+    </parameter>
+
+  
+    <!-- Set to an absolute URI or to a URI relative to the web root -->
+    <!-- Setting it the the web root "./" allows for using scripts not only in the "<webroot>/scripts/" folder
+    but also "<webroot>/en-US/scripts/". -->
+    <parameter name="EcmascriptBaseUri">
+        <value>./</value>
+    </parameter>
+
+    <parameter name="UseRelativeEcmaScriptPath">
+        <value>true</value>
+    </parameter>
+
+    <!-- description: VXML variable names within scope of the subdialog generated by the dynamic audio tag. The variable(s) are included in the subdialog namelist
+         - language
+         - library
+         - version 
+    -->
+    <parameter name="CachePropertyKeys">
+        <list>
+            <value>language</value>
+            <value>library</value>
+            <value>version</value>
+        </list>
+    </parameter>
+
+    <!-- description: Base URI paths to be appended to the SRC value in the prompt XML file for NDM prompts -->
+    <!-- The parameters below should be set only if NDMBaseUri (in ndm-service-config.xml) is enabled and not 
+    relative to the rest of the application -->
+    <parameter name="NDMAudioSourceBaseUri">
+        <value>{language}/prompts/application</value>
+    </parameter>
+
+    <!--<parameter name="NDMEcmascriptBaseUri">
+        <value>scripts/framework/cpr</value>
+    </parameter>-->
+
+</application-config>

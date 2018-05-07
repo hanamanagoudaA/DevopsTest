@@ -1,0 +1,12 @@
+<com.nuance.catamaran.dataaccess.objects.RejectedClaim>
+  <memberNumber>18330AAC</memberNumber>
+  <dateOfBirth>19850404</dateOfBirth>
+  <firstName>JR</firstName>
+  <lastName>McLaughlin</lastName>
+  <drugTTS>Lipitor</drugTTS>
+  <originalClaimFileDate>20141105</originalClaimFileDate>
+  <rejectCodes>
+    <string>79</string>
+    <string>52</string>
+  </rejectCodes>
+</com.nuance.catamaran.dataaccess.objects.RejectedClaim>

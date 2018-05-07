@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar mode="dtmf" xml:lang="en-US" version="1.0" root="_ccexpdate" tag-format="swi-semantics/1.0">
+<meta name="swirec_compile_parser" content="1"/>
+
+<!--
+
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   DTMF ccexpdate grammar
+
+-->
+<rule id="_ccexpdate" scope="public">
+<ruleref uri="#A" tag="
+              if (!A.C) A.C = '??';
+              SWI_meaning = A.C + A.Y + A.M;
+              var today = new Date();
+              var default_ref = '' + today.getFullYear();
+              var tmp = today.getMonth() + 1;
+              if(tmp &lt; 10) {default_ref += '0';
+              }  default_ref += tmp;
+              var tmp = today.getDate();
+              if(tmp &lt; 10) {default_ref += '0';
+              }  default_ref += tmp;
+              var ref_date = SWI_vars.referencedate ? SWI_vars.referencedate : default_ref;
+              var ref_ym = ref_date.substr(2,4);
+              var ref_century = parseInt(ref_date.substr (0,2), 10);
+              var ref_year = parseInt(ref_date.substr(2,2), 10);
+              var ref_month = parseInt(ref_date.substr(4,2), 10);
+              var maxa = SWI_vars.maxallowed ? SWI_vars.maxallowed : 84;
+              maxa = parseInt (maxa, 10);
+              if (maxa &lt; 0) SWI_disallow = 1;
+              var century = SWI_meaning.substr(0,2);
+              var ym = SWI_meaning.substr (2,4);
+              if (century == '??') {
+                   if (ref_ym > ym) century = ref_century+1;
+                   else century = ref_century;
+                   SWI_meaning = century.toString() + SWI_meaning.substr(2,6);
+              }
+              if (SWI_meaning &lt; ref_date) SWI_disallow=1;
+              var ref_num_month = (parseInt(ref_century, 10)-20)*1200 + parseInt(ref_year, 10)*12 + parseInt(ref_month, 10) - 1;
+              var year = parseInt(SWI_meaning.substr(2,2), 10);
+              var month = parseInt(SWI_meaning.substr(4,2), 10);
+              var num_month = (century-20)*1200 + year*12 + month - 1;
+              if (num_month > (ref_num_month + maxa) ) SWI_disallow=1;
+              MEANING=SWI_meaning;"/>
+</rule>
+
+<rule id="A">
+  <one-of>
+    <item>
+      <ruleref uri="#M" tag="M=M.V"/>
+    </item>
+	<item>
+      <ruleref uri="#MD" tag="M=MD.SWI_literal.replace(/ /g,'')"/>
+    </item>
+  </one-of>
+  <count number="optional">
+    <ruleref uri="#C" tag="C=C.SWI_literal.replace(/ /g,'')"/>
+  </count>
+  <ruleref uri="#Y" tag="Y = Y.SWI_literal.replace(/ /g,'')"/>
+</rule>
+
+<rule id="C">
+  <one-of>
+    <item>2 0</item>
+    <item>2 1</item>
+  </one-of>
+</rule>
+
+<rule id="Y">
+  <ruleref uri="#DIGIT"/>
+  <ruleref uri="#DIGIT"/>
+</rule>
+
+<rule id="M">
+  <one-of>
+    <item tag="V='0131'">0 1</item>
+    <item tag="V='0228'">0 2</item>
+    <item tag="V='0331'">0 3</item>
+    <item tag="V='0430'">0 4</item>
+    <item tag="V='0531'">0 5</item>
+    <item tag="V='0630'">0 6</item>
+    <item tag="V='0731'">0 7</item>
+    <item tag="V='0831'">0 8</item>
+    <item tag="V='0930'">0 9</item>
+    <item tag="V='1031'">1 0</item>
+    <item tag="V='1130'">1 1</item>
+    <item tag="V='1231'">1 2</item>
+  </one-of>
+</rule>
+
+<rule id="MD">
+  <one-of>
+    <item>0 1 3 1</item>
+    <item>0 2 2 8</item>
+    <item>0 2 2 9</item>
+    <item>0 3 3 1</item>
+    <item>0 4 3 0</item>
+    <item>0 5 3 1</item>
+    <item>0 6 3 0</item>
+    <item>0 7 3 1</item>
+    <item>0 8 3 1</item>
+    <item>0 9 3 0</item>
+    <item>1 0 3 1</item>
+    <item>1 1 3 0</item>
+    <item>1 2 3 1</item>
+  </one-of>
+</rule>
+
+<rule id="DIGIT">
+  <one-of>
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+    <item>8</item>
+    <item>9</item>
+  </one-of>
+</rule>
+</grammar>

@@ -1,0 +1,27 @@
+<com.nuance.catamaran.dataaccess.objects.OrderStatus>
+  <numberOfOrders>2</numberOfOrders>
+  <isFirstOrder>true</isFirstOrder>
+  <isMoreOrders>true</isMoreOrders>
+  <memberFirstName>Donna</memberFirstName>
+  <drugPromptList>
+    <string>Lipitor</string>
+    <string>Ibuprofen</string>
+    <string>Prozac</string>
+  </drugPromptList>
+  <drugTTSList>
+    <string>none</string>
+    <string>none</string>
+    <string>none</string>
+  </drugTTSList>
+  <zipCode>01880</zipCode>
+  <numberOfPrescriptions>3</numberOfPrescriptions>
+  <orderStatus>shipped</orderStatus>
+  <carrierName>USPS</carrierName>
+  <shipMethod></shipMethod>
+  <shipDate>0815</shipDate>
+  <trackingNumber>1Z4F37F10341045225</trackingNumber>
+  <receivedDate></receivedDate>
+  <orderNumber>12345678</orderNumber>
+  <hasActionableAlert>true</hasActionableAlert>
+  <actionableAlertType>OUTSTANDING_BALANCE</actionableAlertType>
+</com.nuance.catamaran.dataaccess.objects.OrderStatus>

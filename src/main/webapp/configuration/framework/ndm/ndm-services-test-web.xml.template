@@ -1,0 +1,11 @@
+    <!-- Start NDM Test configuration. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/ndm-service/NDMConfigViewer.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/ndm-service/instanceConfiguration.html</url-pattern>
+    </servlet-mapping>
+    <!-- End NDM Test configuration. -->

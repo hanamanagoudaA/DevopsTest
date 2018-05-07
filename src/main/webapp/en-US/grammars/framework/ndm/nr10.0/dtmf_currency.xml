@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" mode="dtmf" version="1.0" root="_currency" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   DTMF currency grammar
+-->
+
+<meta name="swirec_compile_parser" content="1"/>
+
+  <rule id="_currency" scope="public">
+    <ruleref uri="#ROOT" tag="
+         SWI_meaning = ROOT.SWI_literal.replace(/[ ]+/g, '');
+         SWI_meaning = SWI_meaning.replace(/\*/g, '.');
+         var both = SWI_meaning.split ('.');
+	 if (both.length &lt; 2) SWI_meaning += '.00';
+         else if (both.length == 2 &amp;&amp; both[1].length == 1) SWI_meaning += '0';
+	  if (SWI_meaning.substr(0,1) == &quot;.&quot; ||
+             SWI_meaning.length == 0)  SWI_meaning = '0' + SWI_meaning;
+         var numeric = parseFloat (SWI_meaning);
+         var mina = SWI_vars.minallowed ? SWI_vars.minallowed : '0';
+         var maxa = SWI_vars.maxallowed ? SWI_vars.maxallowed : '999999.99';
+         mina = parseFloat(mina);
+         maxa = parseFloat(maxa);
+	 if (mina &gt; maxa) SWI_disallow = 1;
+         var grana = parseFloat(SWI_vars.granularityallowed);
+         if (numeric &lt; mina || numeric &gt; maxa  ||
+              (grana &amp;&amp; Math.round(100*numeric) % Math.round(100 * grana) != 0) )
+           SWI_disallow=1;
+	   MEANING=SWI_meaning;
+    "/>
+  </rule>
+  <rule id="ROOT">
+  <one-of>
+  <item>
+    <count number="optional">
+      <count number="optional">
+        <count number="optional">
+          <count number="optional">
+            <count number="optional">
+              <count number="optional">
+                <count number="optional">
+                  <count number="optional">
+                    <ruleref uri="#DIGIT"/>
+                  </count>
+                  <ruleref uri="#DIGIT"/>
+                </count>
+                <ruleref uri="#DIGIT"/>
+              </count>
+              <ruleref uri="#DIGIT"/>
+            </count>
+            <ruleref uri="#DIGIT"/>
+          </count>
+          <ruleref uri="#DIGIT"/>
+        </count>
+        <ruleref uri="#DIGIT"/>
+      </count>
+      <ruleref uri="#DIGIT"/>
+    </count>
+    <ruleref uri="#DIGIT"/>
+    <count number="optional">
+      *
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+    </count>
+  </item>
+  <item>
+      *
+      <ruleref uri="#DIGIT"/>
+      <ruleref uri="#DIGIT"/>
+  </item>
+  </one-of>
+  </rule>
+  <rule id="DIGIT">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+    </one-of>
+  </rule>
+</grammar>

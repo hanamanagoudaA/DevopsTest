@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+    <parameter name="CUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.DynamicCustomEcmascriptRendererImpl</value>
+    </parameter>
+    <parameter name="OrigCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="CUSTOMJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.DynamicCustomJavaRendererImpl</value>
+    </parameter>
+    
+    <parameter name="TestJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="AirportCityJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="DateJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="DistanceJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="DurationJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="FlightNumberJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="GateJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="PartnerAirlineJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="TimeJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="EnhanceCPRVXMLPromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.VXMLPromptRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.DynamicCustomEcmascriptRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMOrigCUSTOMEcmascriptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.dynamic.renderer.VXMLDynamicEcmascriptAudioRendererImpl</value>
+    </parameter>
+    <parameter name="HDDMCUSTOMJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.DynamicCustomJavaRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMTestJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMAirportCityJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMDateJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMDistanceJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMDurationJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMFlightNumberJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMGateJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMPartnerAirlineJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMTimeJavaRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhanceCPRServerSideAudioRendererImpl</value>
+    </parameter>
+    
+    <parameter name="HDDMEnhanceCPRVXMLPromptRenderer">
+        <value>com.nuance.framework.vxml.service.audio.renderer.enhancedcpr.EnhancedCPRHDDMPromptRendererImpl</value>
+    </parameter>
+    
+</application-config>

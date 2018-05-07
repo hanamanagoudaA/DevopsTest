@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration-access
+    xmlns="http://www.nuance.com/framework/configuration/access"
+    xsi:schemaLocation="http://www.nuance.com/framework/access/configuration-access-config configuration-access-config.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+  <accessor-list>
+
+    <accessor 
+        classname="com.nuance.framework.configuration.access.ApplicationConfigAccessor"/>
+
+    <!-- add more accessors as required -->
+
+  </accessor-list>
+</configuration-access>

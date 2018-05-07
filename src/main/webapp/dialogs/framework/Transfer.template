@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:ds="urn:jsptld:/WEB-INF/tld/data-access-service.tld" 
+          xmlns:as="urn:jsptld:/WEB-INF/tld/audio-service.tld" 
+          xmlns:util="urn:jsptld:/WEB-INF/tld/ndf-utils.tld" 
+          version="1.2">
+
+    <jsp:directive.page contentType="text/xml"/>
+    <jsp:directive.page session="false"/>
+
+    <util:vxml pageName="Transfer.jsp" cacheable="true" rootRequired="true">
+        <util:form id="transfer">
+            <!-- TODO : uncomment and update this is required for the
+                 application design... 
+            <util:script>
+                updateCallOutcomeReason(CALLER_HUNG_UP);
+            </util:script>
+            -->
+
+            <!--Example: Real caller transfer configuration -->
+            <!-- TODO : uncomment the line below to enable Real caller configuration and configure your values accordingly -->
+            <!-- <transfer name ="transfer_ExecTransfer" expr="undefined" destexpr='"tel:+1<phonenumber>"' connecttimeout="20s" type="blind" />-->
+
+            <util:block>
+                <!--$transfer_prompt-->
+                <util:script>
+                    modelsupport.logString("EVNT=SWItrfr|RESN=requested transfer|INFO=");
+                </util:script>
+            </util:block>
+            
+            <util:block>
+                <util:submit next="Goodbye.dvxml"/>
+            </util:block>
+        </util:form>
+    </util:vxml>
+
+</jsp:root>

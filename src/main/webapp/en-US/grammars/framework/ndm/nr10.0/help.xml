@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.w3.org/2001/06/grammar
+         http://www.w3.org/TR/speech-grammar/grammar.xsd"
+ xml:lang="en-US" mode="voice" root="_help">
+
+   <!--
+           Copyright 2010 Nuance Communications, Inc.
+           All Rights Reserved.
+        
+           Built-in univsersals help grammar 
+   -->
+
+   <rule id="_help" scope="public">
+         <one-of>
+      	<item weight="0.1">
+      	  <ruleref uri="#help"/>
+          <tag>SWI_meaning=help.universals; MEANING=SWI_meaning;</tag>
+      	</item>
+
+      	<item weight="1.0"><tag>SWI_disallow=1;</tag> <ruleref special="NULL"/> </item>
+      </one-of>
+   </rule>
+
+   <rule id="help" scope="public">
+   <tag>universals="help"</tag>
+    <item repeat="0-1" repeat-prob="0.2">
+      <one-of>
+        <item>uh</item>
+        <item>huh</item>
+        <item>um</item>
+      </one-of>
+    </item>
+    <item>
+      <item>help</item>
+    </item>
+    <item repeat="0-1" repeat-prob="0.3">please</item>
+   </rule>
+</grammar>

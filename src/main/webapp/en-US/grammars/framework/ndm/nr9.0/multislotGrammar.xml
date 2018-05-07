@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar>
+<grammar version="1.0" xmlns="http://www.w3.org/2001/06/grammar" xml:lang="en-us" mode="voice" root="_date">
+  <rule id="_date">
+      <item>
+        <ruleref uri="#concept" />
+        <tag>
+			if(typeof(concept.dm_root) != 'undefined' || typeof(concept.MEANING) != 'undefined' ){
+				eval("var codeStr = ''; var i; for(i in concept){ codeStr = codeStr + i + ' = concept.' + i + ';'; }  eval(codeStr); ");
+			}else{
+				SWI_disallow=1;
+			}
+	</tag>
+      </item>
+  </rule>
+ <rule id="concept" scope="public">
+    <item repeat="1-" repeat-prob="0.8">
+      <one-of>
+         <item>
+          <ruleref uri="#SWI_filler" />
+        </item>
+
+        <item>
+          <ruleref uri="#grammarRoot" />
+			<tag>
+				eval("var codeStr = ''; var i; for(i in grammarRoot.rootSlot){ if(i.indexOf('SWI_') == -1){ codeStr = codeStr + i + ' = grammarRoot.rootSlot.' + i + ';'; } }  eval(codeStr); ");
+			</tag>
+        </item>
+        <item>
+          <ruleref uri="#grammarSlot1" />
+          <tag>
+					eval("var codeStr = ''; var i; for(i in grammarSlot1.rootSlot){ if(i.indexOf('SWI_') == -1){ if(i != 'dm_root'){codeStr = codeStr + 'dm_slot1_' + i + ' = grammarSlot1.rootSlot.' + i + ';'; }else{codeStr = codeStr + 'dm_slot1 = grammarSlot1.rootSlot.dm_root;';}} }  eval(codeStr); ");   
+			</tag>
+        </item>
+        <item>
+          <ruleref uri="#grammarSlot2" />
+          <tag>
+					eval("var codeStr = ''; var i; for(i in grammarSlot2.rootSlot){ if(i.indexOf('SWI_') == -1){ if(i != 'dm_root'){codeStr = codeStr + 'dm_slot2_' + i + ' = grammarSlot2.rootSlot.' + i + ';'; }else{codeStr = codeStr + 'dm_slot2 = grammarSlot2.rootSlot.dm_root;';}} }  eval(codeStr); ");   
+			</tag>
+        </item>
+      </one-of>
+    </item>
+  </rule>
+
+<rule id="grammarRoot">
+      <item>
+        <ruleref uri="grammar_customcontext.xml" />
+        <tag>
+          <![CDATA[
+			var i;
+			for(i in this){
+				if(i != 'SWI_vars'){
+					var ruleName = i;
+					rootSlot = eval(i);
+				}
+			}
+	 ]]>
+	</tag>
+      </item>
+  </rule>
+  <rule id="grammarSlot1">
+      <item>
+        <ruleref uri="time.xml" />
+        <tag>
+          <![CDATA[
+			var i;
+			for(i in this){
+				if(i != 'SWI_vars'){
+					var ruleName = i;
+					rootSlot = eval(i);
+				}
+			}
+	 ]]>
+	</tag>
+      </item>
+  </rule>
+  <rule id="grammarSlot2">
+      <item>
+        <ruleref uri="date.xml" />
+        <tag>
+          <![CDATA[
+			var i;
+			for(i in this){
+				if(i != 'SWI_vars'){
+					var ruleName = i;
+					rootSlot = eval(i);
+				}
+			}
+	 ]]>
+	</tag>
+      </item>
+  </rule>
+   <rule id="SWI_filler">
+    <item repeat="1-">
+      <one-of>
+        <item weight="0.5" xml:lang="en-us">a</item>
+        <item weight="0.5" xml:lang="en-us">about</item>
+        <item weight="0.5" xml:lang="en-us">above</item>
+        <item weight="0.5" xml:lang="en-us">after</item>
+        <item weight="0.5" xml:lang="en-us">against</item>
+        <item weight="0.5" xml:lang="en-us">ain't</item>
+        <item weight="0.5" xml:lang="en-us">am</item>
+        <item weight="0.5" xml:lang="en-us">an</item>
+        <item weight="0.5" xml:lang="en-us">and</item>
+        <item weight="0.5" xml:lang="en-us">any</item>
+        <item weight="0.5" xml:lang="en-us">are</item>
+        <item weight="0.5" xml:lang="en-us">aren't</item>
+        <item weight="0.5" xml:lang="en-us">as</item>
+        <item weight="0.5" xml:lang="en-us">at</item>
+        <item weight="0.5" xml:lang="en-us">be</item>
+        <item weight="0.5" xml:lang="en-us">because</item>
+        <item weight="0.5" xml:lang="en-us">been</item>
+        <item weight="0.5" xml:lang="en-us">before</item>
+        <item weight="0.5" xml:lang="en-us">being</item>
+        <item weight="0.5" xml:lang="en-us">below</item>
+        <item weight="0.5" xml:lang="en-us">between</item>
+        <item weight="0.5" xml:lang="en-us">both</item>
+        <item weight="0.5" xml:lang="en-us">but</item>
+        <item weight="0.5" xml:lang="en-us">by</item>
+        <item weight="0.5" xml:lang="en-us">calling</item>
+        <item weight="0.5" xml:lang="en-us">can</item>
+        <item weight="0.5" xml:lang="en-us">cannot</item>
+        <item weight="0.5" xml:lang="en-us">can't</item>
+        <item weight="0.5" xml:lang="en-us">c'mon</item>
+        <item weight="0.5" xml:lang="en-us">come</item>
+        <item weight="0.5" xml:lang="en-us">concerning</item>
+        <item weight="0.5" xml:lang="en-us">could</item>
+        <item weight="0.5" xml:lang="en-us">couldn't</item>
+        <item weight="0.5" xml:lang="en-us">did</item>
+        <item weight="0.5" xml:lang="en-us">didn't</item>
+        <item weight="0.5" xml:lang="en-us">do</item>
+        <item weight="0.5" xml:lang="en-us">does</item>
+        <item weight="0.5" xml:lang="en-us">doesn't</item>
+        <item weight="0.5" xml:lang="en-us">doing</item>
+        <item weight="0.5" xml:lang="en-us">don't</item>
+        <item weight="0.5" xml:lang="en-us">down</item>
+        <item weight="0.5" xml:lang="en-us">during</item>
+        <item weight="0.5" xml:lang="en-us">each</item>
+        <item weight="0.5" xml:lang="en-us">else</item>
+        <item weight="0.5" xml:lang="en-us">'em</item>
+        <item weight="0.5" xml:lang="en-us">few</item>
+        <item weight="0.5" xml:lang="en-us">find</item>
+        <item weight="0.5" xml:lang="en-us">from</item>
+        <item weight="0.5" xml:lang="en-us">further</item>
+        <item weight="0.5" xml:lang="en-us">getting</item>
+        <item weight="0.5" xml:lang="en-us">had</item>
+        <item weight="0.5" xml:lang="en-us">hadn't</item>
+        <item weight="0.5" xml:lang="en-us">has</item>
+        <item weight="0.5" xml:lang="en-us">hasn't</item>
+        <item weight="0.5" xml:lang="en-us">have</item>
+        <item weight="0.5" xml:lang="en-us">haven't</item>
+        <item weight="0.5" xml:lang="en-us">having</item>
+        <item weight="0.5" xml:lang="en-us">he</item>
+        <item weight="0.5" xml:lang="en-us">he'd</item>
+        <item weight="0.5" xml:lang="en-us">he'll</item>
+        <item weight="0.5" xml:lang="en-us">her</item>
+        <item weight="0.5" xml:lang="en-us">here</item>
+        <item weight="0.5" xml:lang="en-us">here's</item>
+        <item weight="0.5" xml:lang="en-us">hers</item>
+        <item weight="0.5" xml:lang="en-us">herself</item>
+        <item weight="0.5" xml:lang="en-us">he's</item>
+        <item weight="0.5" xml:lang="en-us">hi</item>
+        <item weight="0.5" xml:lang="en-us">him</item>
+        <item weight="0.5" xml:lang="en-us">himself</item>
+        <item weight="0.5" xml:lang="en-us">his</item>
+        <item weight="0.5" xml:lang="en-us">how</item>
+        <item weight="0.5" xml:lang="en-us">how's</item>
+        <item weight="0.5" xml:lang="en-us">i</item>
+        <item weight="0.5" xml:lang="en-us">i'd</item>
+        <item weight="0.5" xml:lang="en-us">if</item>
+        <item weight="0.5" xml:lang="en-us">i'll</item>
+        <item weight="0.5" xml:lang="en-us">i'm</item>
+        <item weight="0.5" xml:lang="en-us">in</item>
+        <item weight="0.5" xml:lang="en-us">into</item>
+        <item weight="0.5" xml:lang="en-us">is</item>
+        <item weight="0.5" xml:lang="en-us">isn't</item>
+        <item weight="0.5" xml:lang="en-us">it</item>
+        <item weight="0.5" xml:lang="en-us">its</item>
+        <item weight="0.5" xml:lang="en-us">it's</item>
+        <item weight="0.5" xml:lang="en-us">itself</item>
+        <item weight="0.5" xml:lang="en-us">i've</item>
+        <item weight="0.5" xml:lang="en-us">just</item>
+        <item weight="0.5" xml:lang="en-us">know</item>
+        <item weight="0.5" xml:lang="en-us">knowing</item>
+        <item weight="0.5" xml:lang="en-us">let's</item>
+        <item weight="0.5" xml:lang="en-us">like</item>
+        <item weight="0.5" xml:lang="en-us">ma'am</item>
+        <item weight="0.5" xml:lang="en-us">me</item>
+        <item weight="0.5" xml:lang="en-us">might</item>
+        <item weight="0.5" xml:lang="en-us">more</item>
+        <item weight="0.5" xml:lang="en-us">most</item>
+        <item weight="0.5" xml:lang="en-us">must</item>
+        <item weight="0.5" xml:lang="en-us">mustn't</item>
+        <item weight="0.5" xml:lang="en-us">my</item>
+        <item weight="0.5" xml:lang="en-us">myself</item>
+        <item weight="0.5" xml:lang="en-us">need</item>
+        <item weight="0.5" xml:lang="en-us">needing</item>
+        <item weight="0.5" xml:lang="en-us">nor</item>
+        <item weight="0.5" xml:lang="en-us">not</item>
+        <item weight="0.5" xml:lang="en-us">of</item>
+        <item weight="0.5" xml:lang="en-us">off</item>
+        <item weight="0.5" xml:lang="en-us">on</item>
+        <item weight="0.5" xml:lang="en-us">once</item>
+        <item weight="0.5" xml:lang="en-us">only</item>
+        <item weight="0.5" xml:lang="en-us">or</item>
+        <item weight="0.5" xml:lang="en-us">other</item>
+        <item weight="0.5" xml:lang="en-us">ought</item>
+        <item weight="0.5" xml:lang="en-us">our</item>
+        <item weight="0.5" xml:lang="en-us">ours</item>
+        <item weight="0.5" xml:lang="en-us">ourselves</item>
+        <item weight="0.5" xml:lang="en-us">out</item>
+        <item weight="0.5" xml:lang="en-us">over</item>
+        <item weight="0.5" xml:lang="en-us">own</item>
+        <item weight="0.5" xml:lang="en-us">please</item>
+        <item weight="0.5" xml:lang="en-us">read</item>
+        <item weight="0.5" xml:lang="en-us">regarding</item>
+        <item weight="0.5" xml:lang="en-us">same</item>
+        <item weight="0.5" xml:lang="en-us">shall</item>
+        <item weight="0.5" xml:lang="en-us">shan't</item>
+        <item weight="0.5" xml:lang="en-us">she</item>
+        <item weight="0.5" xml:lang="en-us">she'd</item>
+        <item weight="0.5" xml:lang="en-us">she'll</item>
+        <item weight="0.5" xml:lang="en-us">she's</item>
+        <item weight="0.5" xml:lang="en-us">should</item>
+        <item weight="0.5" xml:lang="en-us">shouldn't</item>
+        <item weight="0.5" xml:lang="en-us">so</item>
+        <item weight="0.5" xml:lang="en-us">some</item>
+        <item weight="0.5" xml:lang="en-us">speak</item>
+        <item weight="0.5" xml:lang="en-us">speaking</item>
+        <item weight="0.5" xml:lang="en-us">such</item>
+        <item weight="0.5" xml:lang="en-us">talk</item>
+        <item weight="0.5" xml:lang="en-us">talking</item>
+        <item weight="0.5" xml:lang="en-us">than</item>
+        <item weight="0.5" xml:lang="en-us">that</item>
+        <item weight="0.5" xml:lang="en-us">that's</item>
+        <item weight="0.5" xml:lang="en-us">the</item>
+        <item weight="0.5" xml:lang="en-us">their</item>
+        <item weight="0.5" xml:lang="en-us">theirs</item>
+        <item weight="0.5" xml:lang="en-us">them</item>
+        <item weight="0.5" xml:lang="en-us">themselves</item>
+        <item weight="0.5" xml:lang="en-us">then</item>
+        <item weight="0.5" xml:lang="en-us">there</item>
+        <item weight="0.5" xml:lang="en-us">there's</item>
+        <item weight="0.5" xml:lang="en-us">these</item>
+        <item weight="0.5" xml:lang="en-us">they</item>
+        <item weight="0.5" xml:lang="en-us">they'd</item>
+        <item weight="0.5" xml:lang="en-us">they'll</item>
+        <item weight="0.5" xml:lang="en-us">they're</item>
+        <item weight="0.5" xml:lang="en-us">they've</item>
+        <item weight="0.5" xml:lang="en-us">this</item>
+        <item weight="0.5" xml:lang="en-us">those</item>
+        <item weight="0.5" xml:lang="en-us">through</item>
+        <item weight="0.5" xml:lang="en-us">to</item>
+        <item weight="0.5" xml:lang="en-us">too</item>
+        <item weight="0.5" xml:lang="en-us">trying</item>
+        <item weight="0.5" xml:lang="en-us">under</item>
+        <item weight="0.5" xml:lang="en-us">until</item>
+        <item weight="0.5" xml:lang="en-us">up</item>
+        <item weight="0.5" xml:lang="en-us">us</item>
+        <item weight="0.5" xml:lang="en-us">very</item>
+        <item weight="0.5" xml:lang="en-us">wanna</item>
+        <item weight="0.5" xml:lang="en-us">want</item>
+        <item weight="0.5" xml:lang="en-us">wanting</item>
+        <item weight="0.5" xml:lang="en-us">was</item>
+        <item weight="0.5" xml:lang="en-us">wasn't</item>
+        <item weight="0.5" xml:lang="en-us">we</item>
+        <item weight="0.5" xml:lang="en-us">we'd</item>
+        <item weight="0.5" xml:lang="en-us">we'll</item>
+        <item weight="0.5" xml:lang="en-us">went</item>
+        <item weight="0.5" xml:lang="en-us">were</item>
+        <item weight="0.5" xml:lang="en-us">we're</item>
+        <item weight="0.5" xml:lang="en-us">weren't</item>
+        <item weight="0.5" xml:lang="en-us">we've</item>
+        <item weight="0.5" xml:lang="en-us">what</item>
+        <item weight="0.5" xml:lang="en-us">what's</item>
+        <item weight="0.5" xml:lang="en-us">when</item>
+        <item weight="0.5" xml:lang="en-us">when's</item>
+        <item weight="0.5" xml:lang="en-us">where</item>
+        <item weight="0.5" xml:lang="en-us">where's</item>
+        <item weight="0.5" xml:lang="en-us">which</item>
+        <item weight="0.5" xml:lang="en-us">while</item>
+        <item weight="0.5" xml:lang="en-us">who</item>
+        <item weight="0.5" xml:lang="en-us">whom</item>
+        <item weight="0.5" xml:lang="en-us">who's</item>
+        <item weight="0.5" xml:lang="en-us">why</item>
+        <item weight="0.5" xml:lang="en-us">why's</item>
+        <item weight="0.5" xml:lang="en-us">with</item>
+        <item weight="0.5" xml:lang="en-us">won't</item>
+        <item weight="0.5" xml:lang="en-us">working</item>
+        <item weight="0.5" xml:lang="en-us">would</item>
+        <item weight="0.5" xml:lang="en-us">wouldn't</item>
+        <item weight="0.5" xml:lang="en-us">ya'll</item>
+        <item weight="0.5" xml:lang="en-us">you</item>
+        <item weight="0.5" xml:lang="en-us">you'd</item>
+        <item weight="0.5" xml:lang="en-us">you'll</item>
+        <item weight="0.5" xml:lang="en-us">your</item>
+        <item weight="0.5" xml:lang="en-us">you're</item>
+        <item weight="0.5" xml:lang="en-us">yours</item>
+        <item weight="0.5" xml:lang="en-us">yourself</item>
+        <item weight="0.5" xml:lang="en-us">yourselves</item>
+        <item weight="0.5" xml:lang="en-us">you've</item>
+        <item weight="0.5" xml:lang="en-us">thank</item>
+        <item weight="0.5" xml:lang="en-us">make</item>
+        <item weight="0.5" xml:lang="en-us">get</item>
+        <item weight="0.5" xml:lang="en-us">oh</item>
+        <item weight="0.5" xml:lang="en-us">number</item>
+        <item weight="0.5" xml:lang="en-us">d</item>
+	<item weight="0.5" xml:lang="en-us">reserve</item>
+	<item weight="0.5" xml:lang="en-us">for</item>
+	<item weight="0.5" xml:lang="en-us">people</item>
+	<item weight="0.5" xml:lang="en-us">person</item>
+	<item weight="0.5" xml:lang="en-us">and</item>
+      </one-of>
+    </item>
+  </rule>
+</grammar>

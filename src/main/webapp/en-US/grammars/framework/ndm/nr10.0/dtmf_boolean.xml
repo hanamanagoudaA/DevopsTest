@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" mode="dtmf" version="1.0" root="_boolean" tag-format="swi-semantics/1.0">
+
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+ 
+   Boolean DTMF grammar
+-->
+<meta name="swirec_compile_parser" content="1"/>
+
+  <rule id="_boolean" scope="public">
+    <item>
+      <ruleref uri="#YESNO" tag="
+        var dtmf_yes = SWI_vars.dtmfyes ? SWI_vars.dtmfyes : 1;
+        var dtmf_no = SWI_vars.dtmfno ? SWI_vars.dtmfno : 2;
+        SWI_meaning=YESNO.SWI_literal.replace(/ /g, '');
+        if (SWI_meaning == dtmf_yes) {
+            SWI_meaning = true;
+        }else if (SWI_meaning == dtmf_no){
+            SWI_meaning = false;
+        }else{
+            SWI_disallow=1;
+        }
+        dm_root=SWI_meaning;
+      "/>
+    </item>
+  </rule>
+  <rule id="YESNO">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+      <item>*</item>
+      <item>#</item>
+    </one-of>
+  </rule>
+</grammar>

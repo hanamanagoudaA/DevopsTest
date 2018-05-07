@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application-config xmlns="http://www.nuance.com/framework/controller/xml/configuration">
+
+   <!-- description: relative path of the config files that contains all recognition ids -->
+    <parameter name="recognition-config-files">
+        <list>
+            <value>/en-US/configuration/application/recognition/recognition.xml</value>
+            <value>/es-US/configuration/application/recognition/recognition.xml</value>
+        </list>
+    </parameter>
+
+   
+    <!-- description: If true, VXML recognition tag src URLs are relative to the application -->
+    <parameter name="UseRelativeRecognitionSourceUrl">
+        <value>true</value>
+    </parameter>
+
+    <!-- description: Base URI path to be appended to the SRC value in the recognition XML file
+         Note: If a path is specified in AbsoluteRecognitionSourceUrl, this property must be uncommented. 
+    -->
+
+    <!-- Base URI for all grammar files -->
+    <parameter name="RecognitionSourceBaseUri">
+        <value>{language}/grammars/framework/ndm/{recognizer}</value>
+    </parameter>
+
+	<!-- description: Name of the default recognition library -->
+    <parameter name="DefaultRecognitionLibrary">
+        <value>default</value>
+    </parameter>
+    
+    <!-- Variable to control the recognizer version.-->
+    <parameter name="recognizer">
+        <value>nr10.0</value>
+    </parameter>
+
+</application-config>

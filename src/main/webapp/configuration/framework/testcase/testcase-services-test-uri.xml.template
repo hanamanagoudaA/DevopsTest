@@ -1,0 +1,26 @@
+    <!-- Start NDM Test configuration. -->
+    <uri-map-element uri=".*/(.+)\.test" type="RegularExpression" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="TestCaseManagerRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+
+    <uri-map-element uri=".*/(.+)\.testview" type="RegularExpression" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/dialogs/testcase/($1).jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/DownloadTestCase.xml" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="TestCaseWriterRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="TestCaseXmlFile" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/dialogs/testcase/XmlTestCaseResponseView.jsp" type="View"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="DeleteTestCase" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="TestCaseRemoveRequestProcessor" type="RequestProcessor"/>
+    </uri-map-element>
+    
+    <uri-map-element uri="/plugins/data-access-service/RegressionTest.html" type="Normal" xmlns="http://www.nuance.com/framework/controller/xml/configuration/uri-mapper">
+        <result id="/dialogs/testcase/regressionTestDataAccessList.jsp" type="View"/>
+    </uri-map-element>
+    
+    <!-- End NDM Test configuration. -->

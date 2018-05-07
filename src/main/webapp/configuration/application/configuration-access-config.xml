@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration-access
+    xmlns="http://www.nuance.com/framework/configuration/access"
+    xsi:schemaLocation="http://www.nuance.com/framework/access/configuration-access-config configuration-access-config.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+  <accessor-list>
+    <accessor classname="com.nuance.framework.configuration.access.ApplicationConfigAccessor"/>
+	<accessor classname="com.nuance.catamaran.dataaccess.accessor.ClientServiceAccessor"/>
+	<accessor classname="com.nuance.catamaran.dataaccess.accessor.NDCCodeMapAccessor"/>
+	<accessor classname="com.nuance.catamaran.dataaccess.accessor.ReasonCodeMapAccessor"/>
+	<accessor classname="com.nuance.catamaran.dataaccess.accessor.DrugPromptAccessor"/>
+	<accessor classname="com.nuance.catamaran.dataaccess.accessor.TFNMapAccessor"/>
+        <accessor classname="com.nuance.catamaran.dataaccess.accessor.BIEByPassANIAccessor"/>
+        <accessor classname="com.nuance.catamaran.dataaccess.accessor.RxcDomainMapAccessor"/>
+  </accessor-list>
+</configuration-access>

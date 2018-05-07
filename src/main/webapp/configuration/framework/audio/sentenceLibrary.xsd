@@ -1,0 +1,146 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+            xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+            jaxb:extensionBindingPrefixes="xjc" jaxb:version="1.0">
+
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:globalBindings generateIsSetMethod="true">
+                <xjc:serializable />
+            </jaxb:globalBindings>
+            <jaxb:schemaBindings>
+                <jaxb:package
+                    name="com.nuance.framework.vxml.service.audio.content.sentence" />
+            </jaxb:schemaBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    <xsd:element name="sentence-library" type="SentenceLibraryType" />
+
+    <xsd:complexType name="SentenceLibraryType">
+        <xsd:sequence>
+            <xsd:element name="sentence" type="Sentence" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <xsd:attribute name="language" type="xsd:string" />
+        <xsd:attribute name="parent" type="xsd:string" />
+    </xsd:complexType>
+
+
+    <xsd:complexType name="Sentence">
+        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+            <xsd:choice>
+                <xsd:element name="prompt" type="Prompt" />
+                <xsd:element name="if" type="IfCondition"/>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" use="required" />
+        <xsd:attribute name="key" type="xsd:string" />
+        <xsd:attribute name="bargein" type="xsd:boolean" default="true" />
+    </xsd:complexType>
+	
+    <xsd:complexType name="IfCondition">
+        <xsd:sequence>
+            <xsd:element name="condition" type="Condition" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="prompt" type="Prompt" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="elseif" type="ElseifCondition" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="else" type="ElseCondition" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="type" default="vxml">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="vxml" />
+                    <xsd:enumeration value="java" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="cond" type="xsd:string" use="optional" />
+    </xsd:complexType>
+
+    <xsd:complexType name="ElseifCondition">
+        <xsd:sequence>
+            <xsd:element name="condition" type="Condition" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="prompt" type="Prompt" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="cond" type="xsd:string" use="optional" />
+    </xsd:complexType>
+
+    <xsd:complexType name="ElseCondition">
+        <xsd:sequence>
+            <xsd:element name="prompt" type="Prompt" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Condition">
+        <xsd:sequence>
+            <xsd:element name="param" type="Param" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="classname" type="xsd:string" use="optional" />
+        <xsd:attribute name="cond" type="xsd:string" use="optional" />
+    </xsd:complexType>
+
+    <xsd:complexType name="Prompt">
+        <xsd:sequence>
+            <xsd:element name="param" type="Param" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation xml:lang="en">
+                    The id of the voice segment to be played.
+                </xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="expr" type="xsd:string" />
+        <xsd:attribute name="scope" default="request">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="request" />
+                    <xsd:enumeration value="session" />
+                    <xsd:enumeration value="context" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="path" type="xsd:string" />
+		
+        <xsd:attribute name="type" default="application">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="application" />
+                    <xsd:enumeration value="date" />
+                    <xsd:enumeration value="currency" />
+                    <xsd:enumeration value="number" />
+                    <xsd:enumeration value="natural" />
+                    <xsd:enumeration value="digits" />
+                    <xsd:enumeration value="phone" />
+                    <xsd:enumeration value="alphanum" />
+                    <xsd:enumeration value="time" />
+                    <xsd:enumeration value="tts" />
+                    <xsd:enumeration value="ecmascript" />
+                    <xsd:enumeration value="custom" />
+                    <xsd:enumeration value="sentence" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="bargein" type="xsd:boolean" default="true" />
+        <xsd:attribute name="cond" type="xsd:string"/>
+        <xsd:attribute name="count" type="xsd:string"/>
+        <xsd:attribute name="text" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="Param">
+        <xsd:attribute name="name" type="xsd:string"
+                               use="required" />
+        <xsd:attribute name="value" type="xsd:string"
+                               use="required" />
+        <xsd:attribute name="scope" use="optional">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="request" />
+                    <xsd:enumeration value="session" />
+                    <xsd:enumeration value="context" />
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
+        <xsd:attribute name="path" type="xsd:string" />
+    </xsd:complexType>
+</xsd:schema>

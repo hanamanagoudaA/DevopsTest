@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <description>
+        Optum IVR
+    </description>
+    <display-name>
+        Optum IVR
+    </display-name>
+    <context-param>
+        <param-name>com.nuance.framework.config.filename</param-name>
+        <param-value>/configuration/application/application-config.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.nuance.framework.config.classname</param-name>
+        <param-value>com.nuance.framework.controller.configuration.ConfigurationModelImpl</param-value>
+    </context-param>
+    <!-- NDM CONTEXT PARAMETERS -->
+    <!-- LEGACY CONTEXT PARAMETERS -->
+    <!-- This control the VXML version settings-->
+    <context-param>
+        <param-name>vxml_version</param-name>
+        <param-value>2.0</param-value>
+    </context-param>
+    <!-- This is needed to establish a connection to Nuance OA&M. -->
+    <context-param>
+        <param-name>contextName</param-name>
+        <param-value>optumrx-mst-ivr</param-value>
+    </context-param>
+    <!-- 
+        Filter for cache control.  The parameter without an extension controls
+        default values.  Parameters with an extension allows different expiry
+        value directives specific for different file types
+    -->
+    <filter>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <filter-class>com.nuance.framework.controller.utilities.CacheFilter</filter-class>
+        <init-param>
+            <param-name>com.nuance.framework.filter.expiration</param-name>
+            <param-value>0</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.wav</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.ulaw</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.xml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.vxml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.es</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.gram</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.txt</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.grxml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>com.nuance.framework.filter.cache</filter-name>
+        <url-pattern>*.lexml</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>
+            com.nuance.catamaran.servlet.ContextConfiguration
+        </listener-class>
+    </listener>
+    <!--
+    <listener>
+        <listener-class>com.nuance.framework.oam.OAMNMSServletContextListener</listener-class>
+    </listener>
+    -->
+    <!-- define main controller and loading the controller configuration -->
+    <servlet>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <servlet-class>com.nuance.framework.controller.FrontController</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>RecordStat</servlet-name>
+        <servlet-class>com.nuance.catamaran.ivrstats.RecordStatServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadMultipleFilesServlet</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.UploadMultipleFilesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadMultiplePromptServlet</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.UploadMultiplePromptServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetCTIData</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.GetCTIData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>downloadCTIReport</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.downloadCTIReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadDNISGreetingAudio</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.UploadDNISGreetingAudio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadTFNSheet</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.UploadTFNSheet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadSelectedProfiles</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.UploadSelectedProfiles</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileDownloadServlet</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.FileDownloadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BIEBypassANIServlet</servlet-name>
+        <servlet-class>com.nuance.catamaran.servlet.BIEBypassANIServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/controller/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/callstart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/calllogend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/log</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.log</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/logdatagetter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/logdatasetter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/ndm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/exit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/management/*</url-pattern>
+    </servlet-mapping>
+    <!-- New Tag Mapping -->
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.audio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.dataaccess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.dvxml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.ndm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.oam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/sessioninvalidate</url-pattern>
+    </servlet-mapping>
+    <!-- Include uri map result feature -->
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.include</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/export/*</url-pattern>
+    </servlet-mapping>
+    <!-- Servlet mapping for Nar logger. -->
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>*.nar</url-pattern>
+    </servlet-mapping>
+    <!-- Servlet Mapping for a  Audio Service Test  -->
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/plugins/audio-service/Validator.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/plugins/audio-service/ExistingAudioFiles.html</url-pattern>
+    </servlet-mapping>
+    <!-- Servlet Mapping for a  NDM Service Test  -->
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/plugins/ndm-service/NDMConfigViewer.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/plugins/ndm-service/instanceConfiguration.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>com.nuance.framework.front.controller</servlet-name>
+        <url-pattern>/plugins/data-access-service/DataAccessTester.html</url-pattern>
+    </servlet-mapping>
+    <!-- MIME TYPE MAPPINGS -->
+    <mime-mapping>
+        <extension>es</extension>
+        <mime-type>application/x-javascript</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>abnf</extension>
+        <mime-type>application/srgs+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>grxml</extension>
+        <mime-type>application/srgs+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>xml</extension>
+        <mime-type>application/srgs+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>gram</extension>
+        <mime-type>application/x-swi-grammar</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>txt</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>html</extension>
+        <mime-type>text/html</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>htm</extension>
+        <mime-type>text/html</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>java</extension>
+        <mime-type>text/plain</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>class</extension>
+        <mime-type>application/java</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>au</extension>
+        <mime-type>audio/basic</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>snd</extension>
+        <mime-type>audio/basic</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>wav</extension>
+        <mime-type>audio/x-wav</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>vox</extension>
+        <mime-type>audio/basic</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ulaw</extension>
+        <mime-type>audio/basic</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>lexml</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+    <servlet-mapping>
+        <servlet-name>RecordStat</servlet-name>
+        <url-pattern>/RecordStat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadMultipleFilesServlet</servlet-name>
+        <url-pattern>/UploadMultipleFilesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetCTIData</servlet-name>
+        <url-pattern>/GetCTIData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>downloadCTIReport</servlet-name>
+        <url-pattern>/downloadCTIReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadDNISGreetingAudio</servlet-name>
+        <url-pattern>/UploadDNISGreetingAudio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadMultiplePromptServlet</servlet-name>
+        <url-pattern>/UploadMultiplePromptServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadTFNSheet</servlet-name>
+        <url-pattern>/UploadTFNSheet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadSelectedProfiles</servlet-name>
+        <url-pattern>/UploadSelectedProfiles</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileDownloadServlet</servlet-name>
+        <url-pattern>/FileDownloadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BIEBypassANIServlet</servlet-name>
+        <url-pattern>/BIEBypassANIServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
+</web-app>

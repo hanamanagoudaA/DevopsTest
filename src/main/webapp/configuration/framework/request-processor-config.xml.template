@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+====================================================================================
+| Copyright     Nuance Communications, Inc.
+|
+| Note:         Nuance Source Code File
+|               Notice and Disclaimer of Liability
+|
+|               This source code software is provided to the user as an example
+|				of a VoiceXML application developed with the Nuance framework
+|				Software. This source code software has not been fully tested
+|				and may contain errors.  NUANCE PROVIDES THIS SOFTWARE ON AN
+|				"AS IS' BASIS, AND DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS OR
+|				IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+|				FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+====================================================================================
+-->
+<request-processors xmlns="http://www.nuance.com/framework/controller/xml/configuration/request-processors">
+    <!-- NDM Online Updater request processors. -->
+    <request-processor id="SessionStartProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.SessionStartRequestProcessor</classname> 
+    </request-processor> 
+
+    <request-processor id="LogProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.LogRequestProcessor</classname>
+    </request-processor>
+    
+    <request-processor id="SessionEndProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.SessionEndRequestProcessor</classname> 
+    </request-processor>
+    
+    <request-processor id="CallLogEndRequestProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.CallLogEndRequestProcessor</classname>
+    </request-processor>
+    
+    <request-processor id="LogDataGetterProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.LogDataGetterRequestProcessor</classname>
+    </request-processor>
+    
+    <request-processor id="LogDataSetterProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.LogDataSetterRequestProcessor</classname>
+    </request-processor>
+    
+    <request-processor id="DataAccessRequestProcessor">
+        <classname>com.nuance.framework.vxml.service.dataaccess.DataAccessRequestProcessorImpl</classname>
+    </request-processor>
+    
+    <request-processor id="AudioRequestProcessor">
+        <classname>com.nuance.framework.vxml.service.audio.AudioRequestProcessorImpl</classname>
+    </request-processor>
+    
+    <request-processor id="DMRequestProcessor">
+        <classname>com.nuance.framework.dialogmodule.web.DMRequestProcessor</classname>
+    </request-processor>
+    
+    <request-processor id="CallLogInitRequestProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.CallLogInitRequestProcessor</classname>
+    </request-processor>   
+    
+    <request-processor id="InitRequestProcessor">
+        <classname>com.nuance.framework.oam.requestprocessor.InitRequestProcessor</classname>
+    </request-processor>   
+    
+    <request-processor id="ExitRequestProcessor">
+        <classname>com.nuance.framework.oam.requestprocessor.ExitRequestProcessor</classname>
+    </request-processor>     
+
+    <request-processor id="SettingsRequestProcessor">
+        <classname>com.nuance.framework.oam.requestprocessor.SettingsRequestProcessor</classname>
+    </request-processor> 
+
+    <request-processor id="ReloaddataRequestProcessor">
+        <classname>com.nuance.framework.oam.requestprocessor.ReloaddataRequestProcessor</classname>
+    </request-processor> 
+
+    <request-processor id="AlarmRequestProcessor">
+        <classname>com.nuance.framework.oam.requestprocessor.AlarmRequestProcessor</classname>
+    </request-processor> 
+    
+    <request-processor id="CallStartRequestProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.CallStartRequestProcessor</classname>
+    </request-processor>    
+    
+    <request-processor id="VXMLLogRequestProcessor">
+        <classname>com.nuance.framework.controller.tag.log.VXMLLogRequestProcessor</classname>
+    </request-processor>
+
+    <request-processor id="SessionInvalidateProcessor">
+        <classname>com.nuance.framework.controller.requestprocessor.calllog.SessionInvalidateRequestProcessor</classname> 
+    </request-processor>
+    
+ </request-processors>
+
+<!--
+Local Variables:
+mode: nxml
+End:
+-->

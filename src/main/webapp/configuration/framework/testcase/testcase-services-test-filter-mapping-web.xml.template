@@ -1,0 +1,11 @@
+    <!-- Start Testcase configuration. -->
+    <filter-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+        <filter-name>test-case</filter-name>
+        <url-pattern>*.dataaccess</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+        <filter-name>test-case</filter-name>
+        <url-pattern>*.test</url-pattern>
+    </filter-mapping>
+    <!-- End Testcase configuration. -->

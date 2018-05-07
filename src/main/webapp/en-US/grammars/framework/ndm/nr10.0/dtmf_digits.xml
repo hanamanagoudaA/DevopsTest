@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE grammar>
+<grammar xml:lang="en-US" mode="dtmf" version="1.0" root="_digits" tag-format="swi-semantics/1.0">
+<!--
+   Copyright 2010 Nuance Communications, Inc.
+   All Rights Reserved.
+
+   This will recognize dtmf digit strings from 1 to 20 characters
+-->
+
+<meta name="swirec_compile_parser" content="1"/>
+
+  <rule id="_digits" scope="public">
+    <item>
+      <ruleref uri="#DIGIT_STRING" 
+      tag = "
+	  SWI_meaning=DIGIT_STRING.SWI_literal.replace(/ /g, '');
+	  var min_len = SWI_vars.minlength ? parseInt(SWI_vars.minlength, 10) : 1;
+	  var max_len = SWI_vars.maxlength ? parseInt(SWI_vars.maxlength, 10) : 20;
+	  var len = SWI_meaning.length;
+	  if (len &gt; max_len || len &lt; min_len) SWI_disallow=1;
+	  if (SWI_vars.length) {
+	    var disallow = 1;
+	    var allowed_arr = SWI_vars.length.split ('+');
+	    for (i=0; i &lt; allowed_arr.length; i++) {
+	      if (len == parseInt(allowed_arr[i], 10)) {
+                disallow = 0;
+		break;
+	      }
+            }
+           SWI_disallow = disallow;
+	   }
+           MEANING=SWI_meaning;
+         "/>
+    </item>
+  </rule>
+  <rule id="DIGIT_STRING">
+    <count number="1+">
+      <ruleref uri="#DIGIT"/>
+    </count>
+  </rule>
+  <rule id="DIGIT">
+    <one-of>
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
+    </one-of>
+  </rule>
+</grammar>

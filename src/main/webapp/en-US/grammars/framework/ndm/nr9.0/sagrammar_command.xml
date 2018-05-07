@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright 2003-2004 ScanSoft, Inc.
+  All Rights Reserved
+
+  Understands yes, no, correct
+-->
+
+<!-- $Id: grammar_command.xml,v 1.3 2004/08/04 21:27:17 badamczy Exp $ -->
+
+<grammar xml:lang="en-US" version="1.0" root="___ROOT___">
+  <rule id="___ROOT___" scope="public">
+    <item>
+      <ruleref tag="dm_command=COMMAND.command;dm_confirmation_mode=COMMAND.confirmation_mode;dm_confirm_string=COMMAND.confirm_string;" uri="#COMMAND"/>
+    </item>
+  </rule>
+  <rule id="COMMAND">
+     <one-of>
+		<item tag="command='operator';confirmation_mode='ALWAYS';confirm_string='operator';">operator</item>
+		<item tag="command='goodbye';confirmation_mode='ALWAYS';confirm_string='goodbye';">good bye</item>
+		<item tag="command='logout';confirmation_mode='ALWAYS';confirm_string='logout';">log out</item>
+		<item tag="command='signoff';confirmation_mode='ALWAYS';confirm_string='signoff';">sign off</item>
+		<item tag="command='mainmenu';confirmation_mode='ALWAYS';confirm_string='mainmenu';">main menu</item>
+                <item tag="command='help';confirmation_mode='ALWAYS';confirm_string='help';">help</item>
+                <item tag="command='help';confirmation_mode='ALWAYS';confirm_string='help';">hint</item>
+		<item tag="command='repeat';confirmation_mode='ALWAYS';confirm_string='repeat';">
+			<one-of>
+				<item>repeat</item>
+				<item>read</item>
+				<item>say</item>
+			</one-of>
+			<count number='optional'>
+				<one-of>
+					<item>it</item>
+					<item>that</item>
+				</one-of>
+			</count>
+			<count number='optional'>
+				<item>again</item>
+			</count>
+		</item>
+     </one-of>
+   </rule>
+</grammar>

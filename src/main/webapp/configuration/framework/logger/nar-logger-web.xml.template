@@ -1,0 +1,11 @@
+	<!-- Servlet mapping for Nar logger. -->
+    <servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>*.nar</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping xmlns="http://java.sun.com/xml/ns/j2ee">
+    	<servlet-name>com.nuance.framework.front.controller</servlet-name>
+    	<url-pattern>/plugins/nar-logging/NARLogViewer.html</url-pattern>
+	</servlet-mapping>
+    
