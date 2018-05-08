@@ -1,9 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.LastNameListByZIPAndDOB>
-	<canIVRDisambiguate>true</canIVRDisambiguate>
-	<numberOfLastNamesFound>3</numberOfLastNamesFound>
-	<lastNameList>
-		<string>McLaughlin</string>
-		<string>Malik</string>
-		<string>Benabdallah</string>
-	</lastNameList>
-</com.nuance.catamaran.dataaccess.objects.LastNameListByZIPAndDOB>

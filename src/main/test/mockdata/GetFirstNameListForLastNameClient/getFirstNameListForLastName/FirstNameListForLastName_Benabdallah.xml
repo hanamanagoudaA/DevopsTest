@@ -1,7 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.FirstNameListForLastName>
-	<canIVRDisambiguate>true</canIVRDisambiguate>
-	<numberOfFirstNamesFound>1</numberOfFirstNamesFound>
-	<firstNameList>
-		<string>Stefan</string>
-	</firstNameList>
-</com.nuance.catamaran.dataaccess.objects.FirstNameListForLastName>

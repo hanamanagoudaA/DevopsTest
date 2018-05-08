@@ -1,7 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.CallerDetails>
-    <physicianNPIFound>single_match</physicianNPIFound>
-    <aniMatchFound>single_match</aniMatchFound>
-    <callerType>physician</callerType>
-    <npiNumber>1003086380</npiNumber>
-    <ncpdpNumber>not_found</ncpdpNumber>
-</com.nuance.catamaran.dataaccess.objects.CallerDetails>

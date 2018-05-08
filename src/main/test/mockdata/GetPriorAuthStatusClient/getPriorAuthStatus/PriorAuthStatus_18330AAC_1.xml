@@ -1,9 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>
-	<numberOfPAs>5</numberOfPAs>
-	<onFirstPA>false</onFirstPA>
-	<onLastPA>false</onLastPA>
-	<drugPrompt>apap_codeine</drugPrompt>
-	<drugTTS>500 mg per ml</drugTTS>
-	<priorAuthorizationDate>20130604</priorAuthorizationDate>
-	<status>Open</status>
-</com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>

@@ -1,7 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.NextRefill>
-	<isAdditionalRefill>true</isAdditionalRefill>
-	<numberOfAdditionalRefillsAvailable>2</numberOfAdditionalRefillsAvailable>
-	<numberOfRefillsOnOrder>3</numberOfRefillsOnOrder>
-	<additionalRefillDrugPrompt>apap_codeine</additionalRefillDrugPrompt>
-	<additionalRefillDrugTTS>500 mg per ml</additionalRefillDrugTTS>
-</com.nuance.catamaran.dataaccess.objects.NextRefill>

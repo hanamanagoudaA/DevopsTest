@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
- <SWIparameter version="1.0" id="Param secure context grammar" precedence="10" ignore_unknown_parameters="0">
-   <parameter name="swirec_suppress_waveform_logging">
-     <value>1</value>
-   </parameter>
-   <parameter name="swirec_suppress_event_logging">
-     <value>1</value>
-   </parameter>
-</SWIparameter>

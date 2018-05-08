@@ -1,7 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.CallerDetails>
-    <physicianNPIFound>single_match</physicianNPIFound>
-     <pharmacyNPIFound>multiple_matches</pharmacyNPIFound>
-    <aniMatchFound>multi_match</aniMatchFound>
-    <matchType>multiple_matches</matchType>
-    <ncpdpNumber>not_found</ncpdpNumber>
-</com.nuance.catamaran.dataaccess.objects.CallerDetails>

@@ -1,9 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>
-	<numberOfPAs>3</numberOfPAs>
-	<onFirstPA>false</onFirstPA>
-	<onLastPA>true</onLastPA>
-	<drugPrompt/>
-	<drugTTS>zocor 35 mg</drugTTS>
-	<priorAuthorizationDate>20130731</priorAuthorizationDate>
-	<status>Denied</status>
-</com.nuance.catamaran.dataaccess.objects.PriorAuthStatus>

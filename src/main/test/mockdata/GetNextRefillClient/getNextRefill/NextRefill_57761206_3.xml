@@ -1,7 +1,0 @@
-<com.nuance.catamaran.dataaccess.objects.NextRefill>
-	<isAdditionalRefill>true</isAdditionalRefill>
-	<numberOfAdditionalRefillsAvailable>5</numberOfAdditionalRefillsAvailable>
-	<numberOfRefillsOnOrder>6</numberOfRefillsOnOrder>
-	<additionalRefillDrugPrompt/>
-	<additionalRefillDrugTTS>zocor 35 mg</additionalRefillDrugTTS>
-</com.nuance.catamaran.dataaccess.objects.NextRefill>

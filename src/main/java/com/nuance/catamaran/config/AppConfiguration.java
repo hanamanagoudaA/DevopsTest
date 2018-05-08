@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.nuance.catamaran.dataaccess.constants.ReasonCategory;
-import com.nuance.catamaran.dataaccess.constants.ReasonCode;
+
 import java.util.HashSet;
 
 public class AppConfiguration {
@@ -13,7 +12,6 @@ public class AppConfiguration {
     private HashMap<String,Properties> tfnPropertiesMap = new HashMap<String,Properties>();
     private HashMap<String,String> ndcDrugMap;
     private HashMap<String,String> ndcDosageMap;
-    private Map<ReasonCode, ReasonCategory> reasonCodeMap;
     private HashMap<String,Boolean> drugPromptMap;
     private HashSet<String> byPassANISet;
     private HashMap<String,String> rxcDomainMap;
@@ -54,13 +52,6 @@ public class AppConfiguration {
         this.ndcDosageMap = ndcDosageMap;
     }
 
-    public Map<ReasonCode, ReasonCategory> getReasonCodeMap() {
-        return reasonCodeMap;
-    }
-
-    public void setReasonCodeMap(Map<ReasonCode, ReasonCategory> reasonCodeMap) {
-        this.reasonCodeMap = reasonCodeMap;
-    }
 
     public HashMap<String, Boolean> getDrugPromptMap() {
         return drugPromptMap;
